@@ -1,17 +1,29 @@
 ﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Text;
+using System.Text;
 
 namespace Domain;
 
 [Generator]
 public class CodeGenerator : ISourceGenerator
 {
+    public void Initialize(GeneratorInitializationContext context) { }
+
     public void Execute(GeneratorExecutionContext context)
     {
-        // Code generation goes here
-    }
+        string generatedCode = @"
+using System;
 
-    public void Initialize(GeneratorInitializationContext context)
+public static class GeneratedClass
+{
+    public static string PrintMessage()
     {
-        // No initialization required for this one
+        Console.WriteLine(""GeneratedClass method running"");
+        return ""This is GeneratedClass method"";
+    }
+}
+";
+
+        context.AddSource("GeneratedClass.cs", SourceText.From(generatedCode, Encoding.UTF8));
     }
 }
