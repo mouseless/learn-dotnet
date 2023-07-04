@@ -1,29 +1,43 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
+using System.Reflection;
 using System.Text;
 
 namespace Domain;
 
 [Generator]
-public class CodeGenerator : ISourceGenerator
+public sealed class CodeGenerator : IIncrementalGenerator
 {
-    public void Initialize(GeneratorInitializationContext context) { }
-
-    public void Execute(GeneratorExecutionContext context)
+    public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        string generatedCode = @"
-using System;
+        var compilationIncrementalValue = context.CompilationProvider;
 
-public static class GeneratedClass
-{
-    public static string PrintMessage()
-    {
-        Console.WriteLine(""GeneratedClass method running"");
-        return ""This is GeneratedClass method"";
-    }
-}
-";
+        context.RegisterSourceOutput(
+            compilationIncrementalValue,
+            static (context, compilation) =>
+            {
+                // Get the entry point method
+                var mainMethod = compilation.GetEntryPoint(context.CancellationToken);
 
-        context.AddSource("GeneratedClass.cs", SourceText.From(generatedCode, Encoding.UTF8));
+                string source = $@"
+// Auto-generated code
+using Microsoft.AspNetCore.Mvc;
+
+namespace WebApp;
+    
+[ApiController]
+[Route("""")]
+public class TestController : ControllerBase
+{{
+    public string Get()
+    {{
+        return ""Returning from TestController Get Method"";
+    }}
+}}
+                ";
+
+                // Add the source code to the compilation
+                context.AddSource($"Controller.Generated.cs", source);
+            });
     }
 }
