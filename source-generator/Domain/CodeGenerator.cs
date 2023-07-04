@@ -24,7 +24,7 @@ public sealed class CodeGenerator : IIncrementalGenerator
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp;
-    
+
 [ApiController]
 [Route("""")]
 public class TestController : ControllerBase
