@@ -23,7 +23,7 @@ public sealed class CodeGenerator : IIncrementalGenerator
 // Auto-generated code
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebApp;
+namespace {mainMethod.ContainingAssembly.Name};
 
 [ApiController]
 [Route("""")]
