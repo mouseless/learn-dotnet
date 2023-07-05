@@ -37,28 +37,27 @@ public class CodeGenerator : IIncrementalGenerator
                 // Get the entry point method
                 var mainMethod = compilation.GetEntryPoint(context.CancellationToken);
 
-                string source = $@"
-// Auto-generated code
-using Microsoft.AspNetCore.Mvc;
-
-namespace {appModel.Id};
-
-[ApiController]
-[Route("""")]
-public class {appModel.Name} : ControllerBase
-{{
-    public string {appModel.Operations.OperationName}()
-    {{
-        Console.WriteLine(""\n in"");
-        return ""{appModel.Operations.ReturnValue}"";
-    }}
-}}
-                ";
-                
                 // Add the source code to the compilation
-                context.AddSource($"Controller.Generated.cs", source);
+                context.AddSource($"Controller.Generated.cs", Template(appModel));
             });
     }
 
     private T Desrialize<T>(string source) => JsonSerializer.Deserialize<T>(source);
+
+    private string Template(ApplicationModel model) => $@"
+// Auto-generated code
+using Microsoft.AspNetCore.Mvc;
+
+namespace {model.Id};
+
+[ApiController]
+[Route("""")]
+public class {model.Name} : ControllerBase
+{{
+    public string {model.Operations.OperationName}()
+    {{
+        return ""{model.Operations.ReturnValue}"";
+    }}
+}}
+";
 }
