@@ -1,10 +1,16 @@
 {
-  "Id": "WebApp.TestController",
+  "Id": "WebApp.Controller",
   "Name": "TestController",
-  "Properties": null,
-  "StaticProperties": null,
-  "Operations": {
-    "OperationName": "Get",
-    "ReturnValue": "Returning from TestController Get Method"
-  }
+  "Operations": [
+    {
+      "Name": "Test",
+      "Type": "string",
+      "ReturnValue": "Returning from TestController Test Method"
+    },
+    {
+      "Name": "Test2",
+      "Type": "string",
+      "ReturnValue": "Returning from TestController Test2 Method"
+    }
+  ]
 }
