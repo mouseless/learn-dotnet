@@ -1,6 +1,6 @@
 ﻿using Microsoft.CodeAnalysis;
+using Newtonsoft.Json;
 using System.Reflection;
-using System.Text.Json;
 
 namespace Domain;
 
@@ -11,24 +11,7 @@ public class CodeGenerator : IIncrementalGenerator
     {
         var compilationIncrementalValue = context.CompilationProvider;
 
-        var model = "";
-        try
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "Domain.ControllerTemplate.schema.json";
-
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                model = reader.ReadToEnd();
-            }
-        }
-        catch (Exception ex)
-        {
-            throw new Exception("File cannot read", ex);
-        }
-
-        ApplicationModel appModel = Desrialize<ApplicationModel>(model);
+        var schema = ReadResource("Domain.ControllerTemplate.schema.json");
 
         context.RegisterSourceOutput(
             compilationIncrementalValue,
@@ -36,28 +19,30 @@ public class CodeGenerator : IIncrementalGenerator
             {
                 // Get the entry point method
                 var mainMethod = compilation.GetEntryPoint(context.CancellationToken);
+                ApplicationModel appModel = Deserialize<ApplicationModel>(schema);
 
                 // Add the source code to the compilation
-                context.AddSource($"Controller.Generated.cs", Template(appModel));
+                context.AddSource($"Controller.Generated.cs", appModel.ControllerTemplate());
             });
     }
 
-    private T Desrialize<T>(string source) => JsonSerializer.Deserialize<T>(source);
+    private T Deserialize<T>(string source) => JsonConvert.DeserializeObject<T>(source);
 
-    private string Template(ApplicationModel model) => $@"
-// Auto-generated code
-using Microsoft.AspNetCore.Mvc;
+    private string ReadResource(string resourceName)
+    {
+        try
+        {
+            var assembly = Assembly.GetExecutingAssembly();
 
-namespace {model.Id};
-
-[ApiController]
-[Route("""")]
-public class {model.Name} : ControllerBase
-{{
-    public string {model.Operations.OperationName}()
-    {{
-        return ""{model.Operations.ReturnValue}"";
-    }}
-}}
-";
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("File cannot read", ex);
+        }
+    }
 }
