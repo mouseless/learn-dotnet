@@ -10,19 +10,17 @@ public class CodeGenerator : IIncrementalGenerator
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         var compilationIncrementalValue = context.CompilationProvider;
-
+        
         var schema = ReadResource("Domain.ControllerTemplate.schema.json");
 
         context.RegisterSourceOutput(
             compilationIncrementalValue,
             (context, compilation) =>
             {
-                // Get the entry point method
                 var mainMethod = compilation.GetEntryPoint(context.CancellationToken);
                 ApplicationModel appModel = Deserialize<ApplicationModel>(schema);
 
-                // Add the source code to the compilation
-                context.AddSource($"Controller.Generated.cs", appModel.ControllerTemplate());
+                context.AddSource($"Controller.generated.cs", appModel.ControllerTemplate());
             });
     }
 
