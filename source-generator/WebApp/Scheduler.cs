@@ -2,4 +2,8 @@
 
 public class Scheduler
 {
+    public void Method()
+    {
+
+    }
 }
