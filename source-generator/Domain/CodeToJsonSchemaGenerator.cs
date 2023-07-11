@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace Domain;
 
 [Generator(LanguageNames.CSharp)]
-public class CodeToSchemaJsonGenerator : IIncrementalGenerator
+public class CodeToJsonSchemaGenerator : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {

@@ -5,7 +5,7 @@ using System.Reflection;
 namespace Domain;
 
 [Generator(LanguageNames.CSharp)]
-public class CodeGenerator : IIncrementalGenerator
+public class JsonSchemaToCodeGenerator : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
