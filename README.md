@@ -12,14 +12,23 @@ We make the code to be generated either with the application model (schema
 json) presented to us or by looking under certain namespaces according to the
 content of the classes there.
 
-### `ApplicationModel` ne ?
+### Usage
 
-nedir, ne yapar
-tbd...
+To use the generated code, we must reference the generated project to the
+project we want to use the generate code for.
 
-### `IIncrementalGenerator` interface
+To see the example
+[/source-generator/Domain/Domain.csproj](/source-generator/Domain/Domain.csproj)
+see here.
 
-We used the IIncrementalGenerator interface instead of the ISourceGenerator
+### `ApplicationModel` Class
+
+`ApplicationModel` is the class that represents the model where we keep the
+information of the json schema or the code we will generate.
+
+### `IIncrementalGenerator` Interface
+
+We used the `IIncrementalGenerator` interface instead of the `ISourceGenerator`
 interface because of its convenience and performance.
 
 > :information_source:
@@ -27,32 +36,14 @@ interface because of its convenience and performance.
 > It's work with target framework `netstandard2.0` and
 > `Microsoft.CodeAnalysis.CSharp 4.x` library.
 
-#### `IncrementalGeneratorInitializationContext.RegisterSourceOutput` methodu kullanımı
-
-tbd...
-
 ### Using `Newtonsoft.Json` Library
 
-We use the Newtonsoft.Json library to deserialise the application model
-schema json provided to us
+We use the `Newtonsoft.Json` library to serialize and deserialise the
+application model schema json provided to us.
 
 > :information_source:
 >
-> In order for the Newtonsoft.Json library to work compatible with the
-> source generator, the following settings must be made.
->
-> ```xml
-> <ItemGroup>
->    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" GeneratePathProperty="true" PrivateAssets="all" />
->  </ItemGroup>
->
->  <PropertyGroup>
->    <GetTargetPathDependsOn>$(GetTargetPathDependsOn);GetDependencyTargetPaths</GetTargetPathDependsOn>
->  </PropertyGroup>
->
->  <Target Name="GetDependencyTargetPaths">
->    <ItemGroup>
->      <TargetPathWithTargetPlatformMoniker Include="$(PKGNewtonsoft_Json)\lib\netstandard2.0\Newtonsoft.Json.dll" IncludeRuntimeDependency="false" />
->    </ItemGroup>
->  </Target>
-> ```
+> In order for the `Newtonsoft.Json` library to work in harmony with the source
+> generator, the settings as in
+> [/source-generator/Domain/Domain.csproj](/source-generator/Domain/Domain.csproj)
+> must be made.
