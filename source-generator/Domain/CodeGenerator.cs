@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Domain;
 
-[Generator]
+[Generator(LanguageNames.CSharp)]
 public class CodeGenerator : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)

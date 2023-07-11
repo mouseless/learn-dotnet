@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Domain;
 
-[Generator]
+[Generator(LanguageNames.CSharp)]
 public class CodeToSchemaJsonGenerator : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
@@ -44,7 +44,8 @@ public class CodeToSchemaJsonGenerator : IIncrementalGenerator
 
                 var classSymbol = semanticModel.GetDeclaredSymbol(classDeclaration) as INamedTypeSymbol;
 
-                if (classSymbol?.ContainingNamespace?.ToString() == "WebApp.System")
+                if (classSymbol?.ContainingNamespace?.ToString() == "WebApp.System" &&
+                    classSymbol?.DeclaredAccessibility == Accessibility.Public)
                 {
                     ApplicationModel applicationModel = new();
 

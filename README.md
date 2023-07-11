@@ -4,16 +4,21 @@ Learning new dotnet and csharp features
 
 ## Source Generator
 
-### `Generator` Attribute
+We use the source generator to handle some routine tasks (such as creating
+controls from classes under a specific namespace). In this way, we lighten
+the workload.
 
-Elimideki json modelin controller code unu generate etmek için
-`Microsoft.CodeAnalysis`'in `Generator` attribute unu kullanıyoruz.
+We make the code to be generated either with the application model (schema
+json) presented to us or by looking under certain namespaces according to the
+content of the classes there.
 
 > :information_source:
 >
-> Serialize ve deserialize için `System.Text.Json`, `Newtonsoft.Json` vb.
-> kütüphaneleri kullanıldığında sorun yaratabiliyor bunun için aşağıdaki
-> configleri yapmak gerekiyor.
+> We use the Newtonsoft.Json library to deserialise the application model
+> schema json provided to us
+>
+> In order for the Newtonsoft.Json library to work compatible with the
+> source generator, the following settings must be made.
 >
 > ```xml
 > <ItemGroup>
@@ -30,6 +35,21 @@ Elimideki json modelin controller code unu generate etmek için
 >    </ItemGroup>
 >  </Target>
 > ```
+
+### `IIncrementalGenerator` interface
+
+We used the IIncrementalGenerator interface instead of the ISourceGenerator
+interface because of its convenience and performance.
+
+> :information_source:
+>
+> It's work with target framework `netstandard2.0` and
+> `Microsoft.CodeAnalysis.CSharp 4.x` library.
+
+### `Generator` Attribute
+
+Elimideki json modelin controller code unu generate etmek için
+`Microsoft.CodeAnalysis`'in `Generator` attribute unu kullanıyoruz.
 
 ### `ISourceGenerator` interface
 
@@ -49,26 +69,3 @@ Bu method ile `GeneratorExecutionContext` nesnesine erişip elimizdeki
 controller kodunu context teki `addSource()` ile source lara ekleyerek generate
 edilmesini sağlıyoruz.
 
-### `IIncrementalGenerator` interface
-
-`ISourceGenerator` aynı işi yapmaktadır. ASP.NET Core 6.0 ve sonraki sürümler için
-`ISourceGenerator`dan daha performanslı ve optimize code yazmayı sağlar.
-
-> :information_source:
->
-> Microsoft.CodeAnalysis.CSharp 4.x ile çalışır.
-
-#### `Initialize()` method
-
-Generate öncesi hazırlıkları yaptığımız method.
-`IncrementalGeneratorInitializationContext`parametresini alır.
-
-#### `IncrementalGeneratorInitializationContext` nesnesi
-
-Initialize methodundan erişilebilir.
-
-- Çalıştığı projenin veya solition bilgilerine erişilebilir
-- Config dosyasındaki bilgilere erişilebilir
-- RegisterForSyntaxNotifications ile izlenen dosyalarda veya projelerde yapılan değişikliklere tepki verebilir.
-- Generator'ın başlatma işlemlerini özelleştirme, bağımlılıklara erişme,
-  değişiklikleri izleme ve önbellekleme gibi çeşitli görevleri yerine getirmek için kullanılabilir.
