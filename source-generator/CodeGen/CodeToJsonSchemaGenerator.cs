@@ -2,7 +2,7 @@
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Newtonsoft.Json;
 
-namespace Domain;
+namespace CodeGen;
 
 [Generator(LanguageNames.CSharp)]
 public class CodeToJsonSchemaGenerator : IIncrementalGenerator
@@ -22,8 +22,19 @@ public class CodeToJsonSchemaGenerator : IIncrementalGenerator
         foreach (var model in models)
         {
             string appModel = Serialize(model);
-#warning .cs dosyası oluşturuluyor. .json çıktı gerekli
-            spc.AddSource($"ApplicationModel.generated.schema.json", appModel);
+
+            spc.AddSource("generated.cs", $@"
+namespace X;
+
+static class Y
+{{
+    static string Z = @""
+===JSON BEGIN===
+{appModel.Replace('"', '\'')}
+===JSON END===
+"";
+}}
+");
         }
     }
 
@@ -41,9 +52,9 @@ public class CodeToJsonSchemaGenerator : IIncrementalGenerator
 
             foreach (var classDeclaration in classDeclarations)
             {
-
                 var classSymbol = semanticModel.GetDeclaredSymbol(classDeclaration) as INamedTypeSymbol;
 
+                // ToDo - WebApp.System bilgisi csprojdan alınacak
                 if (classSymbol?.ContainingNamespace?.ToString() == "WebApp.System" &&
                     classSymbol?.DeclaredAccessibility == Accessibility.Public)
                 {
