@@ -1,8 +1,6 @@
 name: Project - Regular Checks
 on:
   pull_request:
-    branches:
-      - main
     paths:
       - 'source-generator/**'
 
