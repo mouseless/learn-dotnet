@@ -12,20 +12,19 @@
 
   <ItemGroup>
     <Content Remove="analyzer.config.json" />
-    <Content Remove="ControllerTemplate.schema.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="analyzer.config.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </AdditionalFiles>
-    <AdditionalFiles Include="ControllerTemplate.schema.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </AdditionalFiles>
+	<AdditionalFiles Include="analyzer.config.json">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	</AdditionalFiles>
+	<AdditionalFiles Include="bin/$(ConfigurationName)/$(TargetFramework)/Scheduler.schema.json">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	</AdditionalFiles>
   </ItemGroup>
 
   <ItemGroup>

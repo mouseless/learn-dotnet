@@ -2,8 +2,8 @@
 
 public class Scheduler
 {
-    public void Method()
+    public string Method()
     {
-
+        return "Scheduler method";
     }
 }

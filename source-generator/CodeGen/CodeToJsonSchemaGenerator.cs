@@ -82,8 +82,8 @@ static class Y
                         .Select(m => new Operation()
                         {
                             Name = m.Name,
-                            Type = m.ReturnType.Name,
-                            ReturnValue = $"Return {m.ReturnType.Name}"
+                            Type = m.ReturnType.MetadataName,
+                            ReturnValue = $"This is {m.Name} from {classSymbol.Name}"
                         }).ToArray();
 
                     applicationModel.Operations = methods;
