@@ -19,3 +19,6 @@ bld/
 
 # dotnet sdk
 global.json
+
+# generated file
+**/Generated/**/*.cs
