@@ -1,0 +1,33 @@
+name: Project - Regular Checks
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'source-generator/**'
+
+jobs:
+  # outputs matrix json so that windows is only added when head branch is a release branch
+  prepare:
+    name: Prepare
+    runs-on: ubuntu-latest
+  build:
+    name: Build
+    needs: Prepare
+    outputs:
+      matrix: ${{ needs.prepare.outputs.matrix }}
+    strategy:
+      max-parallel: 2
+      matrix: ${{ fromJson(needs.prepare.outputs.matrix) }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: |
+            6.0.x
+      - name: Move project dir
+        run: cd source-generator
+      - name: Build Solution
+        run: dotnet build -c Release
