@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- 👇 Exclude everything in the base folder -->
+    <!-- 👇 Exclude generated files from compile -->
     <Compile Remove="Generated/**/*.cs" />
   </ItemGroup>
 
