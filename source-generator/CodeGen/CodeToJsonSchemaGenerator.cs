@@ -33,8 +33,8 @@ public partial class CodeToJsonSchemaGenerator : IIncrementalGenerator
         {
             string appModel = Serialize(model);
 
-            spc.AddSource($"{model.Name}.generated.cs", $@"
-namespace X;
+            spc.AddSource($"{model.Name}.generated.cs",
+$@"namespace X;
 
 static class Y
 {{
