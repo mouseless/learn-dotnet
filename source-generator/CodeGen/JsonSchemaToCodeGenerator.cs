@@ -9,7 +9,7 @@ public class JsonSchemaToCodeGenerator : IIncrementalGenerator
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         var compilationIncrementalValue = context.CompilationProvider;
-        var additionalFiles = context.AdditionalTextsProvider.Where(w => w.Path.EndsWith("ControllerTemplate.schema.json")).Select((s, _) => s.GetText());
+        var additionalFiles = context.AdditionalTextsProvider;
 
         var combine = compilationIncrementalValue.Combine(additionalFiles.Collect());
 
@@ -17,9 +17,23 @@ public class JsonSchemaToCodeGenerator : IIncrementalGenerator
             combine,
             (context, compilation) =>
             {
-                var mainMethod = compilation.Left.GetEntryPoint(context.CancellationToken);
-                var text = compilation.Right.First().ToString();
-                ApplicationModel appModel = Deserialize<ApplicationModel>(text);
+                var analyzerConfigText = compilation.Right
+                    .Where(additionalFile => additionalFile.Path.EndsWith("analyzer.config.json"))
+                    .Select(additionalFile => additionalFile.GetText())
+                    .FirstOrDefault();
+
+                if(analyzerConfigText == null) return;
+
+                AnalyzerConfig analyzerConfig = Deserialize<AnalyzerConfig>(analyzerConfigText.ToString());
+
+                if (analyzerConfig.JsonSchema == null) return;
+
+                var jsonSchemaText = compilation.Right
+                    .Where(additionalFile => additionalFile.Path.EndsWith(analyzerConfig.JsonSchema))
+                    .Select(additionalFile => additionalFile.GetText())
+                    .FirstOrDefault();
+
+                ApplicationModel appModel = Deserialize<ApplicationModel>(jsonSchemaText.ToString());
 
                 context.AddSource($"Controller.generated.cs", appModel.ControllerTemplate());
             });

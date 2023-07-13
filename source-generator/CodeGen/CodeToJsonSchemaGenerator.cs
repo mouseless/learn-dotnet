@@ -7,13 +7,8 @@ using System.Collections.Immutable;
 namespace CodeGen;
 
 [Generator(LanguageNames.CSharp)]
-public class CodeToJsonSchemaGenerator : IIncrementalGenerator
+public partial class CodeToJsonSchemaGenerator : IIncrementalGenerator
 {
-    class AnalyzerConfig
-    {
-        public string ControllerServicesNamespace { get; set; }
-    }
-
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         var compilationProvider = context.CompilationProvider;
@@ -25,9 +20,10 @@ public class CodeToJsonSchemaGenerator : IIncrementalGenerator
         {
             var config = compilation.Right.FirstOrDefault();
             var analyzerConfig = config != null ? Deserialize<AnalyzerConfig>(config.ToString()) : null;
-            var @namespace = analyzerConfig != null ? analyzerConfig.ControllerServicesNamespace : "";
 
-            Execute(spc, compilation.Left, @namespace);
+            if (analyzerConfig == null) return;
+
+            Execute(spc, compilation.Left, analyzerConfig.ControllerServicesNamespace);
         });
     }
 
