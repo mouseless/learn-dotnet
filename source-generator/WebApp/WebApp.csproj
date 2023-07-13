@@ -15,20 +15,20 @@
   </ItemGroup>
 
   <ItemGroup>
-	  <AdditionalFiles Include="analyzer.config.json">
-	  	<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  	<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	  	<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-	  </AdditionalFiles>
-	  <AdditionalFiles Include="bin/$(ConfigurationName)/$(TargetFramework)/Scheduler.schema.json">
-	  	<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  	<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	  	<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-	  </AdditionalFiles>
+    <AdditionalFiles Include="analyzer.config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </AdditionalFiles>
+    <AdditionalFiles Include="bin/$(ConfigurationName)/$(TargetFramework)/Scheduler.schema.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </AdditionalFiles>
   </ItemGroup>
 
   <ItemGroup>
-	  <ProjectReference Include="..\CodeGen\CodeGen.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\CodeGen\CodeGen.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
