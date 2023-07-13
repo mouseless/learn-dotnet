@@ -1,4 +1,4 @@
-﻿namespace WebApp.System;
+﻿namespace Domain.System;
 
 public class Scheduler
 {
