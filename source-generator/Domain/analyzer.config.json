@@ -1,3 +1,4 @@
 {
-  "ControllerServicesNamespace": "Domain.System"
+  "ControllerServicesNamespace": "Domain.System",
+  "TargetProject": "WebApp"
 }

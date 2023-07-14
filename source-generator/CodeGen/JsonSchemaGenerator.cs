@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace CodeGen;
 
 [Generator(LanguageNames.CSharp)]
-public partial class CodeToJsonSchemaGenerator : IIncrementalGenerator
+public partial class JsonSchemaGenerator : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
@@ -19,42 +19,39 @@ public partial class CodeToJsonSchemaGenerator : IIncrementalGenerator
             var config = compilation.Right.FirstOrDefault();
             var analyzerConfig = config != null ? Deserialize<AnalyzerConfig>(config.ToString()) : null;
 
-            if (analyzerConfig == null) return;
+            if (analyzerConfig?.ControllerServicesNamespace == null) return;
 
-            Execute(spc, compilation.Left, analyzerConfig.ControllerServicesNamespace);
+            Execute(spc, compilation.Left, analyzerConfig);
         });
     }
 
-    private void Execute(SourceProductionContext spc, Compilation compilation, string texts)
+    private void Execute(SourceProductionContext spc, Compilation compilation, AnalyzerConfig config)
     {
-        var models = GetApplicationModel(compilation, texts);
+        var models = GetApplicationModel(compilation, config);
 
-        foreach (var model in models)
-        {
-            string appModel = Serialize(model);
+        var jsonSchema = Serialize(models);
 
-            spc.AddSource($"{model.Name}.generated.cs",
+        spc.AddSource($"Schema.generated.cs",
 $@"namespace X;
-
 static class Y
 {{
     static string Z = @""
 ===JSON BEGIN===
-{appModel.Replace('"', '\'')}
+{jsonSchema.Replace('"', '\'')}
 ===JSON END===
 "";
 }}
-");
-        }
+"
+        );
     }
 
-    private string Serialize(ApplicationModel source) => JsonConvert.SerializeObject(source);
+    private string Serialize(List<ServiceModel> source) => JsonConvert.SerializeObject(source);
 
     private T Deserialize<T>(string source) => JsonConvert.DeserializeObject<T>(source);
 
-    private List<ApplicationModel> GetApplicationModel(Compilation compilation, string @namespace)
+    private List<ServiceModel> GetApplicationModel(Compilation compilation, AnalyzerConfig config)
     {
-        var result = new List<ApplicationModel>();
+        var result = new List<ServiceModel>();
 
         foreach (var tree in compilation.SyntaxTrees)
         {
@@ -66,12 +63,13 @@ static class Y
             {
                 var classSymbol = semanticModel.GetDeclaredSymbol(classDeclaration) as INamedTypeSymbol;
 
-                if (classSymbol?.ContainingNamespace?.ToString() == @namespace &&
+                if (classSymbol?.ContainingNamespace?.ToString() == config.ControllerServicesNamespace &&
                     classSymbol?.DeclaredAccessibility == Accessibility.Public)
                 {
-                    ApplicationModel applicationModel = new();
+                    ServiceModel applicationModel = new();
 
-                    applicationModel.Id = classSymbol?.ContainingNamespace?.ToString();
+                    applicationModel.TargetNamespace = config.TargetProject;
+                    applicationModel.Namespace = classSymbol.ContainingNamespace.ToString();
                     applicationModel.Name = classSymbol?.Name;
 
                     var methods = classSymbol.GetMembers()

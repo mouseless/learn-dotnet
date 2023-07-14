@@ -2,7 +2,8 @@
 
 public class ServiceModel
 {
-    public string Id { get; set; }
+    public string Namespace { get; set; }
+    public string TargetNamespace { get; set; }
     public string Name { get; set; }
     public Operation[] Operations { get; set; }
 }
@@ -11,9 +12,11 @@ public static class ServiceModelExtensions
 {
     public static string ControllerTemplate(this ServiceModel source) =>
 $@"// Auto-generated code
+/*
 using Microsoft.AspNetCore.Mvc;
+using {source.Namespace};
 
-namespace {source.Id};
+namespace {source.TargetNamespace};
 
 [ApiController]
 [Route("""")]
@@ -28,5 +31,6 @@ $@"
     }}"
         )
      )}
-}}";
+}}
+*/";
 }

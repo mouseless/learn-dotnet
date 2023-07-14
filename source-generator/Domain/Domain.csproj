@@ -4,18 +4,13 @@
     <TargetFramework>net6.0</TargetFramework>
     <LangVersion>10.0</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
-	  <Nullable>enable</Nullable>
-	  <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
-    <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
+    <Nullable>enable</Nullable>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath>bin/Analyzer/$(TargetFramework)/generated</CompilerGeneratedFilesOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- 👇 Exclude generated files from compile -->
-    <Compile Remove="Generated/**/*.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="analyzer.config.json" />
+    <None Remove="postBuild.ps1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,29 +19,30 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </AdditionalFiles>
-    <AdditionalFiles Include="bin/$(ConfigurationName)/$(TargetFramework)/Scheduler.schema.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </AdditionalFiles>
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="test.ps1" />
-    <Content Include="test.sh" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <Content Include="postBuild.ps1" />
+    <Content Include="preBuild.ps1" />
+    <Content Include="runCli.sh" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CodeGen\CodeGen.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PrepareForBuild">
-    <Exec Command="powershell.exe -executionpolicy remotesigned $(ProjectDir)\test.ps1 $(TargetDir) $(ConfigurationName) $(TargetFramework)" Condition="'$(OS)' != 'Unix'" />
-    <Exec Command="sh $(ProjectDir)test.sh '$(TargetDir)' '$(ConfigurationName)' '$(TargetFramework)'" Condition="'$(OS)' == 'Unix'" />
+    <Exec Command="powershell.exe -executionpolicy remotesigned $(ProjectDir)\preBuild.ps1 $(TargetDir) $(ConfigurationName) $(TargetFramework)" Condition="'$(OS)' != 'Unix'" />
+    <Exec Command="sh $(ProjectDir)runCli.sh '$(TargetDir)' '$(ConfigurationName)' '$(TargetFramework)'" Condition="'$(OS)' == 'Unix'" />
+  </Target>
+
+  <Target Name="PostBuild" BeforeTargets="PostBuildEvent">
+    <Exec Command="powershell.exe -executionpolicy remotesigned $(ProjectDir)\postBuild.ps1 $(TargetDir) $(ConfigurationName) $(TargetFramework)" Condition="'$(OS)' != 'Unix'" />
+    <Exec Command="sh $(ProjectDir)runCli.sh '$(TargetDir)' '$(ConfigurationName)' '$(TargetFramework)'" Condition="'$(OS)' == 'Unix'" />
   </Target>
 
 </Project>

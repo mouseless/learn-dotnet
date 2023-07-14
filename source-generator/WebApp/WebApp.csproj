@@ -8,7 +8,20 @@
 
     <!-- This option is added to see the output of the generated code.  -->
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="analyzer.config.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="analyzer.config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </AdditionalFiles>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CodeGen\CodeGen.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
