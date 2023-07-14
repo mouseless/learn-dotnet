@@ -13,10 +13,17 @@
 
   <ItemGroup>
     <Content Remove="analyzer.config.json" />
+    <None Remove="Schema.schema.json" />
+    <Content Include="preBuild.ps1" />
   </ItemGroup>
 
   <ItemGroup>
     <AdditionalFiles Include="analyzer.config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </AdditionalFiles>
+    <AdditionalFiles Include="Schema.schema.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -27,5 +34,16 @@
     <ProjectReference Include="..\CodeGen\CodeGen.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PrepareForBuild">
+    <ItemGroup>
+      <AdditionalFiles Remove="Schema.schema.json" />
+    </ItemGroup>
+    <Exec Command="powershell.exe -executionpolicy remotesigned $(ProjectDir)\preBuild.ps1 $(TargetDir) $(ConfigurationName) $(TargetFramework)" Condition="'$(OS)' != 'Unix'" />
+    <Exec Command="sh $(ProjectDir)runCli.sh '$(TargetDir)' '$(ConfigurationName)' '$(TargetFramework)'" Condition="'$(OS)' == 'Unix'" />
+    <ItemGroup>
+      <AdditionalFiles Remove="Schema.schema.json" />
+    </ItemGroup>
+  </Target>
 
 </Project>

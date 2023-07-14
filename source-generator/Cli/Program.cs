@@ -4,7 +4,7 @@ var process = args[0];
 var input = args[1];
 var output = args[2];
 
-if(process == "pre")
+if(process == "domain")
 {
     var generatedCode = File.ReadAllText(input);
 
@@ -22,7 +22,7 @@ if(process == "pre")
 
     File.WriteAllText(output, capturedText);
 }
-else if (process == "post")
+else if (process == "webapp")
 {
     var jsonFile = File.ReadAllText(input);
 

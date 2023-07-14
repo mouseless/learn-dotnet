@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <None Remove="postBuild.ps1" />
+    <Content Remove="Schema.schema.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,11 +20,15 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </AdditionalFiles>
+    <AdditionalFiles Include="Schema.schema.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </AdditionalFiles>
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="postBuild.ps1" />
-    <Content Include="preBuild.ps1" />
     <Content Include="runCli.sh" />
   </ItemGroup>
 
@@ -35,14 +40,15 @@
   <ItemGroup>
   </ItemGroup>
 
-  <Target Name="PreBuild" BeforeTargets="PrepareForBuild">
-    <Exec Command="powershell.exe -executionpolicy remotesigned $(ProjectDir)\preBuild.ps1 $(TargetDir) $(ConfigurationName) $(TargetFramework)" Condition="'$(OS)' != 'Unix'" />
-    <Exec Command="sh $(ProjectDir)runCli.sh '$(TargetDir)' '$(ConfigurationName)' '$(TargetFramework)'" Condition="'$(OS)' == 'Unix'" />
-  </Target>
-
   <Target Name="PostBuild" BeforeTargets="PostBuildEvent">
+    <ItemGroup>
+      <AdditionalFiles Remove="Schema.schema.json" />
+    </ItemGroup>
     <Exec Command="powershell.exe -executionpolicy remotesigned $(ProjectDir)\postBuild.ps1 $(TargetDir) $(ConfigurationName) $(TargetFramework)" Condition="'$(OS)' != 'Unix'" />
     <Exec Command="sh $(ProjectDir)runCli.sh '$(TargetDir)' '$(ConfigurationName)' '$(TargetFramework)'" Condition="'$(OS)' == 'Unix'" />
+    <ItemGroup>
+      <AdditionalFiles Include="Schema.schema.json" />
+    </ItemGroup>
   </Target>
 
 </Project>

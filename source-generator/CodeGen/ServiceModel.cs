@@ -12,7 +12,7 @@ public static class ServiceModelExtensions
 {
     public static string ControllerTemplate(this ServiceModel source) =>
 $@"// Auto-generated code
-/*
+
 using Microsoft.AspNetCore.Mvc;
 using {source.Namespace};
 
@@ -31,6 +31,5 @@ $@"
     }}"
         )
      )}
-}}
-*/";
+}}";
 }
