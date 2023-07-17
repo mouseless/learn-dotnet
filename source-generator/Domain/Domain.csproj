@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <Content Remove="Schema.schema.json" />
+    <Compile Remove="$(CompilerGeneratedFilesOutputPath)/**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,7 +33,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="Build">
+  <Target Name="AfterBuild" AfterTargets="Build">
     <ItemGroup>
       <AdditionalFiles Remove="Schema.schema.json" />
     </ItemGroup>
