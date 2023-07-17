@@ -22,3 +22,6 @@ global.json
 
 # generated file
 **/Generated/**/*.cs
+
+# generated schemas
+**/*.schema.json
