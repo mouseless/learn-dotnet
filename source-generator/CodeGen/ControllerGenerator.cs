@@ -1,5 +1,4 @@
 ﻿using Microsoft.CodeAnalysis;
-using Newtonsoft.Json;
 
 namespace CodeGen;
 
@@ -13,9 +12,7 @@ public class ControllerGenerator : IIncrementalGenerator
 
         var combine = compilationIncrementalValue.Combine(additionalFiles.Collect());
 
-        context.RegisterSourceOutput(
-            combine,
-            (context, compilation) =>
+        context.RegisterSourceOutput(combine, (context, compilation) =>
             {
             var analyzerConfigText = compilation.Right
                 .Where(additionalFile => additionalFile.Path.EndsWith("analyzer.config.json"))
@@ -24,7 +21,7 @@ public class ControllerGenerator : IIncrementalGenerator
 
             if (analyzerConfigText == null) return;
 
-            AnalyzerConfig analyzerConfig = Deserialize<AnalyzerConfig>(analyzerConfigText.ToString());
+            AnalyzerConfig analyzerConfig = analyzerConfigText.Deserialize<AnalyzerConfig>();
 
             if (analyzerConfig.JsonSchema == null) return;
 
@@ -33,13 +30,11 @@ public class ControllerGenerator : IIncrementalGenerator
                 .Select(additionalFile => additionalFile.GetText())
                 .FirstOrDefault();
 
-            List<ServiceModel> serviceModels = Deserialize<List<ServiceModel>>(jsonSchemaText.ToString());
+            List<ServiceModel> serviceModels = jsonSchemaText.Deserialize<List<ServiceModel>>();
 
             serviceModels.ForEach(serviceModel =>
                 context.AddSource($"{serviceModel.Name}Controller.generated.cs", serviceModel.ControllerTemplate())
                 );
             });
     }
-
-    private T Deserialize<T>(string source) => JsonConvert.DeserializeObject<T>(source);
 }

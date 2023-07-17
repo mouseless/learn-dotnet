@@ -1,6 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Newtonsoft.Json;
 
 namespace CodeGen;
 
@@ -17,7 +16,7 @@ public partial class JsonSchemaGenerator : IIncrementalGenerator
         context.RegisterSourceOutput(combine, (spc, compilation) =>
         {
             var config = compilation.Right.FirstOrDefault();
-            var analyzerConfig = config != null ? Deserialize<AnalyzerConfig>(config.ToString()) : null;
+            var analyzerConfig = config != null ? config.Deserialize<AnalyzerConfig>() : null;
 
             if (analyzerConfig?.ControllerServicesNamespace == null) return;
 
@@ -27,29 +26,12 @@ public partial class JsonSchemaGenerator : IIncrementalGenerator
 
     private void Execute(SourceProductionContext spc, Compilation compilation, AnalyzerConfig config)
     {
-        var models = GetApplicationModel(compilation, config);
+        var jsonModels = GetServiceModel(compilation, config).Serialize();
 
-        var jsonSchema = Serialize(models);
-
-        spc.AddSource($"Schema.generated.cs",
-$@"namespace X;
-static class Y
-{{
-    static string Z = @""
-===JSON BEGIN===
-{jsonSchema.Replace('"', '\'')}
-===JSON END===
-"";
-}}
-"
-        );
+        spc.AddSource($"Schema.generated.cs", jsonModels.ServiceModelTemplateAsCs());
     }
 
-    private string Serialize(List<ServiceModel> source) => JsonConvert.SerializeObject(source);
-
-    private T Deserialize<T>(string source) => JsonConvert.DeserializeObject<T>(source);
-
-    private List<ServiceModel> GetApplicationModel(Compilation compilation, AnalyzerConfig config)
+    private List<ServiceModel> GetServiceModel(Compilation compilation, AnalyzerConfig config)
     {
         var result = new List<ServiceModel>();
 
