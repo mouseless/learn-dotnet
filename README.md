@@ -31,6 +31,14 @@ information of the json schema or the code we will generate.
 We used the `IIncrementalGenerator` interface instead of the `ISourceGenerator`
 interface because of its convenience and performance.
 
+By utilizing the `IIncrementalGenerator` interface, we are able to obtain the
+syntax tree of the target project. From there, we can extract the semantic
+model and retrieve the `ISymbol` using `GetDeclaredSymbol()`. With the
+assistance of `ISymbol`, we can traverse the properties of namespaces, classes,
+and their respective features within the target project. This approach allows
+us to observe the classes residing under the target namespace and extract a
+schema accordingly.
+
 > :information_source:
 >
 > It's work with target framework `netstandard2.0` and
