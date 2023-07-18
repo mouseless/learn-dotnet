@@ -9,7 +9,7 @@ public class ProjectFactory
         _projectName = projectName;
     }
 
-    public IProject GetClass()
+    public ICommand Create()
     {
         string projectName = _projectName.ToLower();
 

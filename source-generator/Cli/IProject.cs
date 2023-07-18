@@ -1,6 +1,6 @@
 namespace Cli;
 
-public interface IProject
+public interface ICommand
 {
-    void Do(string input, string output);
+    void Execute(string input, string output);
 }

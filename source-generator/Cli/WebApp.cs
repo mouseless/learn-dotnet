@@ -1,8 +1,8 @@
 namespace Cli;
 
-public class WebApp : IProject
+public class WebApp : ICommand
 {
-    public void Do(string input, string output)
+    public void Execute(string input, string output)
     {
         var jsonFile = File.ReadAllText(input);
 

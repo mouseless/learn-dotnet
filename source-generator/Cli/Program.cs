@@ -6,4 +6,4 @@ var output = args[2];
 
 ProjectFactory projectFactory = new(projectName);
 
-projectFactory.GetClass().Do(input, output);
+projectFactory.Create().Execute(input, output);

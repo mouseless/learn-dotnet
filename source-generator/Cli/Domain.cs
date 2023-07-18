@@ -2,9 +2,9 @@ using System.Text.RegularExpressions;
 
 namespace Cli;
 
-public class Domain : IProject
+public class Domain : ICommand
 {
-    public void Do(string input, string output)
+    public void Execute(string input, string output)
     {
         var generatedCode = File.ReadAllText(input);
 
