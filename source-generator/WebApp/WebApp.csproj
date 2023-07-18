@@ -13,6 +13,7 @@
   <ItemGroup>
     <Content Remove="analyzer.config.json" />
     <Content Include="preBuild.ps1" />
+    <Content Include="preBuild.sh" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,7 +32,7 @@
 
   <Target Name="PreBuild" BeforeTargets="CoreCompile" Condition="'$(RunAnalyzers)' == ''">
     <Exec Command="powershell.exe -executionpolicy remotesigned $(ProjectDir)\preBuild.ps1 $(TargetDir) $(ConfigurationName) $(TargetFramework) $(CompilerGeneratedFilesOutputPath)" Condition="'$(OS)' != 'Unix'" />
-    <Exec Command="sh $(ProjectDir)runCli.sh '$(TargetDir)' '$(ConfigurationName)' '$(TargetFramework)'" Condition="'$(OS)' == 'Unix'" />
+    <Exec Command="sh $(ProjectDir)preBuild.sh '$(TargetDir)' '$(ConfigurationName)' '$(TargetFramework)' $(CompilerGeneratedFilesOutputPath)" Condition="'$(OS)' == 'Unix'" />
   </Target>
 
 </Project>
