@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CodeGen\CodeGen.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="Build">

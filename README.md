@@ -8,7 +8,7 @@ We use the source generator to handle some routine tasks (such as creating
 controls from classes under a specific namespace). In this way, we lighten
 the workload.
 
-We make the code to be generated either with the application model (schema
+We make the code to be generated either with the service model (schema
 json) presented to us or by looking under certain namespaces according to the
 content of the classes there.
 
@@ -21,9 +21,9 @@ To see the example
 [/source-generator/Domain/Domain.csproj](/source-generator/Domain/Domain.csproj)
 see here.
 
-### `ApplicationModel` Class
+### `ServiceModel` Class
 
-`ApplicationModel` is the class that represents the model where we keep the
+`ServiceModel` is the class that represents the model where we keep the
 information of the json schema or the code we will generate.
 
 ### `IIncrementalGenerator` Interface
@@ -39,11 +39,26 @@ interface because of its convenience and performance.
 ### Using `Newtonsoft.Json` Library
 
 We use the `Newtonsoft.Json` library to serialize and deserialise the
-application model schema json provided to us.
+service model schema json provided to us.
 
-> :information_source:
->
-> In order for the `Newtonsoft.Json` library to work in harmony with the source
-> generator, the settings as in
-> [/source-generator/Domain/Domain.csproj](/source-generator/Domain/Domain.csproj)
-> must be made.
+## Build Stages
+
+Build stages are used to perform operations during, before, or after the build
+process. You can refer to the example in the (.csproj) file for an
+illustration.
+
+### After Build
+
+In this stage, we use script files to perform operations on the generated code.
+
+An example of transforming a generated file into another format can be found
+in the (Domain.csproj) file.
+
+### Before Core Compile
+
+This stage is used to execute script files that add external resources to the
+project before compilation.
+
+For example, please refer to (WebApp.csproj) for an example script that
+performs the task of copying resources between two projects during Before
+Core Compile.
