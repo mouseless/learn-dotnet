@@ -1,8 +1,8 @@
-param($bin, $config, $netversion)
+param($bin, $config, $netversion, $generatepath)
 
 $cli = "$PSScriptRoot\..\Cli\bin\$config\$netversion\Cli.exe"
 
-& $cli "webapp" "../Domain/Schema.schema.json" "../WebApp/Schema.schema.json"
+& $cli "webapp" "../Domain/$generatepath/CodeGen/CodeGen.JsonSchemaGenerator/Domain.schema.json" "../WebApp/obj/$config/$netversion/Controller.schema.json"
 
 if($LASTEXITCODE -gt 0)
 {

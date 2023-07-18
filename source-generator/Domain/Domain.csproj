@@ -5,14 +5,9 @@
     <LangVersion>10.0</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
-    <CompilerGeneratedFilesOutputPath>bin/Analyzer/$(TargetFramework)/generated</CompilerGeneratedFilesOutputPath>
-  </PropertyGroup>
 
-  <ItemGroup>
-    <Content Remove="Schema.schema.json" />
-    <Compile Remove="$(CompilerGeneratedFilesOutputPath)/**" />
-  </ItemGroup>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+  </PropertyGroup>
 
   <ItemGroup>
     <AdditionalFiles Include="analyzer.config.json">
@@ -20,7 +15,6 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </AdditionalFiles>
-    <AdditionalFiles Include="Schema.schema.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,15 +27,9 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>
 
-  <Target Name="AfterBuild" AfterTargets="Build">
-    <ItemGroup>
-      <AdditionalFiles Remove="Schema.schema.json" />
-    </ItemGroup>
-    <Exec Command="powershell.exe -executionpolicy remotesigned $(ProjectDir)\postBuild.ps1 $(TargetDir) $(ConfigurationName) $(TargetFramework)" Condition="'$(OS)' != 'Unix'" />
+  <Target Name="PostBuild" AfterTargets="Build">
+    <Exec Command="powershell.exe -executionpolicy remotesigned $(ProjectDir)\postBuild.ps1 $(TargetDir) $(ConfigurationName) $(TargetFramework) $(CompilerGeneratedFilesOutputPath)" Condition="'$(OS)' != 'Unix'" />
     <Exec Command="sh $(ProjectDir)runCli.sh '$(TargetDir)' '$(ConfigurationName)' '$(TargetFramework)'" Condition="'$(OS)' == 'Unix'" />
-    <ItemGroup>
-      <AdditionalFiles Include="Schema.schema.json" />
-    </ItemGroup>
   </Target>
 
 </Project>

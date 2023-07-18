@@ -2,8 +2,8 @@
 
 public class Weather
 {
-    public string Forecest()
+    public string Forecast()
     {
-        return "Forecest";
+        return "Forecast";
     }
 }

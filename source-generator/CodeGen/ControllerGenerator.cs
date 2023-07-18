@@ -34,7 +34,7 @@ public class ControllerGenerator : IIncrementalGenerator
 
             serviceModels.ForEach(serviceModel =>
                 context.AddSource($"{serviceModel.Name}Controller.generated.cs", serviceModel.ControllerTemplate())
-                );
-            });
+            );
+        });
     }
 }

@@ -28,7 +28,7 @@ public partial class JsonSchemaGenerator : IIncrementalGenerator
     {
         var jsonModels = GetServiceModel(compilation, config).Serialize();
 
-        spc.AddSource($"Schema.generated.cs", jsonModels.ServiceModelTemplateAsCs());
+        spc.AddSource($"{compilation.SourceModule.Name.Split('.').First()}.generated.cs", jsonModels.ServiceModelTemplateAsCs());
     }
 
     private List<ServiceModel> GetServiceModel(Compilation compilation, AnalyzerConfig config)
