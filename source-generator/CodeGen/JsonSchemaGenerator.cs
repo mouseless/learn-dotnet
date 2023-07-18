@@ -74,17 +74,10 @@ public partial class JsonSchemaGenerator : IIncrementalGenerator
     }
 
     private string ServiceModelTemplateAsCs(string source) =>
-$@"namespace X;
-
-static class Y
-{{
-#pragma warning disable CS0414
-    static string Z = @""
+$@"
+/* Auto Generated
 ===JSON BEGIN===
 {source.Replace('"', '\'')}
 ===JSON END===
-"";
-#pragma warning restore CS0414
-}}
-";
+*/";
 }
