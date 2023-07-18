@@ -28,7 +28,7 @@ public partial class JsonSchemaGenerator : IIncrementalGenerator
     {
         var jsonModels = GetServiceModel(compilation, config).Serialize();
 
-        spc.AddSource($"{compilation.SourceModule.Name.Split('.').First()}.generated.cs", jsonModels.ServiceModelTemplateAsCs());
+        spc.AddSource($"{compilation.SourceModule.Name.Split('.').First()}.generated.cs", ServiceModelTemplateAsCs(jsonModels));
     }
 
     private List<ServiceModel> GetServiceModel(Compilation compilation, AnalyzerConfig config)
@@ -72,4 +72,19 @@ public partial class JsonSchemaGenerator : IIncrementalGenerator
 
         return result;
     }
+
+    private string ServiceModelTemplateAsCs(string source) =>
+$@"namespace X;
+
+static class Y
+{{
+#pragma warning disable CS0414
+    static string Z = @""
+===JSON BEGIN===
+{source.Replace('"', '\'')}
+===JSON END===
+"";
+#pragma warning restore CS0414
+}}
+";
 }

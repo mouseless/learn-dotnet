@@ -33,8 +33,31 @@ public class ControllerGenerator : IIncrementalGenerator
             List<ServiceModel> serviceModels = jsonSchemaText.Deserialize<List<ServiceModel>>();
 
             serviceModels.ForEach(serviceModel =>
-                context.AddSource($"{serviceModel.Name}Controller.generated.cs", serviceModel.ControllerTemplate())
+                context.AddSource($"{serviceModel.Name}Controller.generated.cs", ControllerTemplate(serviceModel))
             );
         });
     }
+
+    private string ControllerTemplate(ServiceModel source) =>
+$@"// Auto-generated code
+
+using Microsoft.AspNetCore.Mvc;
+using {source.Namespace};
+
+namespace {source.TargetNamespace};
+
+[ApiController]
+[Route("""")]
+public class {source.Name}Controller : ControllerBase
+{{
+{string.Join("", source.Operations.Select(operation =>
+$@"
+    [HttpGet(""/{source.Name}/{operation.Name}"")]
+    public {operation.Type} {operation.Name}()
+    {{
+        return new {source.Name}().{operation.Name}();
+    }}"
+)
+     )}
+}}";
 }
