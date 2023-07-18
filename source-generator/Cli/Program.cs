@@ -1,9 +1,9 @@
 ﻿using Cli;
 
-var projectName = args[0];
+var commandName = args[0];
 var input = args[1];
 var output = args[2];
 
-ProjectFactory projectFactory = new(projectName);
+CommandFactory commandFactory = new(commandName);
 
-projectFactory.Create().Execute(input, output);
+commandFactory.Create().Execute(input, output);

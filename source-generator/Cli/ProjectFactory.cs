@@ -1,10 +1,10 @@
 namespace Cli;
 
-public class ProjectFactory
+public class CommandFactory
 {
     readonly string _projectName;
 
-    public ProjectFactory(string projectName)
+    public CommandFactory(string projectName)
     {
         _projectName = projectName;
     }
