@@ -80,9 +80,9 @@ service model schema json provided to us.
 
 Build stages are used to perform operations during, before, or after the build
 process. You can refer to the example in the
-[/source-generator/Domain/Domain.csproj](/source-generator/Domain/Domain.csproj)
+[/Domain/Domain.csproj](/Domain/Domain.csproj)
 or
-[/source-generator/WebApp/WebApp.csproj](/source-generator/WebApp/WebApp.csproj)
+[/WebApp/WebApp.csproj](/WebApp/WebApp.csproj)
 file for an illustration.
 
 ### After Build
@@ -91,7 +91,7 @@ In this stage, we use script files to perform operations on the generated code.
 
 An example of transforming a generated file into another format can be found
 in the
-[/source-generator/Domain/Domain.csproj](/source-generator/Domain/Domain.csproj)
+[/Domain/Domain.csproj](/Domain/Domain.csproj)
 file.
 
 ### Before Core Compile
@@ -100,6 +100,6 @@ This stage is used to execute script files that add external resources to the
 project before compilation.
 
 For example, please refer to
-[/source-generator/WebApp/WebApp.csproj](/source-generator/WebApp/WebApp.csproj)
+[/WebApp/WebApp.csproj](/WebApp/WebApp.csproj)
 for an example script that performs the task of copying resources between two
 projects during Before Core Compile.
