@@ -21,11 +21,19 @@ content of the classes there.
 > `Domain`.
 >
 > ```mermaid
-> graph TD
->     D[Domain] -->|Generate schema json in .cs file| C[CodeGen]
->     W[Web App] -->|Generate Controller| C
->     D -->|Extract Schema in .cs file as Json| Cl[Cli]
->     W -->|Copy json file from Domain| Cl
+> sequenceDiagram
+>   Build Start->>+CodeGen: Build Starts
+>   Domain Pre Build->>+CodeGen: Domain Run CodeGen
+>   CodeGen->>+Domain Pre Build: Analyzer Generate Schema
+>   Domain Pre Build->>+Domain Build: Go Next Stage
+>   Domain Build->>+Domain Post Build: Go Next Stage
+>   Domain Post Build->>+Cli: Domain Post Build Stage Runs Cli
+>   Cli->>+Domain Post Build: Cli Convert Schema to Json
+>   WebApp Pre Build->>+Cli: WebApp Pre Build Stage Runs Cli
+>   Cli->>+WebApp Pre Build: Cli Copy Json File
+>   WebApp Pre Build->>+CodeGen: Run Analyzer
+>   CodeGen->>+WebApp Pre Build: Generate Controller from Json File
+>   WebApp Pre Build->>+WebApp Build: Go Next Stage
 > ```
 
 ### Usage
