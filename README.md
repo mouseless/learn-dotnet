@@ -5,7 +5,7 @@ Learning new dotnet and csharp features
 ## Source Generator
 
 We use the source generator to handle some routine tasks (such as creating
-controls from classes under a specific namespace). In this way, we lighten
+controllers from classes under a specific namespace). In this way, we lighten
 the workload.
 
 We make the code to be generated either with the service model (schema
@@ -62,7 +62,7 @@ schema accordingly.
 
 ### Using `Newtonsoft.Json` Library
 
-We use the `Newtonsoft.Json` library to serialize and deserialise the
+We use the `Newtonsoft.Json` library to serialize and deserialize the
 service model schema json provided to us.
 
 ## Build Stages

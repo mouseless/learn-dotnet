@@ -2,18 +2,18 @@ namespace Cli;
 
 public class CommandFactory
 {
-    readonly string _projectName;
+    readonly string _commandName;
 
-    public CommandFactory(string projectName)
+    public CommandFactory(string commandName)
     {
-        _projectName = projectName;
+        _commandName = commandName;
     }
 
     public ICommand Create()
     {
-        string projectName = _projectName.ToLower();
+        string commandName = _commandName.ToLower();
 
-        switch (_projectName.ToLower())
+        switch (_commandName.ToLower())
         {
             case "domain":
                 return new Domain();

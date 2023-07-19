@@ -13,23 +13,24 @@ public partial class JsonSchemaGenerator : IIncrementalGenerator
 
         var combine = compilationProvider.Combine(additionalTextsProvider.Collect());
 
-        context.RegisterSourceOutput(combine, (spc, compilation) =>
+        context.RegisterSourceOutput(combine, (context, compilation) =>
         {
             var config = compilation.Right.FirstOrDefault();
             var analyzerConfig = config != null ? config.Deserialize<AnalyzerConfig>() : null;
 
             if (analyzerConfig?.ControllerServicesNamespace == null) return;
 
-            Execute(spc, compilation.Left, analyzerConfig);
+            Execute(context, compilation.Left, analyzerConfig);
         });
     }
 
-    private void Execute(SourceProductionContext spc, Compilation compilation, AnalyzerConfig config)
-    {
-        var jsonModels = GetServiceModel(compilation, config).Serialize();
-
-        spc.AddSource($"{compilation.SourceModule.Name.Split('.').First()}.generated.cs", ServiceModelTemplateAsCs(jsonModels));
-    }
+    private void Execute(SourceProductionContext spc, Compilation compilation, AnalyzerConfig config) =>
+        spc.AddSource(
+            $"{compilation.SourceModule.Name.Split('.').First()}.generated.cs",
+            ServiceModelTemplateAsCs(
+                GetServiceModel(compilation, config).Serialize()
+            )
+        );
 
     private List<ServiceModel> GetServiceModel(Compilation compilation, AnalyzerConfig config)
     {
