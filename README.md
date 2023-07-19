@@ -19,6 +19,14 @@ content of the classes there.
 > `Domain` project. This approach saves people from the burden of writing
 > new controllers for `WebApp` project whenever a new class is added to the
 > `Domain`.
+>
+> ```mermaid
+> graph TD
+>     D[Domain] -->|Generate schema json in .cs file| C[CodeGen]
+>     W[Web App] -->|Generate Controller| C
+>     D -->|Exract Schema in .cs file as Json| Cl[Cli]
+>     W -->|Copy json file from Domain| Cl
+> ```
 
 ### Usage
 
