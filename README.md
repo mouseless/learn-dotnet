@@ -24,7 +24,7 @@ content of the classes there.
 > graph TD
 >     D[Domain] -->|Generate schema json in .cs file| C[CodeGen]
 >     W[Web App] -->|Generate Controller| C
->     D -->|Exract Schema in .cs file as Json| Cl[Cli]
+>     D -->|Extract Schema in .cs file as Json| Cl[Cli]
 >     W -->|Copy json file from Domain| Cl
 > ```
 
@@ -68,21 +68,27 @@ service model schema json provided to us.
 ## Build Stages
 
 Build stages are used to perform operations during, before, or after the build
-process. You can refer to the example in the (.csproj) file for an
-illustration.
+process. You can refer to the example in the
+[/source-generator/Domain/Domain.csproj](/source-generator/Domain/Domain.csproj)
+or
+[/source-generator/WebApp/WebApp.csproj](/source-generator/WebApp/WebApp.csproj)
+file for an illustration.
 
 ### After Build
 
 In this stage, we use script files to perform operations on the generated code.
 
 An example of transforming a generated file into another format can be found
-in the (Domain.csproj) file.
+in the
+[/source-generator/Domain/Domain.csproj](/source-generator/Domain/Domain.csproj)
+file.
 
 ### Before Core Compile
 
 This stage is used to execute script files that add external resources to the
 project before compilation.
 
-For example, please refer to (WebApp.csproj) for an example script that
-performs the task of copying resources between two projects during Before
-Core Compile.
+For example, please refer to
+[/source-generator/WebApp/WebApp.csproj](/source-generator/WebApp/WebApp.csproj)
+for an example script that performs the task of copying resources between two
+projects during Before Core Compile.
