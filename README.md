@@ -12,6 +12,14 @@ We make the code to be generated either with the service model (schema
 json) presented to us or by looking under certain namespaces according to the
 content of the classes there.
 
+> :information_source:
+>
+> The purpose of this source generator learning is to automatically create
+> controllers by inspecting the classes within the target namespace in the
+> `Domain` project. This approach saves people from the burden of writing
+> new controllers for `WebApp` project whenever a new class is added to the
+> `Domain`.
+
 ### Usage
 
 To use the generated code, we must reference the generated project to the
