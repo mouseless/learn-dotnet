@@ -20,17 +20,14 @@ public partial class JsonSchemaGenerator : IIncrementalGenerator
 
             if (analyzerConfig?.ControllerServicesNamespace == null) return;
 
-            Execute(context, compilation.Left, analyzerConfig);
+            context.AddSource(
+                $"{compilation.Left.SourceModule.Name.Split('.').First()}.generated.cs",
+                ServiceModelTemplateAsCs(
+                    GetServiceModel(compilation.Left, analyzerConfig).Serialize()
+                )
+            );
         });
     }
-
-    private void Execute(SourceProductionContext spc, Compilation compilation, AnalyzerConfig config) =>
-        spc.AddSource(
-            $"{compilation.SourceModule.Name.Split('.').First()}.generated.cs",
-            ServiceModelTemplateAsCs(
-                GetServiceModel(compilation, config).Serialize()
-            )
-        );
 
     private List<ServiceModel> GetServiceModel(Compilation compilation, AnalyzerConfig config)
     {
