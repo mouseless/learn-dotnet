@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <LangVersion>10.0</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="analyzer.config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </AdditionalFiles>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="postBuild.ps1" />
+    <Content Include="postBuild.sh" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CodeGen\CodeGen.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="Build">
+    <Exec Command="powershell.exe -executionpolicy remotesigned $(ProjectDir)\postBuild.ps1 $(TargetDir) $(ConfigurationName) $(TargetFramework) $(CompilerGeneratedFilesOutputPath)" Condition="'$(OS)' != 'Unix'" />
+    <Exec Command="sh $(ProjectDir)postBuild.sh '$(TargetDir)' '$(ConfigurationName)' '$(TargetFramework)'" Condition="'$(OS)' == 'Unix'" />
+  </Target>
+
+</Project>
