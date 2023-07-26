@@ -1,14 +1,14 @@
 ﻿namespace UnitTesting;
 
-public class Testbase
+public abstract class Testbase
 {
-    protected Repository _context;
+    public BlackSmith GiveMe { get; private set; } = default!;
 
     [SetUp]
-    public void SetUp()
+    public virtual void SetUp()
     {
-        _context = new Repository();
+        GiveMe = new BlackSmith();
     }
 
-    protected Person APerson(string name = "") => new Person();
+    public sealed record BlackSmith();
 }

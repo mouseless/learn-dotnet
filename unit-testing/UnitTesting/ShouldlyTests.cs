@@ -9,7 +9,7 @@ public class ShouldlyTests
     {
         string actual = " Test Text ";
         string expected = "Test Text";
-        
+
         actual.Trim().ShouldBe(expected);
     }
 }
