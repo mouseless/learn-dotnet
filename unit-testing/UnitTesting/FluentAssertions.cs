@@ -2,7 +2,7 @@
 
 namespace UnitTesting;
 
-public class FluentAssertions : Testbase
+public class FluentAssertions : TestBase
 {
     [Test]
     public void When_text_is_clipped__Remove_the_spaces_before_and_after()
@@ -14,15 +14,29 @@ public class FluentAssertions : Testbase
     }
 
     [Test]
-    public void When_forge_is_Given_length_and_raw_Than_a_sword_is_created()
+    public void When_forging_a_sword_Than_produces_a_sword()
+    {
+        // arrange
+
+        // act
+
+        // assert
+        Assert.That(false, "Mock test will be write");
+    }
+
+    [Test]
+    public void When_forge_is_Given_mold_and_raw_Than_a_sword_is_created()
     {
         // arrange
         var Forge = GiveMe.AForge();
+        var mold = GiveMe.Mold(Shape.Sword);
+        var raw = GiveMe.ARaw("Iron");
+        var expected = GiveMe.ASword(mold: mold, raw: raw);
 
         // act
-        Forge.CreateASword(length: 10, raw: "Iron");
+        List<ISword> swords = Forge.MakeSword(mold: mold, raws: new() { raw });
 
         // assert
-        Forge.CreatedSwords.Should().NotBeEmpty().And.HaveCount(1);
+        swords.Should().Contain(expected);
     }
 }

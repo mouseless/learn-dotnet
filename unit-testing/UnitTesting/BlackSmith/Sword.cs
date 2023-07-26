@@ -1,13 +1,22 @@
 namespace UnitTesting;
 
-public class Sword
+public class Sword: ISword
 {
-    private readonly int _length;
-    private readonly string _raw;
+    readonly Mold _mold;
+    readonly Raw _raw;
 
-    public Sword(int length, string raw)
+    public Sword(Mold mold, Raw raw)
     {
-        _length = length;
+        _mold = mold;
         _raw = raw;
+    }
+
+    public Mold Mold => _mold;
+    public Raw Raw => _raw;
+
+    public override bool Equals(object other)
+    {
+        return Mold == ((Sword)other).Mold &&
+               Raw == ((Sword)other).Raw;
     }
 }

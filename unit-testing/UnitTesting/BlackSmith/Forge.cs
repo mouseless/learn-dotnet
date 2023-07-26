@@ -1,18 +1,13 @@
-using System.Collections.Generic;
-
 namespace UnitTesting;
 
-public class Forge
+public class Forge : IForge
 {
-    public Forge()
+    public List<ISword> MakeSword(Mold mold, List<Raw> raws)
     {
-        CreatedSwords = new();
-    }
+        List<ISword> result = new();
 
-    public Dictionary<int, string> CreatedSwords { get; set; }
+        raws.ForEach(raw => result.Add(new Sword(mold, raw)));
 
-    public void CreateASword(int length, string raw)
-    {
-        CreatedSwords.Add(length, raw);
+        return result;
     }
 }
