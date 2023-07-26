@@ -17,7 +17,8 @@ jobs:
             6.0.x
       - name: Move project dir
         run: cd unit-testing
+      - run: ls
       - name: Build Solution
-        run: dotnet build -c Release
+        run: dotnet build
       - name: Run Tests
         run: dotnet test
