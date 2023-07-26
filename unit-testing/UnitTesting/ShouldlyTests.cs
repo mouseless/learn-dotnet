@@ -2,7 +2,7 @@ using Shouldly;
 
 namespace UnitTesting;
 
-public class ShouldlyTests
+public class ShouldlyTests : Testbase
 {
     [Test]
     public void When_text_is_clipped__Remove_the_spaces_before_and_after()
