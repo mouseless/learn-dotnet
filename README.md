@@ -20,8 +20,8 @@ Learn, how to use Source Generator in project.
 
 Learn, how to make [Unit Test](/unit-testing/README.md#unit-testing) in project.
 
-- [3A Template](/unit-testing/README.md#3a-pattern)
-- [Fluent Assertion Library](/unit-testing/README.md#fluent-assertion-library)
+- [Test Case](/unit-testing/README.md#test-case)
+- [Test Case Naming](/unit-testing/README.md#test-case-naming)
 - [GiveMe MockMe Usage](/unit-testing/README.md#giveme--mockme-usage)
 - [Mock Library](/unit-testing/README.md#mock-library)
 - [Shouldly Library](/unit-testing/README.md#shouldly-library)
