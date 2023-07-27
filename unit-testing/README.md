@@ -1,7 +1,7 @@
 # Unit Testing
 
-This tutorial is about `Fluent Assertion` and `Shouldly` libraries. The aim is
-to learn both libraries and choose the one to be used in our projects.
+This tutorial is about `Shouldly` library. The aim is
+to learn library be used in our projects.
 
 ## Test Case
 
@@ -13,7 +13,7 @@ unnecessary information. We strictly adhere to standards, such as the
 
 ## Test Case Naming
 
-## Shouldly Library
+## Assertions Library
 
 ## Mock Library
 
