@@ -16,8 +16,8 @@ jobs:
           dotnet-version: |
             6.0.x
       - name: Build Solution
-        working-directory: ./unit-testing
+        working-directory: ./unit-testing/test
         run: dotnet build
       - name: Run Tests
-        working-directory: ./unit-testing
+        working-directory: ./unit-testing/test
         run: dotnet test
