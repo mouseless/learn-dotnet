@@ -21,7 +21,8 @@ Learn, how to use Source Generator in project.
 Learn, how to make [Unit Test](/unit-testing/README.md#unit-testing) in project.
 
 - [Test Case](/unit-testing/README.md#test-case)
+- [Structure](/unit-testing/README.md#structure)
 - [Test Case Naming](/unit-testing/README.md#test-case-naming)
-- [GiveMe MockMe Usage](/unit-testing/README.md#giveme--mockme-usage)
+- [Assertions Library](/unit-testing/README.md#assertions-library)
 - [Mock Library](/unit-testing/README.md#mock-library)
-- [Shouldly Library](/unit-testing/README.md#shouldly-library)
+- [GiveMe MockMe Usage](/unit-testing/README.md#giveme--mockme-usage)

@@ -1,27 +1,38 @@
 # Unit Testing
 
-This tutorial is about `Shouldly` library. The aim is
-to learn library be used in our projects.
+The aim is to learn Unit testing.
 
-projenin testlerini `test` klasörü altına koyarız.
+## Structure
+
+We put the unit test project under the `test` folder.
 
 ## Test Case
 
-In the test, we aim for story consistency and legibility while avoiding
-unnecessary information. We strictly adhere to standards, such as the
+In our test cases, the objective is to offer just enough information to
+comprehend the target scenario. We conceal irrelevant details using helper
+methods or omit them altogether, as they do not contribute to the comprehension
+of the case. Furthermore, we standardize our test cases using the
 [3A Pattern](/README.md#3a-pattern).
-
-Case anlatımda hedef olarak `act` alanı hedefleriz.
 
 ### 3A Pattern
 
+This approach gives us consistency and clarity across the tests by addressing
+the aspects of Arrange, Act, and Assert in a structured manner.
+
 ### Test Case Naming
 
-Test case isimleri cümle olmalı ve sadece case i anlatacak veya hakkında net fikir verecek şekilde yazılmalı. Verilenin ve beklenenin bilgisini içermelidir. test case isimleri okunduğunda projedeki fixture nın işlevini anlatmalı.
+Test case names should be written as sentences in a descriptive manner,
+providing a clear idea of the case's purpose, including the given input
+and expected output. The primary objective is to understand the
+functionality of the module being tested solely from the test case names,
+without revealing the underlying structure.
 
 ## Assertions Library
 
-Assertion library olarak `shouldly` kütüphanesini kullanıyoruz. sebebi projede ki extensionlar la kurduğumuz yapıya uyuşması. Yapılan değişikliklerde testlerin düzenlenebilirliniği aza indirmesinden dolayı.
+We utilize the `Shouldly` library as our chosen assertion library due to its
+alignment with the project's established structure and extensions. Its
+implementation minimizes the effort required to modify tests whenever changes
+are introduced.
 
 ## Mock Library
 
