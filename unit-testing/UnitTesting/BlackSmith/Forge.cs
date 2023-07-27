@@ -2,12 +2,19 @@ namespace UnitTesting;
 
 public class Forge : IForge
 {
-    public List<ISword> MakeSword(Mold mold, List<Raw> raws)
+    private readonly ITool _tool;
+
+    public Forge(ITool tool)
     {
-        List<ISword> result = new();
+        _tool = tool;
+    }
 
-        raws.ForEach(raw => result.Add(new Sword(mold, raw)));
+    public ISword MakeSword(Raw raw)
+    {
+        if(raw == null) throw new ArgumentNullException(nameof(raw));
 
-        return result;
+        _tool.Use();
+
+        return new Sword(raw);
     }
 }

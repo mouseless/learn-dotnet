@@ -2,7 +2,7 @@ using Shouldly;
 
 namespace UnitTesting;
 
-public class ShouldlyTests : TestBase
+public class Shouldly : TestBase
 {
     [Test]
     public void When_text_is_clipped__Remove_the_spaces_before_and_after()
@@ -18,14 +18,26 @@ public class ShouldlyTests : TestBase
     {
         // arrange
         var Forge = GiveMe.AForge();
-        var mold = GiveMe.Mold(Shape.Sword);
         var raw = GiveMe.ARaw("Iron");
-        var expected = GiveMe.ASword(mold, raw);
+        var expected = GiveMe.ASword(raw);
 
         // act
-        List<ISword> swords = Forge.MakeSword(mold: mold, raws: new() { raw });
+        ISword sword = Forge.MakeSword(raw: raw);
 
         // assert
-        swords.ShouldContain(GiveMe.ASword(mold: mold, raw: raw));
+        sword.ShouldBe(GiveMe.ASword(raw: raw));
+    }
+
+    [Test]
+    public void If_no_resources_are_given_while_crafting_a_sword__An_exception_is_thrown()
+    {
+        // arrange
+        var forge = GiveMe.AForge();
+
+        // act
+        Action act = () => forge.MakeSword(null);
+
+        // assert
+        act.ShouldThrow<ArgumentNullException>();
     }
 }
