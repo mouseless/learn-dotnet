@@ -1,20 +1,9 @@
 ﻿using FluentAssertions;
 
-using static FluentAssertions.FluentActions;
-
 namespace UnitTesting;
 
 public class FluentAssertions : TestBase
 {
-    [Test]
-    public void When_text_is_clipped__Remove_the_spaces_before_and_after()
-    {
-        string actual = " Test Text ";
-        string expected = "Test Text";
-
-        actual.Trim().Should().Be(expected);
-    }
-
     [Test]
     public void When_forge_is_Given_mold_and_raw_Than_a_sword_is_created()
     {
@@ -51,8 +40,9 @@ public class FluentAssertions : TestBase
         var raw = GiveMe.ARaw();
 
         // act
-        ISword sword = Forge.MakeSword(raw: raw);
+        Sword sword = (Sword)Forge.MakeSword(raw: raw);
 
-        Assert.That(false);
+        // assert
+        sword.Raw.Should().Be(raw.Name);
     }
 }

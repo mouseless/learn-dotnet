@@ -5,15 +5,6 @@ namespace UnitTesting;
 public class Shouldly : TestBase
 {
     [Test]
-    public void When_text_is_clipped__Remove_the_spaces_before_and_after()
-    {
-        string actual = " Test Text ";
-        string expected = "Test Text";
-
-        actual.Trim().ShouldBe(expected);
-    }
-
-    [Test]
     public void When_forge_is_Given_mold_and_raw_Than_a_sword_is_created()
     {
         // arrange
@@ -25,7 +16,7 @@ public class Shouldly : TestBase
         ISword sword = Forge.MakeSword(raw: raw);
 
         // assert
-        sword.ShouldBe(GiveMe.ASword(raw: raw));
+        sword.ShouldBe(expected);
     }
 
     [Test]
@@ -39,5 +30,19 @@ public class Shouldly : TestBase
 
         // assert
         act.ShouldThrow<ArgumentNullException>();
+    }
+
+    [Test]
+    public void When_the_sword_is_made_its_raw_will_be_of_the_type_of_raw_given()
+    {
+        // arrange
+        var Forge = GiveMe.AForge();
+        var raw = GiveMe.ARaw();
+
+        // act
+        Sword sword = (Sword)Forge.MakeSword(raw: raw);
+
+        // assert
+        sword.Raw.ShouldBe(raw.Name);
     }
 }
