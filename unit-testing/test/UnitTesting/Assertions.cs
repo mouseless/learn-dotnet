@@ -49,7 +49,7 @@ public class Assertions : Spec
     [Test]
     public void Collection_assertion()
     {
-        var figures = GiveMe.Figures();
+        var figures = GiveMe.Figures(min: 0, max: 9);
 
         figures.Count.ShouldBe(10);
         figures.ShouldBeUnique();
@@ -78,8 +78,16 @@ public class Assertions : Spec
     {
         dynamic theFuture = new ExpandoObject();
 
-        theFuture.test = "test";
+        theFuture.Test = "value";
 
-        DynamicShould.HaveProperty(theFuture, "test");
+        DynamicShould.HaveProperty(theFuture, "Test");
+    }
+
+    [Test]
+    public void Custom_assertion()
+    {
+        int plateCode = 34;
+
+        plateCode.ShouldBeValidTrLicensePlateCode();
     }
 }
