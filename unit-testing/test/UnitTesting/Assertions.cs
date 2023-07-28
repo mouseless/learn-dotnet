@@ -1,4 +1,3 @@
-using Shouldly;
 using System.Dynamic;
 
 namespace UnitTesting;
@@ -50,10 +49,7 @@ public class Assertions : Spec
     [Test]
     public void Collection_assertion()
     {
-        var figures = new List<int>()
-        {
-            0, 1, 2, 3, 4, 5, 6, 7, 8, 9
-        };
+        var figures = GiveMe.Figures();
 
         figures.Count.ShouldBe(10);
         figures.ShouldBeUnique();
