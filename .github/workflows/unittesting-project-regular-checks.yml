@@ -1,12 +1,12 @@
-name: Project - Regular Checks
+name: UnitTesting - Regular Checks
 on:
   pull_request:
     paths:
-      - 'source-generator/**'
+      - 'unit-testing/**'
 
 jobs:
   build:
-    name: Build
+    name: Build & Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -15,7 +15,9 @@ jobs:
         with:
           dotnet-version: |
             6.0.x
-      - name: Move project dir
-        run: cd source-generator
       - name: Build Solution
-        run: dotnet build -c Release
+        working-directory: ./unit-testing/test
+        run: dotnet build
+      - name: Run Tests
+        working-directory: ./unit-testing/test
+        run: dotnet test
