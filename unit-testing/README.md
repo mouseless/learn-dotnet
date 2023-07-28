@@ -36,4 +36,16 @@ are introduced.
 
 ## Mock Library
 
+TBD...
+
 ## GiveMe & MockMe Usage
+
+In our tests, we refactor the redundant information and helper methods,
+consolidating them into extension methods. We create a source class called
+`Stubber` to invoke these extension methods. This approach allows us to
+centralize the helper methods in one place.
+
+By using the name `GiveMe` for these methods, we ensure meaningful and
+descriptive naming in our test cases.
+
+`MockMe` TBD...
