@@ -81,6 +81,7 @@ public class Assertions : Spec
         theFuture.Test = "value";
 
         DynamicShould.HaveProperty(theFuture, "Test");
+        ((string)theFuture.Test).ShouldBe("value");
     }
 
     [Test]
