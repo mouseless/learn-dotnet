@@ -53,3 +53,9 @@ public class ServiceA
 
 In this example, `ServiceA` depends on `ServiceB` explicitly, thus having a
 better readability.
+
+> :warning:
+>
+> When registering a generic function, make sure you use
+> `HttpContext.RequestServices` instead of root service provider. Otherwise
+> scoped dependencies will cause a runtime error.
