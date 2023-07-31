@@ -12,3 +12,8 @@ of learning the source generator.
 To read our documentation on how we write unit tests, the rules, naming
 conventions and libraries we use, see [Unit Test](/unit-testing/README.md)
 here.
+
+## Dependency Injection
+
+To see how we setup and use dependency injection visit [Dependency
+Injection](/dependency-injection/README.md).
