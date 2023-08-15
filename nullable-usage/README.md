@@ -1,18 +1,21 @@
 # Nullable Usage
 
-To enable nullable in projects
+Nullable types gives the ability to the compiler to check for possible 
+null return values or not assigned members to detect possibility of any
+_NullPointerException_ which may ocuur at runtime.
+
+Also with the usage of nullable syntax, it is easier to visually see
+the intention of the code about the certaion issue ,
+
+To enable nullable in projects make sure you add the following configuration
+to your _.csproj_ file.
 
 ```xml
 <Nullable>enable</Nullable>
-<WarningsAsErrors>Nullable</WarningsAsErrors>
+<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 ```
 
-##  Type of a Nullable
-
-Nullable Value Types ```int?``` creates Nullable<int>. When we want to get the
-type of a nullable value type, _GetType()_ will return type of 
-```Nullable<T>```. In order to get the type of the property, we should use 
-```Nullable.GetUnderlyingType(T)``` static method to extract type info.
+### Type of a nullable
 
 Nullable Reference Types are different than Value Types and they only 
 instruct the compiler about members or parameters that they can be null. 
@@ -40,19 +43,8 @@ Console.WriteLine(agePropertyType); // System.Nullable`1[System.Int32]
 Console.WriteLine(Nullable.GetUnderlyingType(agePropertyType)); // System.Int32
 
 ```
-## Getting the value of a Nullable
 
-### HasValue()
-
-### GetValueOrDefault()
-
-TBD
-
-## Using Nullables in Code
-
-### Don't use nullable for Dependency Injection
-
-### Carefully use comparison operators with nullables
+### Comparison operators with nullables
 
 ```csharp
 public class Person
@@ -65,10 +57,8 @@ public class Person
         ...
     }
 
-    public string? InitialName()
-    {
-        return Name.Length > MiddleName?.Lenght ? Name : MiddleName;
-    }
+    public string? InitialName =>
+        return Name.Length > MiddleName?.Length ? Name : MiddleName;
 }
 
 #main
@@ -77,55 +67,252 @@ var person = new Person("John");
 
 Console.WriteLine(person.FullName()) // 
 
-// Prints empty string due to operator behaviour with nullable
-// comparison operators always return null if on side of the
+// Prints empty string
+// Comparison operators returns null if on side of the
 // comparison is null.
 
 ```
 
-### ! (null-forgiving) Operator
+See official [Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types#lifted-operators) 
+documentation for further details.
 
-! operator should only be used if a member is known to be not null in the given
-context.
+### Deserialization
 
 ```csharp
 
-string? nullableString;
+var person = JsonConvert.DeserializeObject<Person>("null");
+var initialName = person.InitialName;
+```
 
-public void Print()
+The only way to get a compile-time warning would be to modify the first line of code as follows:
+
+```csharp
+var person = JsonConvert.DeserializeObject<Person?>("null"); 
+var initialName = player.InitialName;
+```
+
+## Using Nullables in Mouseless
+
+We follow the guidelines below when writing code to properly use nullable syntax.
+
+### Don't use nullable for Dependency Injection
+
+```csharp
+public class DemoService
 {
-    if(nullableString is not null)
+    readonly IAuthenticationContext _authenticationContext;
+    readonly IQueryContext<Person>? _queryContext; // Invalid use of nullable
+    ...
+
+    public DemoSevice(IAuthenticationContext authenticationContext, IQueryContext<Person>? queryContext)
     {
-        Console.WriteLine{$"The length of the nullable string is: {nullableString!}"}
+        _authenticationContext = authenticationContext;
+        _queryContext = queryContext;
+    }
+}
+```
+
+> :information_source:
+>
+> The DI container will resolve every dependency before initalizing the object
+> and an exception will be thrown for a if a component is not registered. 
+> Therefore, there is no possibility of dependency to be null.
+
+### Avoid using ! (null-forgiving) Operator
+
+The usage of ! operator negates the null check that the compiler performs, so 
+the whole intention of enabling nullable check will be compromised and it
+will be very hard to spot possible bugs which may occur at runtime.
+
+! operator should only be used to dismiss the compiler errors when we set 
+default values for non nullable members which are;
+
+- Assigned with dependency injection
+- Assigned in the builder method
+
+```csharp
+public class Person
+{
+    readonly IEntityContext<Person> _context = default!;
+
+    protected Person() { }
+    public Person(IEntityContext<Person> context)
+    {
+        _context = context;
+    }
+
+    public string Name { get; }
+    public string? MiddleName {get; }
+    public int? Age {get; }
+
+    public virtual Person With(string name, string? middleName, int? age)
+    {
+        ...
+    }
+}
+```
+
+> :information_source:
+>
+> Because of NHibernate, entities need a _protected_ parameterless constructor 
+> and compiler will highlight an error stating that the value of __context_ is 
+> not assigned when leaving a constructor. Therefore we need to assign a 
+> default value to __context_ to dismiss the compiler error.  
+
+
+### Always manage nullable parameters
+
+When using nullable parameters, the main challenge is to manage what happens 
+within the scope of the method if a parameter has not been assigned with any 
+value. 
+
+We should always make sure the functionality is not broken and cause a wrong
+intention wether a parameter is necessary or not.
+
+#### Use not nullable when parameter is required
+
+```csharp
+public class Person
+{
+    public string Name { get; }
+    public string? MiddleName {get;}
+    public int? Age {get;}
+
+    // name is made not nullable to give responsibility to caller
+    public virtual DemoEntity With(string name)
+    {
+        Name = name;
+    }
+}
+```
+
+### Handling null to not null situation
+
+#### Check for value and throw a relevant exception
+
+```csharp
+public class DemoEntityManager
+{
+    public void AddEntity(string? name)
+    {
+        if(name is null) throw new ArgumentNullException();
+
+        _newEntity().With(name);
+    }
+}
+```
+
+#### Assign a default value if parameter is nullable
+ 
+```csharp
+public class DemoEntityManager
+{
+    public void AddEntity(string? name)
+    {
+        name ??= "John Doe";
+
+        _newEntity().With(name);
+    }
+}
+```
+
+#### Optional parameter
+
+```csharp
+public class DemoEntityManager
+{
+    public void AddEntity(
+        string? name = default
+    )
+    {
+        name ??= "John Doe";
+
+        _newEntity().With(name);
+    }
+}
+```
+
+### Passing nullable value a method
+
+#### Don't do anyting if parameter is already nullable
+
+```csharp
+public class DemoEntity
+{
+    public string Name { get; set; } = default!;
+    public string? MiddleName { get; set; }
+
+    public virtual DemoEntity With(string name, string? middleName)
+    {
+        Name = name;
+        MiddleName = middleName;
     }
 }
 
+public class DemoEntityManager
+{
+    public void AddEntity(
+        string? name = default,
+        string? middleName = default
+    )
+    {
+        name ??= "John Doe";
+
+        _newEntity().With(name, middleName);
+    }
+}
 ```
 
-! operator can be used in unit tests to test behaviour against `null` parameters.
+#### Throw relevant exception if parameter is required
 
 ```csharp
-
-public class Person
+public class DemoEntity
 {
     ...
 
-    public Person(string name)
+    public void ChangeMiddleName(string middleName)
     {
-        Name = name ?? throw new ArgumentNullException(nameof(name));
+        ...
     }
 }
 
-[TestFixure]
-public class PersonTests
+public class DemoEntityManager
 {
-    [Test]
-    public void Person_constructor_throws_exception_if_name_is_null()
+    public void UpdateEntity(
+        Person person,
+        string? middleName = default
+    )
     {
-        Should.Throw<ArguementNullExceptions>(()=> new Person(null!));
+        if(middleName is null) throw new ArgumentNullException();
+
+        person.ChangeMiddleName(middleName)
     }
 }
-
 ```
 
+#### Assign default value
 
+```csharp
+public class DemoEntity
+{
+    ...
+
+    public void ChangeMiddleName(string middleName)
+    {
+        ...
+    }
+}
+
+public class DemoEntityManager
+{
+    public void UpdateEntity(
+        Person person,
+        string? middleName = default
+    )
+    {
+        middleName ??= "Mike";
+        
+        person.ChangeMiddleName(middleName)
+    }
+}
+```
