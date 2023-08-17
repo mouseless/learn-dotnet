@@ -15,82 +15,6 @@ to your _.csproj_ file.
 <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 ```
 
-### Type of a nullable
-
-Nullable Reference Types are different than Value Types and they only 
-instruct the compiler about members or parameters that they can be null. 
-Therefore ```string?``` is not creating a ```Nullable<string>``` the way 
-that ```int?``` creates a ```Nullable<int>```.
-
-```csharp
-public class Person
-{
-    public string Name { get; }
-    public string? MiddleName {get;}
-    public int? Age {get;}
-}
-
-...
-
-Type middleNamePropertyType = typeof(Person).GetProperty("MiddleName").PropertyType;
-
-Console.WriteLine(middleNamePropertyType); //System.String
-Console.WriteLine(Nullable.GetUnderlyingType(middleNamePropertyType)); //
-
-Type agePropertyType = typeof(Person).GetProperty("Age").PropertyType;
-
-Console.WriteLine(agePropertyType); // System.Nullable`1[System.Int32]
-Console.WriteLine(Nullable.GetUnderlyingType(agePropertyType)); // System.Int32
-
-```
-
-### Comparison operators with nullables
-
-```csharp
-public class Person
-{
-    ...
-    public string? MiddleName {get;}
-
-    public Person(string name, string? middleName = default)
-    {
-        ...
-    }
-
-    public string? InitialName =>
-        return Name.Length > MiddleName?.Length ? Name : MiddleName;
-}
-
-#main
-
-var person = new Person("John");
-
-Console.WriteLine(person.FullName()) // 
-
-// Prints empty string
-// Comparison operators returns null if on side of the
-// comparison is null.
-
-```
-
-See official [Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types#lifted-operators) 
-documentation for further details.
-
-### Deserialization
-
-```csharp
-
-var person = JsonConvert.DeserializeObject<Person>("null");
-var initialName = person.InitialName;
-```
-
-The only way to get a compile-time warning would be to modify the first line of code as follows:
-
-```csharp
-var person = JsonConvert.DeserializeObject<Person?>("null"); 
-var initialName = player.InitialName;
-```
-
 ## Using Nullables in Mouseless
 
 We follow the guidelines below when writing code to properly use nullable syntax.
@@ -98,13 +22,13 @@ We follow the guidelines below when writing code to properly use nullable syntax
 ### Don't use nullable for Dependency Injection
 
 ```csharp
-public class DemoService
+public class PersonService
 {
     readonly IAuthenticationContext _authenticationContext;
     readonly IQueryContext<Person>? _queryContext; // Invalid use of nullable
     ...
 
-    public DemoSevice(IAuthenticationContext authenticationContext, IQueryContext<Person>? queryContext)
+    public PersonService(IAuthenticationContext authenticationContext, IQueryContext<Person>? queryContext)
     {
         _authenticationContext = authenticationContext;
         _queryContext = queryContext;
@@ -118,7 +42,7 @@ public class DemoService
 > and an exception will be thrown for a if a component is not registered. 
 > Therefore, there is no possibility of dependency to be null.
 
-### Avoid using ! (null-forgiving) Operator
+### Avoid using ! (null-forgiving) operator
 
 The usage of ! operator negates the null check that the compiler performs, so 
 the whole intention of enabling nullable check will be compromised and it
@@ -179,7 +103,7 @@ public class Person
     public int? Age {get;}
 
     // name is made not nullable to give responsibility to caller
-    public virtual DemoEntity With(string name)
+    public virtual Person With(string name)
     {
         Name = name;
     }
@@ -191,13 +115,13 @@ public class Person
 #### Check for value and throw a relevant exception
 
 ```csharp
-public class DemoEntityManager
+public class PersonService
 {
-    public void AddEntity(string? name)
+    public void AddPerson(string? name)
     {
         if(name is null) throw new ArgumentNullException();
 
-        _newEntity().With(name);
+        _newPerson().With(name);
     }
 }
 ```
@@ -205,13 +129,13 @@ public class DemoEntityManager
 #### Assign a default value if parameter is nullable
  
 ```csharp
-public class DemoEntityManager
+public class PersonService
 {
-    public void AddEntity(string? name)
+    public void AddPerson(string? name)
     {
         name ??= "John Doe";
 
-        _newEntity().With(name);
+        _newPerson().With(name);
     }
 }
 ```
@@ -219,15 +143,15 @@ public class DemoEntityManager
 #### Optional parameter
 
 ```csharp
-public class DemoEntityManager
+public class PersonService
 {
-    public void AddEntity(
+    public void AddPerson(
         string? name = default
     )
     {
         name ??= "John Doe";
 
-        _newEntity().With(name);
+        _newPerson().With(name);
     }
 }
 ```
@@ -237,28 +161,29 @@ public class DemoEntityManager
 #### Don't do anyting if parameter is already nullable
 
 ```csharp
-public class DemoEntity
+public class Person
 {
     public string Name { get; set; } = default!;
     public string? MiddleName { get; set; }
+    ...
 
-    public virtual DemoEntity With(string name, string? middleName)
+    public virtual Person With(string name, string? middleName)
     {
         Name = name;
         MiddleName = middleName;
     }
 }
 
-public class DemoEntityManager
+public class PersonService
 {
-    public void AddEntity(
+    public void AddPerson(
         string? name = default,
         string? middleName = default
     )
     {
         name ??= "John Doe";
 
-        _newEntity().With(name, middleName);
+        _newPerson().With(name, middleName);
     }
 }
 ```
@@ -266,7 +191,7 @@ public class DemoEntityManager
 #### Throw relevant exception if parameter is required
 
 ```csharp
-public class DemoEntity
+public class Person
 {
     ...
 
@@ -276,9 +201,9 @@ public class DemoEntity
     }
 }
 
-public class DemoEntityManager
+public class PersonService
 {
-    public void UpdateEntity(
+    public void UpdatePerson(
         Person person,
         string? middleName = default
     )
@@ -293,7 +218,7 @@ public class DemoEntityManager
 #### Assign default value
 
 ```csharp
-public class DemoEntity
+public class Person
 {
     ...
 
@@ -303,7 +228,7 @@ public class DemoEntity
     }
 }
 
-public class DemoEntityManager
+public class PersonService
 {
     public void UpdateEntity(
         Person person,
@@ -315,4 +240,71 @@ public class DemoEntityManager
         person.ChangeMiddleName(middleName)
     }
 }
+```
+
+### Type of a nullable
+
+Nullable Reference Types are different than Value Types and they only 
+instruct the compiler about members or parameters that they can be null. 
+Therefore 
+ - ```string?``` is not a ```Nullable<string>```  
+ - ```int?``` is a ```Nullable<int>```
+
+and `Nullable.GetUnderlyingType(T)` for reference types are null.
+
+```csharp
+public class Person
+{
+    public string Name { get; }
+    public string? MiddleName {get;}
+    public int? Age {get;}
+}
+
+...
+
+Type middleNamePropertyType = typeof(Person).GetProperty("MiddleName").PropertyType;
+
+Console.WriteLine(middleNamePropertyType); //System.String
+Console.WriteLine(Nullable.GetUnderlyingType(middleNamePropertyType)); //
+
+Type agePropertyType = typeof(Person).GetProperty("Age").PropertyType;
+
+Console.WriteLine(agePropertyType); // System.Nullable`1[System.Int32]
+Console.WriteLine(Nullable.GetUnderlyingType(agePropertyType)); // System.Int32
+
+```
+
+### Comparison operators with nullables
+
+When used for comparing nullables, the operator returns false if one side
+of the comparison is null. 
+
+See official [Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types#lifted-operators) 
+documentation for further details.
+
+
+```csharp
+public class Person
+{
+    ...
+    public string? MiddleName {get;}
+
+    public Person(string name, string? middleName = default)
+    {
+        ...
+    }
+
+    public string? InitialName =>
+        return Name.Length > MiddleName?.Length ? Name : MiddleName;
+}
+
+#main
+
+var person = new Person("John");
+
+Console.WriteLine(person.FullName()) // 
+
+// Prints empty string because MiddleName is null and
+// comparison result is false
+
 ```
