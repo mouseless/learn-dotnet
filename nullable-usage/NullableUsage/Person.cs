@@ -18,6 +18,14 @@ public class Person
     public string Name { get; private set; } = default!;
     public string? MiddleName { get; private set; }
     public int? Age { get; set; }
+    public string? InitialName => Name.Length > MiddleName?.Length ? Name : MiddleName;
+
+    public Person With(string name)
+    {
+        Name = name;
+
+        return _context.Insert(this);
+    }
 
     public Person With(string name, string? middleName)
     {
@@ -30,5 +38,10 @@ public class Person
     public void Delete()
     {
         _context.Delete(this);
+    }
+
+    public void ChangeMiddleName(string middleName)
+    {
+        MiddleName = middleName;
     }
 }

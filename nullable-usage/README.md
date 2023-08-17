@@ -65,11 +65,12 @@ public class Person
         _context = context;
     }
 
+    public int Id { get; }
     public string Name { get; }
     public string? MiddleName {get; }
     public int? Age {get; }
 
-    public virtual Person With(string name, string? middleName, int? age)
+    public Person With(string name, string? middleName, int? age)
     {
         ...
     }
@@ -99,8 +100,8 @@ intention wether a parameter is necessary or not.
 public class Person
 {
     public string Name { get; }
-    public string? MiddleName {get;}
-    public int? Age {get;}
+    public string? MiddleName { get;}
+    public int? Age { get; }
 
     // name is made not nullable to give responsibility to caller
     public virtual Person With(string name)
@@ -169,8 +170,11 @@ public class PersonService
 ```csharp
 public class Person
 {
+    ...
+
     public string Name { get; set; } = default!;
     public string? MiddleName { get; set; }
+
     ...
 
     public virtual Person With(string name, string? middleName)
@@ -248,6 +252,57 @@ public class PersonService
 }
 ```
 
+### Using ?. (null-check) operator
+
+#### Dont use ?. operator for if affects request-response 
+
+```csharp
+public class PersonService{
+
+    ...
+
+    public void DeletePerson(int id)
+    {
+        _queryContext.SingleById(id)?.Delete();
+    }
+
+    // Even the relevant entity may not exits, the result 
+    // code will be 200 and it will cause a miss direction 
+    // Throw an exception instead
+}
+```
+
+#### Correct use of ?. operator
+
+```csharp
+public class Person{
+    ...
+    Child? Child { get; set; }
+
+    ...
+
+    public void Delete()
+    {
+        Child?.Delete();
+        ...
+    }
+}
+
+public class PersonService{
+
+    ...
+
+    public void DeletePerson(int id)
+    {
+        var result = _queryContext.SingleById(id);
+
+        if(result is null) { throw new InvalidOperationException(); }
+
+        result.Delete();
+    }
+}
+```
+
 ### Type of a nullable
 
 Nullable Reference Types are different than Value Types and they only 
@@ -262,8 +317,8 @@ and `Nullable.GetUnderlyingType(T)` for reference types are null.
 public class Person
 {
     public string Name { get; }
-    public string? MiddleName {get;}
-    public int? Age {get;}
+    public string? MiddleName { get; }
+    public int? Age { get; }
 }
 
 ...
@@ -293,7 +348,7 @@ documentation for further details.
 public class Person
 {
     ...
-    public string? MiddleName {get;}
+    public string? MiddleName { get; }
 
     public Person(string name, string? middleName = default)
     {
@@ -301,7 +356,7 @@ public class Person
     }
 
     public string? InitialName =>
-        return Name.Length > MiddleName?.Length ? Name : MiddleName;
+        Name.Length > MiddleName?.Length ? Name : MiddleName;
 }
 
 #main

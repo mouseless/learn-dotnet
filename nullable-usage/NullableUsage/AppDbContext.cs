@@ -32,7 +32,6 @@ public class AppDbContext : DbContext
 
 public class MaterializationInterceptor : IMaterializationInterceptor
 {
-
     public object InitializedInstance(MaterializationInterceptionData materializationData, object entity)
     {
         if (entity is Person person)

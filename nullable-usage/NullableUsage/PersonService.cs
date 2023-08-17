@@ -13,7 +13,7 @@ public class PersonService
 
     public Person AddPerson(string? name)
     {
-        if (name is null) throw new ArgumentNullException();
+        if (name is null) { throw new ArgumentNullException(); }
 
         return _newPerson().With(name, null);
     }
@@ -26,6 +26,21 @@ public class PersonService
         name ??= "John Doe";
 
         return _newPerson().With(name, middleName);
+    }
+
+    public void UpdatePerson(
+        int id,
+        string? middleName = default
+    )
+    {
+        if (middleName is null) { throw new ArgumentNullException(); }
+
+        var person = _queryContext.SingleById(id);
+
+        if (person is not null)
+        {
+            person.ChangeMiddleName(middleName);
+        }
     }
 
     public void DeletePerson(int id)
