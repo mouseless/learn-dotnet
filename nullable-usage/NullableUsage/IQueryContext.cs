@@ -16,13 +16,6 @@ public class QueryContext<T> : IQueryContext<T> where T : class
         _appDbContext = appDbContext;
     }
 
-    public IEnumerable<T> All()
-    {
-        return _appDbContext.Set<T>();
-    }
-
-    public T? SingleById(int id)
-    {
-        return _appDbContext.Find<T>(id);
-    }
+    public IEnumerable<T> All() => _appDbContext.Set<T>();
+    public T? SingleById(int id) => _appDbContext.Find<T>(id);
 }

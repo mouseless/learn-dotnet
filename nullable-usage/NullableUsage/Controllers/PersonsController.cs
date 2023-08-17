@@ -26,5 +26,11 @@ namespace NullableUsage.Controllers
         {
             return _personService.AddPerson(input.Name, input.MiddleName);
         }
+
+        [HttpDelete]
+        public void Delete([FromQuery] int id)
+        {
+            _personService.DeletePerson(id);
+        }
     }
 }

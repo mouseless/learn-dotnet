@@ -10,18 +10,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<PersonService>();
-builder.Services.AddSingleton(typeof(Func<Person>), (sp) => () => sp.GetRequiredService<Person>());
-builder.Services.AddTransient<Person>();
-
-builder.Services.AddHttpContextAccessor();
-
 builder.Services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("nullable-usage.db"));
-
 builder.Services.AddTransient(typeof(IEntityContext<>), typeof(EntityContext<>));
 builder.Services.AddScoped(typeof(IQueryContext<>), typeof(QueryContext<>));
-
-
+builder.Services.AddScoped<PersonService>();
+builder.Services.AddScoped(typeof(Func<Person>), (sp) => () => sp.GetRequiredService<Person>());
+builder.Services.AddTransient<Person>();
 
 var app = builder.Build();
 

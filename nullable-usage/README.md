@@ -24,13 +24,13 @@ We follow the guidelines below when writing code to properly use nullable syntax
 ```csharp
 public class PersonService
 {
-    readonly IAuthenticationContext _authenticationContext;
+    readonly Func<Person> _newPerson;
     readonly IQueryContext<Person>? _queryContext; // Invalid use of nullable
     ...
 
-    public PersonService(IAuthenticationContext authenticationContext, IQueryContext<Person>? queryContext)
+    public PersonService(Func<Person> newPerson;, IQueryContext<Person>? queryContext)
     {
-        _authenticationContext = authenticationContext;
+        _newPerson = newPerson;
         _queryContext = queryContext;
     }
 }
@@ -117,6 +117,8 @@ public class Person
 ```csharp
 public class PersonService
 {
+    ...
+
     public void AddPerson(string? name)
     {
         if(name is null) throw new ArgumentNullException();
@@ -131,6 +133,8 @@ public class PersonService
 ```csharp
 public class PersonService
 {
+    ...
+
     public void AddPerson(string? name)
     {
         name ??= "John Doe";
@@ -145,6 +149,8 @@ public class PersonService
 ```csharp
 public class PersonService
 {
+    ...
+
     public void AddPerson(
         string? name = default
     )

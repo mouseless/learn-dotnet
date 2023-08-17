@@ -3,13 +3,11 @@
 public class PersonService
 {
     readonly Func<Person> _newPerson;
-    readonly IEntityContext<Person> _entityContext;
     readonly IQueryContext<Person> _queryContext;
 
-    public PersonService(Func<Person> newPerson, IEntityContext<Person> entityContext, IQueryContext<Person> queryContext)
+    public PersonService(Func<Person> newPerson, IQueryContext<Person> queryContext)
     {
         _newPerson = newPerson;
-        _entityContext = entityContext;
         _queryContext = queryContext;
     }
 
@@ -17,7 +15,7 @@ public class PersonService
     {
         if (name is null) throw new ArgumentNullException();
 
-        return _entityContext.Insert(_newPerson().With(name, null));
+        return _newPerson().With(name, null);
     }
 
     public Person AddPerson(
@@ -27,7 +25,12 @@ public class PersonService
     {
         name ??= "John Doe";
 
-        return _entityContext.Insert(_newPerson().With(name, middleName));
+        return _newPerson().With(name, middleName);
+    }
+
+    public void DeletePerson(int id)
+    {
+        _queryContext.SingleById(id)?.Delete();
     }
 
     public IEnumerable<Person> All() => _queryContext.All();
