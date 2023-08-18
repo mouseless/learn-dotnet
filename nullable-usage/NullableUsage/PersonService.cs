@@ -3,12 +3,12 @@
 public class PersonService
 {
     readonly Func<Person> _newPerson;
-    readonly IQueryContext<Person> _queryContext;
+    readonly IFinder finder;
 
-    public PersonService(Func<Person> newPerson, IQueryContext<Person> queryContext)
+    public PersonService(Func<Person> newPerson, IFinder finder)
     {
         _newPerson = newPerson;
-        _queryContext = queryContext;
+        this.finder = finder;
     }
 
     public Person AddPerson(string? name)
@@ -29,13 +29,14 @@ public class PersonService
     }
 
     public void UpdatePerson(
-        int id,
+        string name,
         string? middleName = default
     )
     {
+        if (name is null) { throw new ArgumentNullException(); }
         if (middleName is null) { throw new ArgumentNullException(); }
 
-        var person = _queryContext.SingleById(id);
+        var person = finder.Find(name);
 
         if (person is not null)
         {
@@ -43,11 +44,11 @@ public class PersonService
         }
     }
 
-    public void DeletePerson(int id)
+    public void DeletePerson(string name)
     {
-        _queryContext.SingleById(id)?.Delete();
+        finder.Find(name)?.Delete();
     }
 
-    public IEnumerable<Person> All() => _queryContext.All();
-    public Person? SingleById(int id) => _queryContext.SingleById(id);
+    public IEnumerable<Person> All() => finder.All();
+    public Person? SingleById(string name) => finder.Find(name);
 }

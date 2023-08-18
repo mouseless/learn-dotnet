@@ -24,13 +24,10 @@ We follow the guidelines below when writing code to properly use nullable syntax
 ```csharp
 public class PersonService
 {
-    readonly Func<Person> _newPerson;
-    readonly IQueryContext<Person>? _queryContext; // Invalid use of nullable
-    ...
-
-    public PersonService(Func<Person> newPerson;, IQueryContext<Person>? queryContext)
+    readonly IQueryContext<Person>? _queryContext;
+ 
+    public PersonService(IQueryContext<Person>? queryContext)
     {
-        _newPerson = newPerson;
         _queryContext = queryContext;
     }
 }
@@ -59,21 +56,12 @@ public class Person
 {
     readonly IEntityContext<Person> _context = default!;
 
-    protected Person() { }
     public Person(IEntityContext<Person> context)
     {
         _context = context;
     }
 
-    public int Id { get; }
-    public string Name { get; }
-    public string? MiddleName {get; }
-    public int? Age {get; }
-
-    public Person With(string name, string? middleName, int? age)
-    {
-        ...
-    }
+    ...
 }
 ```
 
@@ -99,9 +87,9 @@ intention wether a parameter is necessary or not.
 ```csharp
 public class Person
 {
-    public string Name { get; }
-    public string? MiddleName { get;}
-    public int? Age { get; }
+    public string Name { get; } = default!;
+    
+    ...
 
     // name is made not nullable to give responsibility to caller
     public virtual Person With(string name)
@@ -171,16 +159,10 @@ public class PersonService
 public class Person
 {
     ...
-
-    public string Name { get; set; } = default!;
-    public string? MiddleName { get; set; }
-
-    ...
-
+    
     public virtual Person With(string name, string? middleName)
     {
-        Name = name;
-        MiddleName = middleName;
+        ...
     }
 }
 
@@ -201,26 +183,11 @@ public class PersonService
 #### Throw relevant exception if parameter is required
 
 ```csharp
-public class Person
-{
-    ...
-
-    public void ChangeMiddleName(string middleName)
-    {
-        ...
-    }
-}
-
 public class PersonService
 {
-    public void UpdatePerson(
-        Person person,
-        string? middleName = default
-    )
+    public void UpdatePerson(string? middleName = default)
     {
         if(middleName is null) throw new ArgumentNullException();
-
-        person.ChangeMiddleName(middleName)
     }
 }
 ```
@@ -228,16 +195,6 @@ public class PersonService
 #### Assign default value
 
 ```csharp
-public class Person
-{
-    ...
-
-    public void ChangeMiddleName(string middleName)
-    {
-        ...
-    }
-}
-
 public class PersonService
 {
     public void UpdateEntity(
@@ -272,7 +229,7 @@ public class PersonService{
 }
 ```
 
-#### Correct use of ?. operator
+#### Use ?. operator for intended nullables
 
 ```csharp
 public class Person{
@@ -285,20 +242,6 @@ public class Person{
     {
         Child?.Delete();
         ...
-    }
-}
-
-public class PersonService{
-
-    ...
-
-    public void DeletePerson(int id)
-    {
-        var result = _queryContext.SingleById(id);
-
-        if(result is null) { throw new InvalidOperationException(); }
-
-        result.Delete();
     }
 }
 ```
@@ -316,7 +259,7 @@ and `Nullable.GetUnderlyingType(T)` for reference types are null.
 ```csharp
 public class Person
 {
-    public string Name { get; }
+    public string Name { get; } = default!;
     public string? MiddleName { get; }
     public int? Age { get; }
 }
@@ -347,21 +290,13 @@ documentation for further details.
 ```csharp
 public class Person
 {
-    ...
-    public string? MiddleName { get; }
-
-    public Person(string name, string? middleName = default)
-    {
-        ...
-    }
-
     public string? InitialName =>
         Name.Length > MiddleName?.Length ? Name : MiddleName;
 }
 
 #main
 
-var person = new Person("John");
+var person = new Person(name: "John");
 
 Console.WriteLine(person.FullName()) // 
 

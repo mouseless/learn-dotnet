@@ -1,35 +1,16 @@
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using NullableUsage;
 
-var builder = WebApplication.CreateBuilder(args);
+var serviceCollection = new ServiceCollection();
 
-// Add services to the container.
+serviceCollection.AddSingleton(typeof(IFinder), (sp) => sp.GetRequiredService<Persons>());
+serviceCollection.AddSingleton<PersonService>();
+serviceCollection.AddSingleton<Persons>();
+serviceCollection.AddSingleton(typeof(Func<Person>), (sp) => () => sp.GetRequiredService<Person>());
+serviceCollection.AddTransient<Person>();
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+var serviceProvider = serviceCollection.BuildServiceProvider();
 
-builder.Services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("nullable-usage.db"));
-builder.Services.AddTransient(typeof(IEntityContext<>), typeof(EntityContext<>));
-builder.Services.AddScoped(typeof(IQueryContext<>), typeof(QueryContext<>));
-builder.Services.AddScoped<PersonService>();
-builder.Services.AddScoped(typeof(Func<Person>), (sp) => () => sp.GetRequiredService<Person>());
-builder.Services.AddTransient<Person>();
+var personService = serviceProvider.GetRequiredService<PersonService>();
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+Console.WriteLine("Hello world");

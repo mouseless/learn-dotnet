@@ -2,29 +2,28 @@
 
 namespace NullableUsage;
 
-
 public class Person
 {
     [NotMapped]
-    readonly IEntityContext<Person> _context = default!;
+    readonly Persons _context = default!;
 
     protected Person() { }
-    public Person(IEntityContext<Person> context)
+    public Person(Persons context)
     {
         _context = context;
     }
 
-    public int Id { get; set; }
     public string Name { get; private set; } = default!;
     public string? MiddleName { get; private set; }
-    public int? Age { get; set; }
     public string? InitialName => Name.Length > MiddleName?.Length ? Name : MiddleName;
 
     public Person With(string name)
     {
         Name = name;
 
-        return _context.Insert(this);
+        _context.Add(this);
+
+        return this;
     }
 
     public Person With(string name, string? middleName)
@@ -32,12 +31,14 @@ public class Person
         Name = name;
         MiddleName = middleName;
 
-        return _context.Insert(this);
+        _context.Add(this);
+
+        return this;
     }
 
     public void Delete()
     {
-        _context.Delete(this);
+        _context.Remove(this);
     }
 
     public void ChangeMiddleName(string middleName)
