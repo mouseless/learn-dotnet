@@ -49,6 +49,5 @@ public class PersonService
         finder.Find(name)?.Delete();
     }
 
-    public IEnumerable<Person> All() => finder.All();
-    public Person? SingleById(string name) => finder.Find(name);
+    public List<Person> AllPersons() => finder.All();
 }

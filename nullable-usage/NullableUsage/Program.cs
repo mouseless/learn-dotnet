@@ -13,4 +13,15 @@ var serviceProvider = serviceCollection.BuildServiceProvider();
 
 var personService = serviceProvider.GetRequiredService<PersonService>();
 
-Console.WriteLine("Hello world");
+personService.AddPerson();
+personService.AddPerson("Mike", "Hamilton");
+personService.AddPerson("Brian", "Max");
+
+personService.UpdatePerson("Brian", "Michael");
+
+personService.DeletePerson("Mike");
+
+foreach (var person in personService.AllPersons())
+{
+    Console.WriteLine($"Name:{person.Name}, MiddleName: {person.MiddleName}, InitialName: {person.InitialName}");
+}
