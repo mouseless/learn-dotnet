@@ -1,10 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace NullableUsage;
+﻿namespace NullableUsage;
 
 public class Person
 {
-    [NotMapped]
     readonly Persons _context = default!;
 
     protected Person() { }
@@ -17,15 +14,7 @@ public class Person
     public string? MiddleName { get; private set; }
     public string? InitialName => Name.Length > MiddleName?.Length ? Name : MiddleName;
 
-    public Person With(string name)
-    {
-        Name = name;
-
-        _context.Add(this);
-
-        return this;
-    }
-
+    public Person With(string name) => With(name, null);
     public Person With(string name, string? middleName)
     {
         Name = name;
@@ -36,13 +25,7 @@ public class Person
         return this;
     }
 
-    public void Delete()
-    {
-        _context.Remove(this);
-    }
+    public void ChangeMiddleName(string middleName) => MiddleName = middleName;
 
-    public void ChangeMiddleName(string middleName)
-    {
-        MiddleName = middleName;
-    }
+    public void Delete() => _context.Remove(this);
 }

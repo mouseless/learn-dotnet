@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using NullableUsage;
 
 var serviceCollection = new ServiceCollection();
@@ -8,6 +9,13 @@ serviceCollection.AddSingleton<PersonService>();
 serviceCollection.AddSingleton<Persons>();
 serviceCollection.AddSingleton(typeof(Func<Person>), (sp) => () => sp.GetRequiredService<Person>());
 serviceCollection.AddTransient<Person>();
+serviceCollection.AddSingleton<Json>();
+
+serviceCollection.AddLogging(options =>
+{
+    options.AddConsole();
+    options.SetMinimumLevel(LogLevel.Debug);
+});
 
 var serviceProvider = serviceCollection.BuildServiceProvider();
 
@@ -19,9 +27,6 @@ personService.AddPerson("Brian", "Max");
 
 personService.UpdatePerson("Brian", "Michael");
 
-personService.DeletePerson("Mike");
+personService.DeletePerson("Mikey");
 
-foreach (var person in personService.AllPersons())
-{
-    Console.WriteLine($"Name:{person.Name}, MiddleName: {person.MiddleName}, InitialName: {person.InitialName}");
-}
+personService.DisplayPeople();

@@ -1,31 +1,41 @@
-﻿namespace NullableUsage;
+﻿using Microsoft.Extensions.Logging;
+
+namespace NullableUsage;
 
 public class PersonService
 {
     readonly Func<Person> _newPerson;
-    readonly IFinder finder;
+    readonly IFinder _finder;
+    readonly ILogger<PersonService> _logger;
+    readonly Json _json;
 
-    public PersonService(Func<Person> newPerson, IFinder finder)
+    public PersonService(Func<Person> newPerson, IFinder finder, ILogger<PersonService> logger, Json json)
     {
         _newPerson = newPerson;
-        this.finder = finder;
+        _finder = finder;
+        _logger = logger;
+        _json = json;
     }
 
-    public Person AddPerson(string? name)
+    public void AddPerson(string? name)
     {
         if (name is null) { throw new ArgumentNullException(); }
 
-        return _newPerson().With(name, null);
+        AddPerson(name, null);
     }
 
-    public Person AddPerson(
+    public void AddPerson(
         string? name = default,
         string? middleName = default
     )
     {
+        _logger.LogInformation($"Try adding person => name: {name}, middleName: {middleName}");
+
         name ??= "John Doe";
 
-        return _newPerson().With(name, middleName);
+        var person = _newPerson().With(name, middleName);
+
+        _logger.LogDebug($"Added person => {_json.SerializeWithFormat(person)}");
     }
 
     public void UpdatePerson(
@@ -33,21 +43,37 @@ public class PersonService
         string? middleName = default
     )
     {
+        _logger.LogInformation($"Try updating person => name: {name}, middleName: {middleName}");
+
         if (name is null) { throw new ArgumentNullException(); }
         if (middleName is null) { throw new ArgumentNullException(); }
 
-        var person = finder.Find(name);
+        var person = _finder.Find(name);
 
         if (person is not null)
         {
             person.ChangeMiddleName(middleName);
+
+            _logger.LogDebug($"Updated person => {_json.SerializeWithFormat(person)}");
         }
     }
 
     public void DeletePerson(string name)
     {
-        finder.Find(name)?.Delete();
+        _logger.LogInformation($"Try deleting person=> name: {name}");
+
+        var person = _finder.Find(name);
+
+        if (person is not null)
+        {
+            person.Delete();
+
+            _logger.LogDebug($"Deleted person=> {name}");
+        }
     }
 
-    public List<Person> AllPersons() => finder.All();
+    public void DisplayPeople()
+    {
+        _logger.LogInformation($"People=>{_json.SerializeWithFormat(_finder.All())}");
+    }
 }
