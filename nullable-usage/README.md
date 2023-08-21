@@ -104,15 +104,19 @@ public class Person
 #### Check for value and throw a relevant exception
 
 ```csharp
-public class PersonService
+public record AddPerson(string? Name);
+
+public class PersonService : IPersonService
 {
     ...
 
-    public void AddPerson(string? name)
+    public void AddPerson(string name) => _newPerson().With(name);
+    
+    void IPersonService.AddPerson(AddPerson data)
     {
-        if(name is null) throw new ArgumentNullException();
+        if(data.name is null) throw new ArgumentNullException();
 
-        _newPerson().With(name);
+        AddPerson(data.Name);
     }
 }
 ```
