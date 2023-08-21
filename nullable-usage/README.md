@@ -114,7 +114,7 @@ public class PersonService : IPersonService
     
     void IPersonService.AddPerson(AddPerson data)
     {
-        if(data.name is null) throw new ArgumentNullException();
+        if(data.Name is null) throw new ArgumentNullException();
 
         AddPerson(data.Name);
     }
