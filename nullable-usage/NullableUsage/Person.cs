@@ -14,8 +14,7 @@ public class Person
     public string? MiddleName { get; private set; }
     public string? InitialName => Name.Length > MiddleName?.Length ? Name : MiddleName;
 
-    public Person With(string name) => With(name, null);
-    public Person With(string name, string? middleName)
+    public Person With(string name, string? middleName = default)
     {
         Name = name;
         MiddleName = middleName;

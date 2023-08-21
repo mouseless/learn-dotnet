@@ -19,7 +19,7 @@ public class PersonService
 
     public void AddPerson(string? name)
     {
-        if (name is null) { throw new ArgumentNullException(); }
+        if (name is null) { throw new ArgumentNullException(nameof(name)); }
 
         AddPerson(name, null);
     }
@@ -40,13 +40,13 @@ public class PersonService
 
     public void UpdatePerson(
         string name,
-        string? middleName = default
+        string middleName
     )
     {
         _logger.LogInformation($"Try updating person => name: {name}, middleName: {middleName}");
 
-        if (name is null) { throw new ArgumentNullException(); }
-        if (middleName is null) { throw new ArgumentNullException(); }
+        if (name is null) { throw new ArgumentNullException(nameof(name)); }
+        if (middleName is null) { throw new ArgumentNullException(nameof(middleName)); }
 
         var person = _finder.Find(name);
 
