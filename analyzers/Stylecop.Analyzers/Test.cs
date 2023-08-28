@@ -2,13 +2,13 @@
 
 public class Test
 {
-    private readonly string name;
-
-    public int MyProperty { get; set; }
+    private readonly string _name;
 
     public Test()
     {
     }
+
+    public int MyProperty { get; set; }
 
     private string TestMethod()
     {

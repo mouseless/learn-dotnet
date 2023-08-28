@@ -14,7 +14,11 @@
     <Rule Id="SX1101" Action="Warning" />
   </Rules>
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
+    <Rule Id="SA1309" Action="None" />
+    <Rule Id="SA1310" Action="None" />
     <Rule Id="SA1518" Action="Error" />
+    <Rule Id="SA1633" Action="None" />
+    <Rule Id="SX1309" Action="Error" />
   </Rules>
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers.SpacingRules">
     <Rule Id="SA1028" Action="Warning" />
