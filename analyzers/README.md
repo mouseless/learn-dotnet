@@ -31,11 +31,9 @@ we override the ruleset.
 
 `Stylecop.Analyzers.csproj`
 ```xml
-...
-  <PropertyGroup>
-    <CodeAnalysisRuleSet>stylecop.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-...
+<PropertyGroup>
+  <CodeAnalysisRuleSet>stylecop.ruleset</CodeAnalysisRuleSet>
+</PropertyGroup>
 ```
 
 See [StyleCopAnalyzers/documentation](https://github.com/DotNetAnalyzers/StyleCopAnalyzers/tree/master/documentation)
