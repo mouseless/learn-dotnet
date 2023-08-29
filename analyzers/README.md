@@ -18,9 +18,10 @@ to see how we write code using our coding style standards.
 ### `stylecop.ruleset`
 
 We use `stylecop.ruleset` to override Stylecop's default ruleset. We enabled
-the rules that are compatible with our coding style standards and disabled the
-rest. Changed severity of the enabled rules to error, so that we get an error
-from github actions build if the commit contains non standard code. See
+the rules that are compatible with our coding style standards and disabled
+all the other rules. Changed severity of the enabled rules to error, by doing so
+we get an error from our github actions, if a code that does not follow our
+standard coding style is commited. See
 [stylecop.ruleset](/analyzers/Stylecop.Analyzers/stylecop.ruleset) to see how
 we override the ruleset.
 
