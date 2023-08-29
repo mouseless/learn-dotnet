@@ -28,10 +28,13 @@ we override the ruleset.
 >
 > `stylecop.ruleset` must be included in `.csproj`.
 
+`Stylecop.Analyzers.csproj`
 ```xml
+...
   <PropertyGroup>
     <CodeAnalysisRuleSet>stylecop.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+...
 ```
 
 See [StyleCopAnalyzers/documentation](https://github.com/DotNetAnalyzers/StyleCopAnalyzers/tree/master/documentation)
