@@ -8,8 +8,12 @@ ensure standardized code writing.
 We use `Stylecop.Analyzers` to analyze source code and provide consistent and
 standardized coding styles.
 
-See [Stylecop.Analyzers.csproj](/Stylecop.Analyzers/Stylecop.Analyzers.csproj)
+See [Stylecop.Analyzers.csproj](/analyzers/Stylecop.Analyzers/Stylecop.Analyzers.csproj)
 to see how we added it.
+
+You can check
+[ConventionallyCorrect.cs](/analyzers/Stylecop.Analyzers/ConventionallyCorrect.cs)
+to see how we write code using our conventions.
 
 ### `stylecop.ruleset`
 
