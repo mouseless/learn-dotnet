@@ -7,13 +7,12 @@ standardized coding styles. See
 [Stylecop.Analyzers.csproj](/Stylecop.Analyzers/Stylecop.Analyzers.csproj) to
 see how we added it.
 
-### `stylecop.json`
-
-...
-
 ### `stylecop.ruleset`
 
-...
+We use `stylecop.ruleset` to override Stylecop's default ruleset and change
+some rules to give error instead of warning and not build. See
+[stylecop.ruleset](/analyzers/Stylecop.Analyzers/stylecop.ruleset) to see how
+we override the ruleset.
 
 ### Rules
 
