@@ -44,7 +44,7 @@ to see all the rules.
 ##### Spacing Rules
 
 | Name | Code |
-| :---: | :---: |
+| --- | --- |
 | KeywordsMustBeSpacedCorrectly | SA1000 |
 | CommasMustBeSpacedCorrectly | SA1001 |
 | SemicolonsMustBeSpacedCorrectly | SA1002 |
@@ -68,7 +68,7 @@ to see all the rules.
 ##### Readability Rules
 
 | Name | Code |
-| :---: | :---: |
+| --- | --- |
 | CodeMustNotContainEmptyStatements | SA1106 |
 | CodeMustNotContainMultipleStatementsOnOneLine | SA1107 |
 | ClosingParenthesisMustBeOnLineOfOpeningParenthesis | SA1112 |
@@ -92,7 +92,7 @@ to see all the rules.
 ##### Ordering Rules
 
 | Name | Code |
-| :---: | :---: |
+| --- | --- |
 | UsingDirectivesMustBePlacedCorrectly | SA1200 |
 | ElementsMustAppearInTheCorrectOrder | SA1201 |
 | StaticElementsMustAppearBeforeInstanceElements | SA1204 |
@@ -103,7 +103,7 @@ to see all the rules.
 ##### Naming Rules
 
 | Name | Code |
-| :---: | :---: |
+| --- | --- |
 | ElementMustBeginWithUpperCaseLetter | SA1300 |
 | FieldNamesMustBeginWithLowerCaseLetter | SA1306 |
 | AccessibleFieldsMustBeginWithUpperCaseLetter | SA1307 |
@@ -116,13 +116,13 @@ to see all the rules.
 ##### Maintainability Rules
 
 | Name | Code |
-| :---: | :---: |
+| --- | --- |
 | FileMayOnlyContainASingleNamespace | SA1403 |
 
 ##### Layout Rules
 
 | Name | Code |
-| :---: | :---: |
+| --- | --- |
 | OpeningBracesMustNotBeFollowedByBlankLine | SA1505 |
 | ClosingBracesMustNotBePrecededByBlankLine | SA1508 |
 | OpeningBracesMustNotBePrecededByBlankLine | SA1509 |
@@ -131,11 +131,11 @@ to see all the rules.
 ##### Documentation Rules
 
 | Name | Code |
-| :---: | :---: |
+| --- | --- |
 | FileNameMustMatchTypeName | SA1649 |
 
 ##### Alternative Rules
 
 | Name | Code |
-| :---: | :---: |
+| --- | --- |
 | FieldNamesMustBeginWithUnderscore | SX1309 |
