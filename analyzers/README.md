@@ -76,10 +76,8 @@ to see all the rules.
 | ParameterMustFollowComma | SA1115 |
 | SplitParametersMustStartOnLineAfterDeclaration | SA1116 |
 | ParametersMustBeOnSameLineOrSeparateLines | SA1117 |
-| UseBuiltInTypeAlias | SA1121 |
 | UseStringEmptyForEmptyStrings | SA1122 |
 | UseShorthandForNullableTypes | SA1125 |
-| GenericTypeConstraintsMustBeOnOwnLine | SA1127 |
 | ConstructorInitializerMustBeOnOwnLine | SA1128 |
 | UseLambdaSyntax | SA1130 |
 | UseReadableConditions | SA1131 |
@@ -93,8 +91,6 @@ to see all the rules.
 
 | Name | Code |
 | --- | --- |
-| UsingDirectivesMustBePlacedCorrectly | SA1200 |
-| ElementsMustAppearInTheCorrectOrder | SA1201 |
 | StaticElementsMustAppearBeforeInstanceElements | SA1204 |
 | UsingDirectivesMustBeOrderedAlphabeticallyByNamespace | SA1210 |
 | UsingAliasDirectivesMustBeOrderedAlphabeticallyByAliasName | SA1211 |
@@ -109,8 +105,6 @@ to see all the rules.
 | AccessibleFieldsMustBeginWithUpperCaseLetter | SA1307 |
 | VariableNamesMustNotBePrefixed | SA1308 |
 | StaticReadonlyFieldsMustBeginWithUpperCaseLetter | SA1311 |
-| VariableNamesMustBeginWithLowerCaseLetter | SA1312 |
-| ParameterNamesMustBeginWithLowerCaseLetter | SA1313 |
 | TypeParameterNamesMustBeginWithT | SA1314 |
 
 ##### Maintainability Rules
