@@ -1,6 +1,6 @@
 # Nullable Usage
 
-Nullable types gives the ability to the compiler to check for possible 
+Nullable types gives the ability to the compiler to check for possible
 null return values or not assigned members to detect possibility of any
 _NullPointerException_ which may ocuur at runtime.
 
@@ -36,16 +36,16 @@ public class PersonService
 > :information_source:
 >
 > The DI container will resolve every dependency before initalizing the object
-> and an exception will be thrown for a if a component is not registered. 
+> and an exception will be thrown for a if a component is not registered.
 > Therefore, there is no possibility of dependency to be null.
 
 ### Avoid using ! (null-forgiving) operator
 
-The usage of ! operator negates the null check that the compiler performs, so 
+The usage of ! operator negates the null check that the compiler performs, so
 the whole intention of enabling nullable check will be compromised and it
 will be very hard to spot possible bugs which may occur at runtime.
 
-! operator should only be used to dismiss the compiler errors when we set 
+! operator should only be used to dismiss the compiler errors when we set
 default values for non nullable members which are;
 
 - Assigned with dependency injection
@@ -67,17 +67,16 @@ public class Person
 
 > :information_source:
 >
-> Because of NHibernate, entities need a _protected_ parameterless constructor 
-> and compiler will highlight an error stating that the value of __context_ is 
-> not assigned when leaving a constructor. Therefore we need to assign a 
+> Because of NHibernate, entities need a _protected_ parameterless constructor
+> and compiler will highlight an error stating that the value of __context_ is
+> not assigned when leaving a constructor. Therefore we need to assign a
 > default value to __context_ to dismiss the compiler error.  
-
 
 ### Always manage nullable parameters
 
-When using nullable parameters, the main challenge is to manage what happens 
-within the scope of the method if a parameter has not been assigned with any 
-value. 
+When using nullable parameters, the main challenge is to manage what happens
+within the scope of the method if a parameter has not been assigned with any
+value.
 
 We should always make sure the functionality is not broken and cause a wrong
 intention wether a parameter is necessary or not.
@@ -122,7 +121,7 @@ public class PersonService : IPersonService
 ```
 
 #### Assign a default value if parameter is nullable
- 
+
 ```csharp
 public class PersonService
 {
@@ -215,7 +214,7 @@ public class PersonService
 
 ### Using ?. (null-check) operator
 
-#### Dont use ?. operator for if affects request-response 
+#### Dont use ?. operator for if affects request-response
 
 ```csharp
 public class PersonService{
@@ -252,8 +251,8 @@ public class Person{
 
 ### Type of a nullable
 
-Nullable Reference Types are different than Value Types and they only 
-instruct the compiler about members or parameters that they can be null. 
+Nullable Reference Types are different than Value Types and they only
+instruct the compiler about members or parameters that they can be null.
 Therefore 
  - ```string?``` is not a ```Nullable<string>```  
  - ```int?``` is a ```Nullable<int>```
@@ -285,11 +284,10 @@ Console.WriteLine(Nullable.GetUnderlyingType(agePropertyType)); // System.Int32
 ### Comparison operators with nullables
 
 When used for comparing nullables, the operator returns false if one side
-of the comparison is null. 
+of the comparison is null.
 
-See official [Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types#lifted-operators) 
+See official [Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types#lifted-operators)
 documentation for further details.
-
 
 ```csharp
 public class Person
