@@ -15,7 +15,6 @@ jobs:
         with:
           dotnet-version: |
             7.0.x
-      - name: Move project dir
-        run: cd source-generator
       - name: Build Solution
+        working-directory: ./source-generator
         run: dotnet build -c Release
