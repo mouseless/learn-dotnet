@@ -6,6 +6,9 @@ config=$2
 netversion=$3
 generatepath=$4
 
+generatepath=${generatepath%
+}"
+
 cli=$basedir/../Cli/bin/$config/$netversion/Cli
 
 echo "cli: $cli - ../Domain/$generatepath/CodeGen/CodeGen.JsonSchemaGenerator/Domain.generated.cs - generatePath: $generatepath - generatePathSlash: $generatepath/"
