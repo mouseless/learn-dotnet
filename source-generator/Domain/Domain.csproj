@@ -28,7 +28,7 @@
 
   <Target Name="PostBuild" AfterTargets="Build">
     <Exec Command="powershell.exe -executionpolicy remotesigned $(ProjectDir)\postBuild.ps1 $(TargetDir) $(ConfigurationName) $(TargetFramework) $(CompilerGeneratedFilesOutputPath)" Condition="'$(OS)' != 'Unix'" />
-    <Exec Command="sh $(ProjectDir)postBuild.sh '$(TargetDir)' '$(ConfigurationName)' '$(TargetFramework)' $(CompilerGeneratedFilesOutputPath)" Condition="'$(OS)' == 'Unix'" />
+    <Exec Command="sh $(ProjectDir)postBuild.sh '$(TargetDir)' '$(ConfigurationName)' '$(TargetFramework)' '$(CompilerGeneratedFilesOutputPath)'" Condition="'$(OS)' == 'Unix'" />
   </Target>
 
 </Project>
