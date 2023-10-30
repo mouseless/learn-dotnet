@@ -6,6 +6,8 @@ public class Domain : ICommand
 {
     public void Execute(string input, string output)
     {
+        Console.WriteLine($"Domain.cs input: {input}");
+
         var generatedCode = File.ReadAllText(input);
 
         string pattern = @"===JSON BEGIN===\s*(.*?)\s*===JSON END===";
