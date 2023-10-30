@@ -10,6 +10,7 @@ generatepath=$(echo $generatepath | sed -e 's/\r//g')
 
 cli=$basedir/../Cli/bin/$config/$netversion/Cli
 
-echo "cli: $cli - ../Domain/$generatepath/CodeGen/CodeGen.JsonSchemaGenerator/Domain.generated.cs - generatePath: $generatepath - generatePathSlash: $generatepath/"
+cd ../Domain/$generatepath/CodeGen/CodeGen.JsonSchemaGenerator/
+echo $(ls)
 
 eval $cli domain ../Domain/$generatepath/CodeGen/CodeGen.JsonSchemaGenerator/Domain.generated.cs ../Domain/$generatepath/CodeGen/CodeGen.JsonSchemaGenerator/Domain.schema.json
