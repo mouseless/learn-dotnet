@@ -6,8 +6,7 @@ config=$2
 netversion=$3
 generatepath=$4
 
-generatepath=${generatepath%
-}"
+generatepath=$(echo $generatepath | sed -e 's/\r//g')
 
 cli=$basedir/../Cli/bin/$config/$netversion/Cli
 
