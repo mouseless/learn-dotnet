@@ -38,6 +38,47 @@ static T Add<T>(T left, T right)
 }
 ```
 
+## Central Package Management
+
+To use it, add `Directory.Packages.props` file. In this file, set the `MSBuild`
+property `ManagePackageVersionsCentrally` to `true` and add versions for common
+package dependency using `PackageVersion` items.
+
+Inside, you then define each of the respective package versions required of
+your projects using `<PackageVersion />` elements that define the package `ID`
+and version.
+
+[Directory.Packages.props]
+```xml
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+</Project>
+```
+
+For each project, you then define a `<PackageReference />` but omit the
+`Version` attribute since the version will be attained from a corresponding
+`<PackageVersion />` item.
+
+[.csproj]
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" />
+  </ItemGroup>
+</Project>
+```
+
+If you had multiple `Directory.Packages.props` files in your repository then
+read [this](https://learn.microsoft.com/en-us/nuget/consume-packages/Central-Package-Management#central-package-management-rules).
+
 ## dotnet workload command
 
 ## [Source generation for platform invokes](https://learn.microsoft.com/en-us/dotnet/standard/native-interop/pinvoke-source-generation)
