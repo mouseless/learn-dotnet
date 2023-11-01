@@ -1,7 +1,5 @@
 # ASP.NET Core 7.0
 
-## Rate limiting middleware in ASP.NET Core
-
 ## Authentication uses single scheme as DefaultScheme
 
 Starting in ASP.NET Core 7.0, if (and only if) a single scheme is registered
@@ -123,7 +121,7 @@ app.MapPost("/todo2/{id}", async (int id, Todo todo, TodoDb db) =>
 });
 ```
 
-## extension methods `WithDescription` and `WithSummary` or use attributes `[EndpointDescription]` and `[EndpointSummary]`
+## Extension methods `WithDescription` and `WithSummary` or use attributes `[EndpointDescription]` and `[EndpointSummary]`
 
 ## File uploads using `IFormFile` and `IFormFileCollection`
 

@@ -1,50 +1,5 @@
 # Net 7
 
-## Rate limit an HTTP handler in .NET
-
-Gelen http isteklerini sınırlandırabiliriyoruz.
-
-## Coding Style
-
-### csharp_style_prefer_null_check_over_type_check
-
-```csharp
-// Violates IDE0150.
-if (numbers is not IEnumerable<int>) ...
-
-// Fixed code.
-if (numbers is null) ...
-```
-
-### csharp_style_prefer_extended_property_pattern
-
-```csharp
-public record Point(int X, int Y);
-public record Segment(Point Start, Point End);
-
-// Violates IDE0170.
-static bool IsEndOnXAxis(Segment segment) =>
-    segment is { Start: { Y: 0 } } or { End: { Y: 0 } };
-
-// Fixed code.
-static bool IsEndOnXAxis(Segment segment) =>
-    segment is { Start.Y: 0 } or { End.Y: 0 };
-```
-
-### csharp_style_prefer_tuple_swap
-
-```csharp
-List<int> numbers = new List<int>() { 5, 6, 4 };
-
-// Violates IDE0180.
-int temp = numbers[0];
-numbers[0] = numbers[1];
-numbers[1] = temp;
-
-// Fixed code.
-(numbers[1], numbers[0]) = (numbers[0], numbers[1]);
-```
-
 ## .NET regular expression source generators
 
 ```csharp
@@ -82,11 +37,6 @@ static T Add<T>(T left, T right)
     return left + right;
 }
 ```
-
-## Containerize a .NET app with dotnet publish
-
-Container images are now a supported output type of the .NET SDK, and you can
-create containerized versions of your applications using dotnet publish.
 
 ## dotnet workload command
 
