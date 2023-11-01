@@ -7,4 +7,4 @@ generatepath="$4"
 
 cli="$basedir/../Cli/bin/$config/$netversion/Cli"
 
-eval "$cli" "domain ../Domain/$generatepath/CodeGen/CodeGen.JsonSchemaGenerator/Domain.generated.cs" "../Domain/$generatepath/CodeGen/CodeGen.JsonSchemaGenerator/Domain.schema.json"
+eval "$cli" "domain" "../Domain/$generatepath/CodeGen/CodeGen.JsonSchemaGenerator/Domain.generated.cs" "../Domain/$generatepath/CodeGen/CodeGen.JsonSchemaGenerator/Domain.schema.json"
