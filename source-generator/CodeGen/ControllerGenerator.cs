@@ -30,7 +30,7 @@ public class ControllerGenerator : IIncrementalGenerator
                 .Select(additionalFile => additionalFile.GetText())
                 .FirstOrDefault();
 
-            List<ServiceModel> serviceModels = jsonSchemaText.Deserialize<List<ServiceModel>>();
+            var serviceModels = jsonSchemaText?.Deserialize<List<ServiceModel>>() ?? throw new ArgumentNullException();
 
             serviceModels.ForEach(serviceModel =>
                 context.AddSource($"{serviceModel.Name}Controller.generated.cs", ControllerTemplate(serviceModel))
@@ -50,7 +50,7 @@ namespace {source.TargetNamespace};
 [Route("""")]
 public class {source.Name}Controller : ControllerBase
 {{
-{string.Join("", source.Operations.Select(operation =>
+{string.Join(string.Empty, source.Operations.Select(operation =>
 $@"
     [HttpGet(""/{source.Name}/{operation.Name}"")]
     public {operation.Type} {operation.Name}()
