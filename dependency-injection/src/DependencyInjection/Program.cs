@@ -12,8 +12,7 @@ builder.Services.AddSingleton<Singleton>();
 builder.Services.AddSingleton<Func<Scoped>>(sp => () => sp.GetRequiredServiceUsingRequestServices<Scoped>());
 builder.Services.AddScoped<Scoped>();
 
-builder.Services.AddSingleton<Func<Transient>>(sp => () => sp.GetRequiredServiceUsingRequestServices<Transient>());
-builder.Services.AddTransient<Transient>();
+builder.Services.AddTransientWithFactory(typeof(Transient));
 
 var app = builder.Build();
 
