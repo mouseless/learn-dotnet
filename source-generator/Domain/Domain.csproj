@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <LangVersion>10.0</LangVersion>
+    <TargetFramework>net7.0</TargetFramework>
+    <LangVersion>11.0</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
@@ -28,7 +28,7 @@
 
   <Target Name="PostBuild" AfterTargets="Build">
     <Exec Command="powershell.exe -executionpolicy remotesigned $(ProjectDir)\postBuild.ps1 $(TargetDir) $(ConfigurationName) $(TargetFramework) $(CompilerGeneratedFilesOutputPath)" Condition="'$(OS)' != 'Unix'" />
-    <Exec Command="sh $(ProjectDir)postBuild.sh '$(TargetDir)' '$(ConfigurationName)' '$(TargetFramework)'" Condition="'$(OS)' == 'Unix'" />
+    <Exec Command="sh $(ProjectDir)postBuild.sh '$(TargetDir)' '$(ConfigurationName)' '$(TargetFramework)' '$(CompilerGeneratedFilesOutputPath)'" Condition="'$(OS)' == 'Unix'" />
   </Target>
 
 </Project>

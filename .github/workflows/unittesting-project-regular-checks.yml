@@ -8,16 +8,16 @@ jobs:
   build:
     name: Build & Test
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./unit-testing/test
     steps:
       - uses: actions/checkout@v3
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: |
-            6.0.x
+          dotnet-version: 7
       - name: Build Solution
-        working-directory: ./unit-testing/test
         run: dotnet build
       - name: Run Tests
-        working-directory: ./unit-testing/test
         run: dotnet test
