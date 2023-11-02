@@ -1,16 +1,15 @@
-name: Central Package Management - Regular Checks
+name: Projects - Regular Checks
+
 on:
   pull_request:
-    paths:
-      - 'central-package-management/**'
+    branches:
+      - main
+      - 'epic/**'
 
 jobs:
   build:
-    name: Build
+    name: Build & Test
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./central-package-management
     steps:
       - uses: actions/checkout@v3
       - name: Setup .NET
@@ -18,4 +17,6 @@ jobs:
         with:
           dotnet-version: 7
       - name: Build Solution
-        run: dotnet build -c Release
+        run: dotnet build
+      - name: Run Tests
+        run: dotnet test
