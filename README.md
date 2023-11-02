@@ -25,3 +25,8 @@ To see how we use nullable, visit [Nullable Usage](/nullable-usage/README.md).
 ## Analyzers
 
 To see how we use Stylecop.Analyzers, visit [Stylecop.Analyzers Usage](/analyzers/README.md).
+
+## Central Package Manager
+
+To see how we manage packages from the center, visit
+[Central Package Manager](/central-package-management/README.md).
