@@ -4,6 +4,6 @@ namespace NullableUsage;
 
 public class Json
 {
-    public string SerializeWithFormat(object @object) => 
+    public string SerializeWithFormat(object @object) =>
         JsonSerializer.Serialize(@object, options: new JsonSerializerOptions { WriteIndented = true });
 }

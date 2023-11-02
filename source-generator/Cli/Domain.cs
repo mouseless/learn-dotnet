@@ -11,7 +11,7 @@ public class Domain : ICommand
         string pattern = @"===JSON BEGIN===\s*(.*?)\s*===JSON END===";
         Match match = Regex.Match(generatedCode, pattern);
 
-        string capturedText = "";
+        string capturedText = string.Empty;
 
         if (match.Success)
         {
