@@ -11,6 +11,12 @@ to true so that projects can see the packages introduced here. With
 
 Look [Directory.Packages.props](Directory.Packages.props) for example
 
+> :information_box:
+>
+> If you had multiple `Directory.Packages.props` files in your repository, the
+> file that is closest to your project's directory will be evaluated for it and
+> it must manually import the next one if so desired.
+
 ## In `.csproj`
 
 All that is done here is to add the package without the version number. You can
