@@ -13,4 +13,7 @@ Look [Directory.Packages.props](Directory.Packages.props) for example
 
 ## In `.csproj`
 
-All that is done here is to add the package without the version number.
+All that is done here is to add the package without the version number. You can
+override an individual package version by using the `VersionOverride` property
+on a `<PackageReference />` item. This overrides any `<PackageVersion />`
+defined centrally.
