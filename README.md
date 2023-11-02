@@ -25,7 +25,3 @@ To see how we use nullable, visit [Nullable Usage](/nullable-usage/README.md).
 ## Analyzers
 
 To see how we use Stylecop.Analyzers, visit [Stylecop.Analyzers Usage](/analyzers/README.md).
-
-## .Net 7 update
-
-To see our .Net 7 update documentation, visit [.Net 7 update](/net-7-update/README.md).
