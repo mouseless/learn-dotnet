@@ -8,6 +8,9 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./analyzers/Stylecop.Analyzers
     steps:
       - uses: actions/checkout@v3
       - name: Setup .NET
@@ -16,6 +19,5 @@ jobs:
           dotnet-version: |
             7.0.x
       - name: Build Solution
-        working-directory: ./analyzers/Stylecop.Analyzers
         run: |
           dotnet build -c Release
