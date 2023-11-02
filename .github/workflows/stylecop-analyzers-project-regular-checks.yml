@@ -16,6 +16,6 @@ jobs:
           dotnet-version: |
             7.0.x
       - name: Build Solution
+        working-directory: ./analyzers/Stylecop.Analyzers
         run: |
-          cd analyzers/Stylecop.Analyzers
           dotnet build -c Release
