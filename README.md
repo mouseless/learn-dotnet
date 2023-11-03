@@ -35,3 +35,8 @@ To see how we manage packages from the center, visit
 
 To see how we publish over dockerfile, visit
 [Publish Over Dockerfile](/publish-over-dockerfile/README.md).
+
+## Regex Source Generators
+
+To see how we use regex source generators, visit
+[Regex Source Generators](/regex-source-generators/README.md).
