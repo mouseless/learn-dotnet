@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <ContainerRepository>learn-publis-over-dockerfile</ContainerRepository>
+    <ContainerRepository>learn-publish-over-dockerfile</ContainerRepository>
   </PropertyGroup>
 
   <ItemGroup>

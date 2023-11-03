@@ -3,6 +3,12 @@
 When dotnet publish, we give `--os`, `--arch` and `/t` values to create an
 image in publish.
 
+For example
+
+```bash
+dotnet publish --os linux --arch x64 /t:PublishContainer -c Release
+```
+
 > :information_box:
 >
 > `Microsoft.NET.Build.Containers` package is needed for containerize.
