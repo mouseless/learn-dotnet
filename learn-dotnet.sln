@@ -69,8 +69,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DependencyInjection", "dependency-injection\DependencyInjection\DependencyInjection.csproj", "{50657568-23CD-4307-AB2E-86A3B03ECB01}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "regex-source-generators", "regex-source-generators", "{F93CB7AF-CA43-4D1E-883F-EEB4930FC679}"
+	ProjectSection(SolutionItems) = preProject
+		regex-source-generators\README.md = regex-source-generators\README.md
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegexSourceGenerators", "regex-source-generators\RegexSourceGenerators\RegexSourceGenerators.csproj", "{E9414ABB-3845-47C8-96AA-BAA4FEC51B7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegexSourceGenerators", "regex-source-generators\RegexSourceGenerators\RegexSourceGenerators.csproj", "{E9414ABB-3845-47C8-96AA-BAA4FEC51B7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

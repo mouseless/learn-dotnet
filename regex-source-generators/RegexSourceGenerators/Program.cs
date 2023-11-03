@@ -1,6 +1,11 @@
 ﻿using RegexSourceGenerators;
 
-LearnRegex regex = new LearnRegex();
+Console.WriteLine("Give me an url: ");
 
-regex.GetMeLetters(Console.ReadLine() ?? string.Empty);
+string giveMeUrl = Console.ReadLine() ?? string.Empty;
 
+Console.WriteLine(
+    giveMeUrl.IsUrl()
+    ? "You entered a correct URL"
+    : "This is not a url"
+);

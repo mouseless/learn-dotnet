@@ -2,20 +2,10 @@
 
 namespace RegexSourceGenerators;
 
-public partial class LearnRegex
+public static partial class LearnRegex
 {
-    [GeneratedRegex("target", RegexOptions.IgnoreCase, "en-US")]
-    private static partial Regex RegexOnlyLetter();
+    [GeneratedRegex(@"^(https?|ftp)://[^\\s/$.?#].[^\\s]*$", RegexOptions.IgnoreCase, "en-US")]
+    private static partial Regex RegexIsUrl();
 
-    public void GetMeLetters(string text)
-    {
-        if (RegexOnlyLetter().IsMatch(text))
-        {
-            Console.WriteLine("IsMatch");
-        }
-        else
-        {
-            Console.WriteLine("Is Not Match");
-        }
-    }
+    public static bool IsUrl(this string url) => RegexIsUrl().IsMatch(url);
 }
