@@ -30,3 +30,8 @@ To see how we use Stylecop.Analyzers, visit [Stylecop.Analyzers Usage](/analyzer
 
 To see how we manage packages from the center, visit
 [Central Package Manager](/central-package-management/README.md).
+
+## Regex Source Generators
+
+To see how we use regex source generators, visit
+[Regex Source Generators](/regex-source-generators/README.md).
