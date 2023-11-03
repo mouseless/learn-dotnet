@@ -68,6 +68,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTesting", "unit-testing
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DependencyInjection", "dependency-injection\DependencyInjection\DependencyInjection.csproj", "{50657568-23CD-4307-AB2E-86A3B03ECB01}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "publish-over-dockerfile", "publish-over-dockerfile", "{1B4C5600-1E5A-4797-B675-C459C7FB5454}"
+	ProjectSection(SolutionItems) = preProject
+		publish-over-dockerfile\README.md = publish-over-dockerfile\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -139,6 +144,7 @@ Global
 		{A3F73601-24CF-4396-B688-EA53EF91A4D4} = {E148C898-1BFD-4F28-8940-583CC50F90DB}
 		{50715692-EE4A-4DE9-BA64-3226C20E7EFD} = {A3F73601-24CF-4396-B688-EA53EF91A4D4}
 		{50657568-23CD-4307-AB2E-86A3B03ECB01} = {EA678579-BA95-403B-A700-5878CD3A13DD}
+		{1B4C5600-1E5A-4797-B675-C459C7FB5454} = {E148C898-1BFD-4F28-8940-583CC50F90DB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ECEAECE7-49E5-4CBC-B84D-5FF82F2399FC}

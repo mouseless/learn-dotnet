@@ -30,3 +30,8 @@ To see how we use Stylecop.Analyzers, visit [Stylecop.Analyzers Usage](/analyzer
 
 To see how we manage packages from the center, visit
 [Central Package Manager](/central-package-management/README.md).
+
+## Publish Over Dockerfile
+
+To see how we publish over dockerfile, visit
+[Publish Over Dockerfile](/publish-over-dockerfile/README.md).
