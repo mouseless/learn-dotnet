@@ -20,4 +20,7 @@ We can pass parameters to the containerize process with properties like
 
 ## Docker Compose Files
 
-We use docker-compose to run it locally.
+We use docker-compose to run it locally. When running, we give the
+`ContainerRepository` value we give in `.csproj` to the image.
+
+For example look [docker-compose](/docker-compose.yml)
