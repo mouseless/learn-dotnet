@@ -18,4 +18,4 @@ jobs:
           dotnet-version: 7
       - name: Publish
         working-directory: ./publish-over-dockerfile/PublishOverDockerfile
-        run: dotnet publish --os linux --arch x64 --configuration Release -p:PublishProfile=DefaultContainer
+        run: dotnet publish --os linux --arch x64 /t:PublishContainer -c Release
