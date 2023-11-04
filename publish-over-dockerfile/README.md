@@ -9,6 +9,10 @@ For example
 dotnet publish --os linux --arch x64 /t:PublishContainer -c Release
 ```
 
+> :warning:
+>
+> Before you run docker compose, you need to publish image file with publish.
+
 > :information_box:
 >
 > `Microsoft.NET.Build.Containers` package is needed for containerize.
