@@ -24,19 +24,21 @@ To see how we use nullable, visit [Nullable Usage](/nullable-usage/README.md).
 
 ## Analyzers
 
-To see how we use Stylecop.Analyzers, visit [Stylecop.Analyzers Usage](/analyzers/README.md).
+To see how we use Stylecop.Analyzers, visit [Stylecop.Analyzers
+Usage](/analyzers/README.md).
 
 ## Central Package Manager
 
-To see how we manage packages from the center, visit
-[Central Package Manager](/central-package-management/README.md).
+To see how we manage packages from the center, visit [Central Package
+Manager](/central-package-management/README.md).
 
 ## Publish Over Dockerfile
 
-To see how we publish over dockerfile, visit
-[Publish Over Dockerfile](/publish-over-dockerfile/README.md).
+We've considered using `dotnet publish` over `Dockerfile`. For now we've
+decided to keep using `Dockerfile`. Visit [Publish Over
+Dockerfile](/publish-over-dockerfile/README.md) to see our research.
 
 ## Regex Source Generators
 
-To see how we use regex source generators, visit
-[Regex Source Generators](/regex-source-generators/README.md).
+To see how we use regex source generators, visit [Regex Source
+Generators](/regex-source-generators/README.md).

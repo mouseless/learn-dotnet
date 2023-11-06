@@ -1,7 +1,12 @@
 # Publish Over Dockerfile
 
-When dotnet publish, we give `--os`, `--arch` and `/t` values to create an
-image in publish.
+> :warning:
+>
+> Until there is a support for credentials in remote image repositories we will
+> continue to use `Dockerfile`.
+
+When dotnet publish, give `--os`, `--arch` and `/t` values to create an image in
+publish.
 
 For example
 
