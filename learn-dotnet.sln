@@ -68,12 +68,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTesting", "unit-testing
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DependencyInjection", "dependency-injection\DependencyInjection\DependencyInjection.csproj", "{50657568-23CD-4307-AB2E-86A3B03ECB01}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "publish-over-dockerfile", "publish-over-dockerfile", "{1B4C5600-1E5A-4797-B675-C459C7FB5454}"
+	ProjectSection(SolutionItems) = preProject
+		publish-over-dockerfile\README.md = publish-over-dockerfile\README.md
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "regex-source-generators", "regex-source-generators", "{F93CB7AF-CA43-4D1E-883F-EEB4930FC679}"
 	ProjectSection(SolutionItems) = preProject
 		regex-source-generators\README.md = regex-source-generators\README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegexSourceGenerators", "regex-source-generators\RegexSourceGenerators\RegexSourceGenerators.csproj", "{E9414ABB-3845-47C8-96AA-BAA4FEC51B7E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublishOverDockerfile", "publish-over-dockerfile\PublishOverDockerfile\PublishOverDockerfile.csproj", "{51E8C5A1-9789-4619-8ACE-D25DB5460413}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -125,6 +132,10 @@ Global
 		{E9414ABB-3845-47C8-96AA-BAA4FEC51B7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9414ABB-3845-47C8-96AA-BAA4FEC51B7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9414ABB-3845-47C8-96AA-BAA4FEC51B7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51E8C5A1-9789-4619-8ACE-D25DB5460413}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51E8C5A1-9789-4619-8ACE-D25DB5460413}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51E8C5A1-9789-4619-8ACE-D25DB5460413}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51E8C5A1-9789-4619-8ACE-D25DB5460413}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -150,8 +161,10 @@ Global
 		{A3F73601-24CF-4396-B688-EA53EF91A4D4} = {E148C898-1BFD-4F28-8940-583CC50F90DB}
 		{50715692-EE4A-4DE9-BA64-3226C20E7EFD} = {A3F73601-24CF-4396-B688-EA53EF91A4D4}
 		{50657568-23CD-4307-AB2E-86A3B03ECB01} = {EA678579-BA95-403B-A700-5878CD3A13DD}
+		{1B4C5600-1E5A-4797-B675-C459C7FB5454} = {E148C898-1BFD-4F28-8940-583CC50F90DB}
 		{F93CB7AF-CA43-4D1E-883F-EEB4930FC679} = {E148C898-1BFD-4F28-8940-583CC50F90DB}
 		{E9414ABB-3845-47C8-96AA-BAA4FEC51B7E} = {F93CB7AF-CA43-4D1E-883F-EEB4930FC679}
+		{51E8C5A1-9789-4619-8ACE-D25DB5460413} = {1B4C5600-1E5A-4797-B675-C459C7FB5454}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ECEAECE7-49E5-4CBC-B84D-5FF82F2399FC}
