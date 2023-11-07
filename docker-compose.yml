@@ -1,0 +1,6 @@
+version: '3'
+services:
+  learn-publish-over-dockerfile:
+    image: learn-publish-over-dockerfile:1.0.0
+    ports:
+      - "8080:80"

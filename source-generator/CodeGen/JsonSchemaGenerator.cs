@@ -52,7 +52,7 @@ public partial class JsonSchemaGenerator : IIncrementalGenerator
                     applicationModel.Namespace = classSymbol.ContainingNamespace.ToString();
                     applicationModel.Name = classSymbol?.Name;
 
-                    var methods = classSymbol.GetMembers()
+                    var methods = classSymbol?.GetMembers()
                         .OfType<IMethodSymbol>()
                         .Where(m => m.MethodKind == MethodKind.Ordinary)
                         .Select(m => new Operation()

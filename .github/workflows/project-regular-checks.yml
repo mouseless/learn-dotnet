@@ -1,8 +1,10 @@
-name: UnitTesting - Regular Checks
+name: Projects - Regular Checks
+
 on:
   pull_request:
-    paths:
-      - 'unit-testing/**'
+    branches:
+      - main
+      - 'epic/**'
 
 jobs:
   build:
@@ -13,11 +15,8 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: |
-            6.0.x
+          dotnet-version: 7
       - name: Build Solution
-        working-directory: ./unit-testing/test
         run: dotnet build
       - name: Run Tests
-        working-directory: ./unit-testing/test
         run: dotnet test
