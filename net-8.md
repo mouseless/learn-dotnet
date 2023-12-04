@@ -45,7 +45,7 @@ JsonSerializer.Serialize(new { PropertyName = "value" }, options);
 ### Read-only properties
 
 You can now deserialize onto read-only fields or properties (that is, those that
- don't have a set accessor).
+don't have a set accessor).
 
 ## Time abstraction
 
