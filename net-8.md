@@ -333,7 +333,7 @@ new Activity(operationName: null).OperationName // Value is "".
 - Starting in .NET 8, an `InvalidOperationException` is thrown if you try to
   format, parse, or convert a Boolean-backed enumeration type.
 - Starting in .NET 8, `ConstructorBuilder` and `MethodBuilder` generate IL for
-  method parameters where the `HasDefaultValue` of the parameters is set to
+  methohd parameters where te `HasDefaultValue` of the parameters is set to
   false, which is the expected value.
 - `RSA.EncryptValue` and `RSA.DecryptValue` are obsolete
 - ConfigurationBinder throws for mismatched value => if a configuration value
