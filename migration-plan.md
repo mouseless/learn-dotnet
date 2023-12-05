@@ -12,9 +12,7 @@
     - Use primary c. where dependency injection and record exist
   - [ ] Use collection expressions
   - [ ] Use default lambda parameters
-- [ ] Use `Time abstraction`
 - [ ] Use/Test source link
-- [ ] Use generic attributes
 ```
 
 ## Primary constructors
@@ -103,11 +101,6 @@ Console.WriteLine(IncrementBy(5)); // 6
 Console.WriteLine(IncrementBy(5, 2)); // 7
 ```
 
-## Time abstraction
-
-The new TimeProvider class and ITimer interface add time abstraction
-functionality, which allows you to mock time in test scenarios.
-
 ## Performance-focused types
 
 The new `System.Collections.Frozen` namespace includes the collection types
@@ -131,54 +124,6 @@ information will improve the IDE experience for developers.
 Eklenen paketlerde source link otomatik olarak enable geliyor ve debug yaparken
 gidemediğimiz kaynak koda artık gidebiliyoruz. Ama paket in bunu desteklemesi
 gerek.
-
-## Support for generic attributes
-
-Attributes that previously required a Type parameter are now available in
-cleaner generic variants. This is made possible by support for generic
-attributes in C# 11. For example, the syntax for annotating the response type of
-an action can be modified as follows:
-
-```csharp
-[ApiController]
-[Route("api/[controller]")]
-public class TodosController : Controller
-{
-  [HttpGet("/")]
-- [ProducesResponseType(typeof(Todo), StatusCodes.Status200OK)]
-+ [ProducesResponseType<Todo>(StatusCodes.Status200OK)]
-  public Todo Get() => new Todo(1, "Write a sample", DateTime.Now, false);
-}
-```
-
-Generic variants are supported for the following attributes:
-
-- `[ProducesResponseType<T>]`
-- `[Produces<T>]`
-- `[MiddlewareFilter<T>]`
-- `[ModelBinder<T>]`
-- `[ModelMetadataType<T>]`
-- `[ServiceFilter<T>]`
-- `[TypeFilter<T>]`
-
-## `IExceptionHandler`
-
-`IExceptionHandler` is a new interface that gives the developer a callback for
-handling known exceptions in a central location.
-
-`IExceptionHandler` implementations are registered by calling
-`IServiceCollection.AddExceptionHandler<T>`. Multiple implementations can be
-added, and they're called in the order registered.
-
-### Short-circuit middleware after routing
-
-Use the ShortCircuit extension method to cause routing to invoke the endpoint logic immediately and then end the request. For example, a given route might not need to go through authentication or CORS middleware. The following example short-circuits requests that match the /short-circuit route:
-
-```csharp
-app.MapGet("/short-circuit", () => "Short circuiting!").ShortCircuit();
----
-app.MapShortCircuit(404, "robots.txt", "favicon.ico");
-```
 
 ## Keyed DI services
 
@@ -224,8 +169,3 @@ class SmallCacheConsumer(IKeyedServiceProvider keyedServiceProvider)
     public object? GetData() => keyedServiceProvider.GetRequiredKeyedService<IMemoryCache>("small");
 }
 ```
-
-## Securing Swagger UI endpoints
-
-Swagger UI endpoints can now be secured in production environments by calling
-`MapSwagger().RequireAuthorization`.
