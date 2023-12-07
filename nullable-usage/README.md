@@ -25,7 +25,7 @@ We follow the guidelines below when writing code to properly use nullable syntax
 public class PersonService
 {
     readonly IQueryContext<Person>? _queryContext;
- 
+
     public PersonService(IQueryContext<Person>? queryContext)
     {
         _queryContext = queryContext;
@@ -70,7 +70,7 @@ public class Person
 > Because of NHibernate, entities need a _protected_ parameterless constructor
 > and compiler will highlight an error stating that the value of __context_ is
 > not assigned when leaving a constructor. Therefore we need to assign a
-> default value to __context_ to dismiss the compiler error.  
+> default value to __context_ to dismiss the compiler error.
 
 ### Always manage nullable parameters
 
@@ -87,7 +87,7 @@ intention wether a parameter is necessary or not.
 public class Person
 {
     public string Name { get; } = default!;
-    
+
     ...
 
     // name is made not nullable to give responsibility to caller
@@ -110,7 +110,7 @@ public class PersonService : IPersonService
     ...
 
     public void AddPerson(string name) => _newPerson().With(name);
-    
+
     void IPersonService.AddPerson(AddPerson data)
     {
         if(data.Name is null) throw new ArgumentNullException();
@@ -162,7 +162,7 @@ public class PersonService
 public class Person
 {
     ...
-    
+
     public virtual Person With(string name, string? middleName)
     {
         ...
@@ -206,7 +206,7 @@ public class PersonService
     )
     {
         middleName ??= "Mike";
-        
+
         person.ChangeMiddleName(middleName)
     }
 }
@@ -226,8 +226,8 @@ public class PersonService{
         _queryContext.SingleById(id)?.Delete();
     }
 
-    // Even the relevant entity may not exits, the result 
-    // code will be 200 and it will cause a miss direction 
+    // Even the relevant entity may not exits, the result
+    // code will be 200 and it will cause a miss direction
     // Throw an exception instead
 }
 ```
@@ -253,8 +253,8 @@ public class Person{
 
 Nullable Reference Types are different than Value Types and they only
 instruct the compiler about members or parameters that they can be null.
-Therefore 
- - ```string?``` is not a ```Nullable<string>```  
+Therefore
+ - ```string?``` is not a ```Nullable<string>```
  - ```int?``` is a ```Nullable<int>```
 
 and `Nullable.GetUnderlyingType(T)` for reference types are null.
@@ -300,7 +300,7 @@ public class Person
 
 var person = new Person(name: "John");
 
-Console.WriteLine(person.FullName()) // 
+Console.WriteLine(person.FullName()) //
 
 // Prints empty string because MiddleName is null and
 // comparison result is false
