@@ -178,3 +178,8 @@ handling known exceptions in a central location.
 `IExceptionHandler` implementations are registered by calling
 `IServiceCollection.AddExceptionHandler<T>`. Multiple implementations can be
 added, and they're called in the order registered.
+
+## Time abstraction
+
+The new TimeProvider class and ITimer interface add time abstraction
+functionality, which allows you to mock time in test scenarios.
