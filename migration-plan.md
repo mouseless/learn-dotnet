@@ -13,6 +13,9 @@
   - [ ] Use collection expressions
   - [ ] Use default lambda parameters
 - [ ] Use/Test source link
+- [ ] `DO`: Review DO's exception handling structure and look if you can switch
+  to `IExceptionHandling`.
+- [ ] `Learn`: Learn how to use `Keyed DI services`
 ```
 
 ## Primary constructors
@@ -121,10 +124,6 @@ Link into the SDK, instead of requiring a separate `<PackageReference>` for the
 package, more packages will include this information by default. That
 information will improve the IDE experience for developers.
 
-Eklenen paketlerde source link otomatik olarak enable geliyor ve debug yaparken
-gidemediğimiz kaynak koda artık gidebiliyoruz. Ama paket in bunu desteklemesi
-gerek.
-
 ## Keyed DI services
 
 Keyed dependency injection (DI) services provides a means for registering and
@@ -169,3 +168,12 @@ class SmallCacheConsumer(IKeyedServiceProvider keyedServiceProvider)
     public object? GetData() => keyedServiceProvider.GetRequiredKeyedService<IMemoryCache>("small");
 }
 ```
+
+## `IExceptionHandler`
+
+`IExceptionHandler` is a new interface that gives the developer a callback for
+handling known exceptions in a central location.
+
+`IExceptionHandler` implementations are registered by calling
+`IServiceCollection.AddExceptionHandler<T>`. Multiple implementations can be
+added, and they're called in the order registered.
