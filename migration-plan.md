@@ -13,62 +13,31 @@
   - [ ] Use collection expressions
   - [ ] Use default lambda parameters
 - [ ] Use/Test source link
-- [ ] `DO`: Review DO's exception handling structure and look if you can switch
+- [ ] `DO`: Review DO's exception handling structure and see if you can switch
   to `IExceptionHandling`.
 - [ ] `DO`: `TimeProvider` to be injected.
 - [ ] `Learn`: Learn how to use `Keyed DI services`
+- [ ] `Learn`: Learn how to use AOT
+- [ ] `DO`: See if we can use AOT in DO.
 ```
 
 ## Primary constructors
 
-You can now create primary constructors in any class and struct.
+Primary Constructor can be used where there is Dependency Injection and Record.
 
-To ensure that all primary constructor parameters are definitely assigned, all
-explicitly declared constructors must call the primary constructor using
-`this()` syntax.
+Parameters will start with underscore for class and struct.
 
 ```csharp
-public readonly struct Distance(double dx, double dy)
+public class Entity(IEntityContext<Entity> _context, ITransaction _transaction)
 {
-    public readonly double Magnitude { get; } = Math.Sqrt(dx * dx + dy * dy);
-    public readonly double Direction { get; } = Math.Atan2(dy, dx);
-}
-```
-
-### Mutable state
-
-```csharp
-public struct Distance(double dx, double dy)
-{
-    public readonly double Magnitude => Math.Sqrt(dx * dx + dy * dy);
-    public readonly double Direction => Math.Atan2(dy, dx);
-
-    public void Translate(double deltaX, double deltaY)
-    {
-        dx += deltaX;
-        dy += deltaY;
-    }
-
-    public Distance() : this(0,0) { }
-}
-```
-
-### DI
-
-```csharp
-public interface IService
-{
-    Distance GetDistance();
+  ...
+  public virtual void Delete()
+  {
+    _context.Delete(this);
+  }
 }
 
-public class ExampleController(IService service) : ControllerBase
-{
-    [HttpGet]
-    public ActionResult<Distance> Get()
-    {
-        return service.GetDistance();
-    }
-}
+public record Stubber(Spec Spec);
 ```
 
 ## Collection expressions
@@ -105,40 +74,18 @@ Console.WriteLine(IncrementBy(5)); // 6
 Console.WriteLine(IncrementBy(5, 2)); // 7
 ```
 
-## Performance-focused types
-
-The new `System.Collections.Frozen` namespace includes the collection types
-`FrozenDictionary<TKey,TValue>` and `FrozenSet<T>`. These types don't allow any
-changes to keys and values once a collection created.
-
-The new `System.Buffers.SearchValues<T>` type is designed to be passed to
-methods that look for the first occurrence of any value in the passed collection
-
-The new `System.Text.CompositeFormat` type is useful for optimizing format
-strings that aren't known at compile time (for example, if the format string is
-loaded from a resource file).
-
 ## Source Link
 
-Source Link is now included in the .NET SDK. The goal is that by bundling Source
-Link into the SDK, instead of requiring a separate `<PackageReference>` for the
-package, more packages will include this information by default. That
-information will improve the IDE experience for developers.
+We use the Source Link feature in our open source projects to improve the
+development environment for our users.
+
+This can be used in nuget packages that come in .net8 and have the source link
+automatically provided.
 
 ## Keyed DI services
 
-Keyed dependency injection (DI) services provides a means for registering and
-retrieving DI services using keys. By using keys, you can scope how your
-register and consume services. These are some of the new APIs:
-
-- The IKeyedServiceProvider interface.
-- The ServiceKeyAttribute attribute, which can be used to inject the key that
-  was used for registration/resolution in the constructor.
-- The FromKeyedServicesAttribute attribute, which can be used on service
-  constructor parameters to specify which keyed service to use.
-- Various new extension methods for IServiceCollection to support keyed
-  services, for example, `ServiceCollectionServiceExtensions.AddKeyedScoped`.
-- The ServiceProvider implementation of IKeyedServiceProvider.
+We use `FromKeyedServicesAttribute` from Keyed DI Services to specify which
+keyed service to use.
 
 ```csharp
 using Microsoft.Extensions.Caching.Memory;
@@ -146,16 +93,10 @@ using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<BigCacheConsumer>();
-builder.Services.AddSingleton<SmallCacheConsumer>();
+...
 
 builder.Services.AddKeyedSingleton<IMemoryCache, BigCache>("big");
 builder.Services.AddKeyedSingleton<IMemoryCache, SmallCache>("small");
-
-var app = builder.Build();
-
-app.MapGet("/big", (BigCacheConsumer data) => data.GetData());
-app.MapGet("/small", (SmallCacheConsumer data) => data.GetData());
 
 app.Run();
 
@@ -181,5 +122,5 @@ added, and they're called in the order registered.
 
 ## Time abstraction
 
-The new TimeProvider class and ITimer interface add time abstraction
-functionality, which allows you to mock time in test scenarios.
+The new `TimeProvider` class add time abstraction functionality, which allows
+you to mock time in test scenarios.
