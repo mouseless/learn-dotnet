@@ -124,3 +124,55 @@ added, and they're called in the order registered.
 
 The new `TimeProvider` class add time abstraction functionality, which allows
 you to mock time in test scenarios.
+
+Abstraction
+
+```csharp
+public abstract class TimeProvider
+{
+    public static TimeProvider System { get; }
+    protected TimeProvider();
+    public virtual DateTimeOffset GetUtcNow();
+    public DateTimeOffset GetLocalNow();
+    public virtual TimeZoneInfo LocalTimeZone { get; }
+    public virtual long TimestampFrequency { get; }
+    public virtual long GetTimestamp();
+    public TimeSpan GetElapsedTime(long startingTimestamp);
+    public TimeSpan GetElapsedTime(long startingTimestamp, long endingTimestamp);
+    public virtual ITimer CreateTimer(TimerCallback callback, object? state,TimeSpan dueTime, TimeSpan period);
+}
+
+public class MyService
+{
+    public readonly TimeProvider _timeProvider;
+
+    public MyService(TimeProvider timeProvider){
+        _timeProvider = timeProvider;
+    }
+
+    public boolean IsMonday() {
+        return _timeProvider.GetLocalNow().DayOfWeek == DayOfWeek.Monday;
+    }
+}
+
+// Dependency injection:
+var builder = WebApplication.CreateBuilder();
+builder.Services.AddSingleton(TimeProvider.System);
+builder.Services.AddSingleton<MyService>();
+```
+
+Mocking
+
+```csharp
+[Test]
+public void MyTest()
+{
+    var mock = new Mock<TimeProvider>();
+ mock.Setup(x => x.GetLocalNow()).Returns(new DateTimeOffset(2025, 12, 31, 23, 59, 59, TimeSpan.Zero));
+    var mockedTimeProvider = mock.Object;
+
+    var myService = new MyService(mockedTimeProvider);
+    var result = myService.IsMonday(mockedTimeProvider);
+    Assert.IsTrue(result, "Should be Monday");
+}
+```
