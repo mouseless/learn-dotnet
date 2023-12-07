@@ -15,6 +15,7 @@
 - [ ] Use/Test source link
 - [ ] `DO`: Review DO's exception handling structure and look if you can switch
   to `IExceptionHandling`.
+- [ ] `DO`: `TimeProvider` to be injected.
 - [ ] `Learn`: Learn how to use `Keyed DI services`
 ```
 
