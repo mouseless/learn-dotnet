@@ -120,6 +120,36 @@ handling known exceptions in a central location.
 `IServiceCollection.AddExceptionHandler<T>`. Multiple implementations can be
 added, and they're called in the order registered.
 
+You need two things to add an `IExceptionHandler` implementation to the ASP.NET
+Core request pipeline:
+
+1. Register the `IExceptionHandler` service with dependency injection
+1. Register the `ExceptionHandlerMiddleware` with the request pipeline
+
+```csharp
+internal sealed class GlobalExceptionHandler : IExceptionHandler
+{
+    public async ValueTask<bool> TryHandleAsync(
+        HttpContext httpContext,
+        Exception exception,
+        CancellationToken cancellationToken)
+    {
+        // Handle the exception, log errors.
+
+        return true;
+    }
+}
+
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+```
+
+You also need to call `UseExceptionHandler` to add the
+`ExceptionHandlerMiddleware` to the request pipeline:
+
+```csharp
+app.UseExceptionHandler();
+```
+
 ## Time abstraction
 
 The new `TimeProvider` class add time abstraction functionality, which allows
