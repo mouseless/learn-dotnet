@@ -1,7 +1,9 @@
 <Project>
+
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
+
   <ItemGroup>
     <PackageVersion Include="coverlet.collector" Version="6.0.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" />
@@ -21,4 +23,5 @@
     <PackageVersion Include="StyleCop.Analyzers.Unstable" Version="1.2.0.507" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
+
 </Project>
