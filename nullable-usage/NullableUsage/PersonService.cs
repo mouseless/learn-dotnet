@@ -6,7 +6,7 @@ public class PersonService(Func<Person> _newPerson, IFinder _finder, ILogger<Per
 {
     public void AddPerson(string? name)
     {
-        if (name is null) { throw new ArgumentNullException(nameof(name)); }
+        ArgumentException.ThrowIfNullOrEmpty(name, nameof(name));
 
         AddPerson(name, null);
     }
@@ -32,8 +32,8 @@ public class PersonService(Func<Person> _newPerson, IFinder _finder, ILogger<Per
     {
         _logger.LogInformation($"Try updating person => name: {name}, middleName: {middleName}");
 
-        if (name is null) { throw new ArgumentNullException(nameof(name)); }
-        if (middleName is null) { throw new ArgumentNullException(nameof(middleName)); }
+        ArgumentException.ThrowIfNullOrEmpty(name, nameof(name));
+        ArgumentException.ThrowIfNullOrEmpty(middleName, nameof(middleName));
 
         var person = _finder.Find(name);
 
