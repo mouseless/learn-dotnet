@@ -101,7 +101,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "keyed-dependency-injection-
 		keyed-dependency-injection-services\README.md = keyed-dependency-injection-services\README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyedDependencyInjectionServices", "keyed-dependency-injection-services\KeyedDependencyInjectionServices\KeyedDependencyInjectionServices.csproj", "{B49131C8-9B2F-4C85-8B71-0666B38A18D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyedDependencyInjectionServices", "keyed-dependency-injection-services\KeyedDependencyInjectionServices\KeyedDependencyInjectionServices.csproj", "{B49131C8-9B2F-4C85-8B71-0666B38A18D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "time-provider", "time-provider", "{0DF75231-8369-42A8-8901-A240DBCD97A3}"
+	ProjectSection(SolutionItems) = preProject
+		time-provider\README.md = time-provider\README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeProvider", "time-provider\TimeProvider\TimeProvider.csproj", "{67CC4DB4-B753-4EFF-A0EE-D470870A0978}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -169,6 +176,10 @@ Global
 		{B49131C8-9B2F-4C85-8B71-0666B38A18D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B49131C8-9B2F-4C85-8B71-0666B38A18D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B49131C8-9B2F-4C85-8B71-0666B38A18D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67CC4DB4-B753-4EFF-A0EE-D470870A0978}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67CC4DB4-B753-4EFF-A0EE-D470870A0978}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67CC4DB4-B753-4EFF-A0EE-D470870A0978}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67CC4DB4-B753-4EFF-A0EE-D470870A0978}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -204,6 +215,8 @@ Global
 		{658DFE92-7D9E-4DD6-979C-57460629A5E2} = {1D0A109B-6458-4C04-B400-F9484310595C}
 		{CE4552E6-9100-422D-AF74-5E27D09871F9} = {E148C898-1BFD-4F28-8940-583CC50F90DB}
 		{B49131C8-9B2F-4C85-8B71-0666B38A18D4} = {CE4552E6-9100-422D-AF74-5E27D09871F9}
+		{0DF75231-8369-42A8-8901-A240DBCD97A3} = {E148C898-1BFD-4F28-8940-583CC50F90DB}
+		{67CC4DB4-B753-4EFF-A0EE-D470870A0978} = {0DF75231-8369-42A8-8901-A240DBCD97A3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ECEAECE7-49E5-4CBC-B84D-5FF82F2399FC}
