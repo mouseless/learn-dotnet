@@ -29,10 +29,9 @@ builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 > :warning:
 >
 > To chain your Exception handlers and only want to handle exception with them,
-> chain them, but you HAVE TO define a default Exception handler that will run
+> chain them, but you have to define a default Exception handler that will run
 > (and placed in the last position) to handle any Exception that has been
-> handled by the previous handlers.
-> **The order matters!**
+> handled by the previous handlers. The order matters!
 >
 > ```csharp
 > builder.Services.AddExceptionHandler<TCustomExceptionHandler>();
