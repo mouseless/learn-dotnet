@@ -11,8 +11,6 @@ public class CommandFactory
 
     public ICommand Create()
     {
-        string commandName = _commandName.ToLower();
-
         switch (_commandName.ToLower())
         {
             case "domain":

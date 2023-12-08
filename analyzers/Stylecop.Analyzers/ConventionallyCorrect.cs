@@ -4,8 +4,8 @@ using Stylecop.Analyzers.Enums;
 
 namespace Stylecop.Analyzers;
 
-[SomeAttribute]
-[SomeOtherAttribute]
+[Some]
+[SomeOther]
 public class ConventionallyCorrect : SomeBaseClass
 {
     readonly string _field;
