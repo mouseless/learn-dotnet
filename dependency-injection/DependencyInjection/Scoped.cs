@@ -1,14 +1,8 @@
 namespace DependencyInjection;
 
-public class Scoped
+public class Scoped(Singleton _singleton, Func<Transient> _newTransient, ILogger<Scoped> _logger)
 {
-    readonly Singleton _singleton;
-    readonly Func<Transient> _newTransient;
-    readonly ILogger<Scoped> _logger;
     readonly Guid _id = Guid.NewGuid();
-
-    public Scoped(Singleton singleton, Func<Transient> newTransient, ILogger<Scoped> logger) =>
-        (_singleton, _newTransient, _logger) = (singleton, newTransient, logger);
 
     public void DoStuff(string source)
     {

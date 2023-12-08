@@ -2,10 +2,10 @@
 
 Nullable types gives the ability to the compiler to check for possible
 null return values or not assigned members to detect possibility of any
-_NullPointerException_ which may ocuur at runtime.
+_NullPointerException_ which may occur at runtime.
 
 Also with the usage of nullable syntax, it is easier to visually see
-the intention of the code about the certaion issue ,
+the intention of the code about the certain issue,
 
 To enable nullable in projects make sure you add the following configuration
 to your _.csproj_ file.
@@ -22,20 +22,15 @@ We follow the guidelines below when writing code to properly use nullable syntax
 ### Don't use nullable for Dependency Injection
 
 ```csharp
-public class PersonService
+public class PersonService(IQueryContext<Person>? queryContext)
 {
-    readonly IQueryContext<Person>? _queryContext;
- 
-    public PersonService(IQueryContext<Person>? queryContext)
-    {
-        _queryContext = queryContext;
-    }
+    ...
 }
 ```
 
 > :information_source:
 >
-> The DI container will resolve every dependency before initalizing the object
+> The DI container will resolve every dependency before initializing the object
 > and an exception will be thrown for a if a component is not registered.
 > Therefore, there is no possibility of dependency to be null.
 
@@ -52,15 +47,9 @@ default values for non nullable members which are;
 - Assigned in the builder method
 
 ```csharp
-public class Person
+public class Person(IEntityContext<Person> _context)
 {
-    readonly IEntityContext<Person> _context = default!;
-
-    public Person(IEntityContext<Person> context)
-    {
-        _context = context;
-    }
-
+    protected Person() : this(default!) { }
     ...
 }
 ```
@@ -70,7 +59,7 @@ public class Person
 > Because of NHibernate, entities need a _protected_ parameterless constructor
 > and compiler will highlight an error stating that the value of __context_ is
 > not assigned when leaving a constructor. Therefore we need to assign a
-> default value to __context_ to dismiss the compiler error.  
+> default value to __context_ to dismiss the compiler error.
 
 ### Always manage nullable parameters
 
@@ -87,7 +76,7 @@ intention wether a parameter is necessary or not.
 public class Person
 {
     public string Name { get; } = default!;
-    
+
     ...
 
     // name is made not nullable to give responsibility to caller
@@ -110,7 +99,7 @@ public class PersonService : IPersonService
     ...
 
     public void AddPerson(string name) => _newPerson().With(name);
-    
+
     void IPersonService.AddPerson(AddPerson data)
     {
         if(data.Name is null) throw new ArgumentNullException();
@@ -162,7 +151,7 @@ public class PersonService
 public class Person
 {
     ...
-    
+
     public virtual Person With(string name, string? middleName)
     {
         ...
@@ -206,7 +195,7 @@ public class PersonService
     )
     {
         middleName ??= "Mike";
-        
+
         person.ChangeMiddleName(middleName)
     }
 }
@@ -226,8 +215,8 @@ public class PersonService{
         _queryContext.SingleById(id)?.Delete();
     }
 
-    // Even the relevant entity may not exits, the result 
-    // code will be 200 and it will cause a miss direction 
+    // Even the relevant entity may not exits, the result
+    // code will be 200 and it will cause a miss direction
     // Throw an exception instead
 }
 ```
@@ -253,8 +242,8 @@ public class Person{
 
 Nullable Reference Types are different than Value Types and they only
 instruct the compiler about members or parameters that they can be null.
-Therefore 
- - ```string?``` is not a ```Nullable<string>```  
+Therefore
+ - ```string?``` is not a ```Nullable<string>```
  - ```int?``` is a ```Nullable<int>```
 
 and `Nullable.GetUnderlyingType(T)` for reference types are null.
@@ -300,7 +289,7 @@ public class Person
 
 var person = new Person(name: "John");
 
-Console.WriteLine(person.FullName()) // 
+Console.WriteLine(person.FullName()) //
 
 // Prints empty string because MiddleName is null and
 // comparison result is false

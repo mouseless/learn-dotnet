@@ -19,6 +19,8 @@
 - [ ] `Learn`: Learn how to use `Keyed DI services`
 - [ ] `Learn`: Learn how to use AOT
 - [ ] `DO`: See if we can use AOT in DO.
+- [ ] Null, white space checks in the parameter are provided by
+  `ThrowIfNullOrWhiteSpace` etc. extensions of `ArgumentException`.
 ```
 
 ## Primary constructors

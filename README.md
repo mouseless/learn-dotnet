@@ -42,3 +42,8 @@ Dockerfile](/publish-over-dockerfile/README.md) to see our research.
 
 To see how we use regex source generators, visit [Regex Source
 Generators](/regex-source-generators/README.md).
+
+## Primary Constructors
+
+To see how we use primary constructors, visit [Primary
+Constructors](/primary-constructors/README.md).

@@ -14,13 +14,8 @@ scoped, service called `ServiceB`, where `ServiceA` requires an instance of
 `ServiceB` when exposing a business functionality;
 
 ```csharp
-public class ServiceA
+public class ServiceA(IServiceProvider _serviceProvider)
 {
-    readonly IServiceProvider _serviceProvider;
-
-    public ServiceA(IServiceProvider serviceProvider) =>
-        _serviceProvider = serviceProvider;
-
     public void DoStuff()
     {
         var serviceB = _serviceProvider.GetRequiredService<ServiceB>();
@@ -35,13 +30,8 @@ type of usage is called service locator anti-pattern, which we workaround by
 using a generic factory as shown in below;
 
 ```csharp
-public class ServiceA
+public class ServiceA(Func<ServiceB> _newServiceB)
 {
-    readonly Func<ServiceB> _newServiceB;
-
-    public ServiceA(Func<ServiceB> newServiceB) =>
-        _newServiceB = newServiceB;
-
     public void DoStuff()
     {
         var serviceB = _newServiceB();

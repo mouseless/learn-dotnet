@@ -1,14 +1,8 @@
 ﻿namespace NullableUsage;
 
-public class Person
+public class Person(Persons _context)
 {
-    readonly Persons _context = default!;
-
-    protected Person() { }
-    public Person(Persons context)
-    {
-        _context = context;
-    }
+    protected Person() : this(default!) { }
 
     public string Name { get; private set; } = default!;
     public string? MiddleName { get; private set; }

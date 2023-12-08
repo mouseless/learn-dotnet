@@ -3,13 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace DependencyInjection;
 
 [ApiController]
-public class Controller
+public class Controller(Singleton _singleton)
 {
-    readonly Singleton _singleton;
-
-    public Controller(Singleton singleton) =>
-        _singleton = singleton;
-
     [HttpPost]
     [Route("stuff")]
     public void DoStuff()
