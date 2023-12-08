@@ -57,3 +57,7 @@ Handling](/exception-handling/README.md).
 
 To see how we setup and use keyed dependency injection services, visit [Keyed
 Dependency Injection Services](/keyed-dependency-injection-services/README.md).
+
+## Time Provider
+
+To see how we use time provider, visit [Time Provider](/time-provider/README.md)
