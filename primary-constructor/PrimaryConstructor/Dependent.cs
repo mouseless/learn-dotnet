@@ -2,5 +2,5 @@ namespace PrimaryConstructor;
 
 public class Dependent(Dependency _dependency)
 {
-    public string ShowMessage() => _dependency.Message;
+    public void ShowMessage() => Console.WriteLine(_dependency.Message);
 }

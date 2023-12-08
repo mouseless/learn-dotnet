@@ -1,6 +1,13 @@
-﻿using PrimaryConstructor;
+﻿using Microsoft.Extensions.DependencyInjection;
+using PrimaryConstructor;
 
-var dependency = new Dependency();
-var dependent = new Dependent(dependency);
+var serviceCollection = new ServiceCollection();
 
-Console.WriteLine(dependent.ShowMessage());
+serviceCollection.AddSingleton<Dependency>();
+serviceCollection.AddSingleton<Dependent>();
+
+var serviceProvider = serviceCollection.BuildServiceProvider();
+
+var dependent = serviceProvider.GetRequiredService<Dependent>();
+
+dependent.ShowMessage();

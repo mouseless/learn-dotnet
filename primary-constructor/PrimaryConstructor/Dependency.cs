@@ -1,4 +1,4 @@
 public class Dependency
 {
-    public string Message => "Dependency's Message";
+    public string Message => "Hello primary constructors";
 }
