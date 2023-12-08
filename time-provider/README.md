@@ -14,7 +14,7 @@ serviceCollection.AddSingleton<MyService>();
 
 public class MyService(TimeProvider _timeProvider)
 {
-    public boolean IsMonday() =>
+    public bool IsMonday() =>
         _timeProvider.GetLocalNow().DayOfWeek == DayOfWeek.Monday;
 }
 ```
