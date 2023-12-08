@@ -10,15 +10,34 @@ logic and take up space.
 > unsupported  warning, make sure you get update.
 
 ```csharp
-public class Person(IEntityContext<Person> _context)
+public record MyRecord(object parameter);
+```
+
+```csharp
+public class MyService(Dependency _dependency)
 {
-    public virtual void Delete()
+    public void DoStuff()
     {
-        _context.Delete(this);
+        _dependency.DoStuff();
     }
 }
 ```
 
-```csharp
-public record Stubber(Spec Spec);
-```
+> :bulb:
+>
+> If you need to give default values to the parameters, you can give them using
+> `this` as shown below.
+>
+> Default
+>
+> ```csharp
+> public class MyService(Dependency _dependency)
+> {
+>     protected MyService() : this(default!) { }
+>
+>     public void DoStuff()
+>     {
+>         _dependency.DoStuff();
+>     }
+> }
+> ```

@@ -1,19 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using PrimaryConstructor;
+﻿using PrimaryConstructor;
 
-var serviceCollection = new ServiceCollection();
+var dependency = new Dependency();
+var dependent = new Dependent(dependency);
 
-serviceCollection.AddSingleton<LogSystem>();
-
-serviceCollection.AddLogging(options =>
-{
-    options.AddConsole();
-    options.SetMinimumLevel(LogLevel.Debug);
-});
-
-var serviceProvider = serviceCollection.BuildServiceProvider();
-
-var logSystem = serviceProvider.GetRequiredService<LogSystem>();
-
-logSystem.TestLog("Test Logging");
+Console.WriteLine(dependent.ShowMessage());

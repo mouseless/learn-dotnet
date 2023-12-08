@@ -2,10 +2,10 @@
 
 Nullable types gives the ability to the compiler to check for possible
 null return values or not assigned members to detect possibility of any
-_NullPointerException_ which may ocuur at runtime.
+_NullPointerException_ which may occur at runtime.
 
 Also with the usage of nullable syntax, it is easier to visually see
-the intention of the code about the certaion issue ,
+the intention of the code about the certain issue,
 
 To enable nullable in projects make sure you add the following configuration
 to your _.csproj_ file.
@@ -22,20 +22,15 @@ We follow the guidelines below when writing code to properly use nullable syntax
 ### Don't use nullable for Dependency Injection
 
 ```csharp
-public class PersonService
+public class PersonService(IQueryContext<Person>? queryContext)
 {
-    readonly IQueryContext<Person>? _queryContext;
-
-    public PersonService(IQueryContext<Person>? queryContext)
-    {
-        _queryContext = queryContext;
-    }
+    ...
 }
 ```
 
 > :information_source:
 >
-> The DI container will resolve every dependency before initalizing the object
+> The DI container will resolve every dependency before initializing the object
 > and an exception will be thrown for a if a component is not registered.
 > Therefore, there is no possibility of dependency to be null.
 
@@ -52,15 +47,9 @@ default values for non nullable members which are;
 - Assigned in the builder method
 
 ```csharp
-public class Person
+public class Person(IEntityContext<Person> _context)
 {
-    readonly IEntityContext<Person> _context = default!;
-
-    public Person(IEntityContext<Person> context)
-    {
-        _context = context;
-    }
-
+    protected Person() : this(default!) { }
     ...
 }
 ```
