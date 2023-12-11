@@ -38,6 +38,14 @@ or
 app.UseExceptionHandler(opt => { });
 ```
 
+> :bulb:
+>
+> If ASP.NET Core automatically logs the exceptions you handle as unhandled
+> under `ExceptionHandlerMiddleware`, you can turn it off  it off by setting
+> `Logging:LogLevel:Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware`
+> to `None` in `appsettings.json`. However, in this case, you guarantee that you
+> handle all exceptions.
+
 But if you add `ProblemDetails` as a service you don't need to give parameter to
 `UseExceptionHandler`.
 
@@ -196,3 +204,9 @@ UseStatusCodePages(Action<IApplicationBuilder> configuration);
 UseStatusCodePagesWithRedirects(string locationFormat);
 UseStatusCodePagesWithReExecute(string pathFormat, string? queryFormat = null);
 ```
+
+Resources:
+
+- [Handle errors in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/error-handling?view=aspnetcore-8.0#server-exception-handling)
+- [Global Error Handling in ASP.NET Core 8](https://www.milanjovanovic.tech/blog/global-error-handling-in-aspnetcore-8#new-way-iexceptionhandler)
+- [Handling Web API Exceptions with ProblemDetails middleware](https://andrewlock.net/handling-web-api-exceptions-with-problemdetails-middleware/)
