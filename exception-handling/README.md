@@ -47,7 +47,7 @@ development environment.
 
 ## Problem Details
 
-Exceptionlar için genel bir json modelidir.
+`Problem Details` is common json model for exceptions
 
 ```json
 {
@@ -66,6 +66,35 @@ builder.Services.AddProblemDetails();
 
 Adds a `ProblemDetail` model for unhandled exceptions. Exception details are
 included in the response body using this default model.
+
+When you want to return exception result in the same format in your handle
+exceptions, you can give your object of type `ProblemDetails` to the response in
+json format with `WriteAsJsonAsync()`.
+
+```csharp
+public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception,CancellationToken cancellationToken)
+{
+    var problemDetails = new ProblemDetails
+    {
+        Status = StatusCodes.Status500InternalServerError,
+        Title = "Custom Exception Handler",
+        Detail = exception.Message
+    };
+
+    httpContext.Response.StatusCode = problemDetails.Status.Value;
+
+    await httpContext.Response
+        .WriteAsJsonAsync(problemDetails, cancellationToken);
+
+    return true;
+}
+```
+
+Below you can see the result on the page
+
+```json
+{"title":"Custom Exception Handler","status":500,"detail":"Hello Exception"}
+```
 
 ## Developer Exception Page
 
