@@ -58,6 +58,35 @@ app.UseExceptionHandler();
 > httpContext.Response.StatusCode = (int)HttpStatusCode.RequestTimeout;
 > ```
 
+## Chaining Exception Handlers
+
+You can add multiple exception handler, and they're called in the order they are
+registered. A possible use case for this is using exceptions for flow control.
+
+```csharp
+builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
+builder.Services.AddExceptionHandler<NotFoundExceptionHandler>();
+```
+
+In this case, in order not to handle the wrong exception, flow control can be
+provided by returning `false` of `TryHandleAsync` with an if control for the
+type of exceptions you do not want.
+
+```csharp
+public class NotFoundExceptionHandler : IExceptionHandler
+{
+    ...
+    public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
+    {
+        if (exception is not NotFoundException notFoundException)
+        {
+            return false;
+        }
+        ...
+    }
+}
+```
+
 ## UseExceptionHandler
 
 `UseExceptionHandler` add the `ExceptionHandlerMiddleware` to the request
@@ -137,31 +166,33 @@ This will give you a more detailed exception information.
 the development environment and the app is created using
 `WebHost.CreateBuilder`.
 
-## Chaining Exception Handlers
+## UseStatusCodePages
 
-You can add multiple exception handler, and they're called in the order they are
-registered. A possible use case for this is using exceptions for flow control.
+By default, an ASP.NET Core app doesn't provide a status code page for HTTP
+error status codes, such as 404 - Not Found. When the app sets an HTTP 400-599
+error status code that doesn't have a body, it returns the status code and an
+empty response body. To enable default text-only handlers for common error
+status codes, call `UseStatusCodePages`
 
 ```csharp
-builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
-builder.Services.AddExceptionHandler<NotFoundExceptionHandler>();
+app.UseStatusCodePages(Text.Plain, "Status Code Page: {0}");
 ```
 
-In this case, in order not to handle the wrong exception, flow control can be
-provided by returning `false` of `TryHandleAsync` with an if control for the
-type of exceptions you do not want.
+When a request is made to a route that does not exist, it will give the
+following output.
+
+```text
+Status Code Page: 404
+```
+
+Below you can see all `UseStatusCodePages` variants
 
 ```csharp
-public class NotFoundExceptionHandler : IExceptionHandler
-{
-    ...
-    public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
-    {
-        if (exception is not NotFoundException notFoundException)
-        {
-            return false;
-        }
-        ...
-    }
-}
+UseStatusCodePages();
+UseStatusCodePages(StatusCodePagesOptions options);
+UseStatusCodePages(Func<StatusCodeContext, Task> handler);
+UseStatusCodePages(string contentType, string bodyFormat);
+UseStatusCodePages(Action<IApplicationBuilder> configuration);
+UseStatusCodePagesWithRedirects(string locationFormat);
+UseStatusCodePagesWithReExecute(string pathFormat, string? queryFormat = null);
 ```
