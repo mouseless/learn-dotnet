@@ -37,7 +37,13 @@ app.UseExceptionHandler("/error-handling-path");
 ## UseExceptionHandler
 
 `UseExceptionHandler` add the `ExceptionHandlerMiddleware` to the request
-pipeline. `UseExceptionHandler()` verilmezse ExceptionHandler exception'ı handle etmek için çağırır. exception logunu basar ancak `UseExceptionHandler` verilmediği için `TryHandleException` false döner. developer exception page açılır. Unhandled exception atmış olur.
+pipeline.
+
+`ExceptionHandlerMiddleware` catches and logs unhandled exceptions, if a path
+is given re-executes the request using the given path. This middleware is to
+showcase exception info when the [Developer exception
+page](#developer-exception-page) is disabled due to the app not running on the
+development environment.
 
 ## Problem Details
 
@@ -58,12 +64,10 @@ Exceptionlar için genel bir json modelidir.
 builder.Services.AddProblemDetails();
 ```
 
-ise Handle edilmeyen exceptionlar için kullanılacak bir default problem detail modeli ekler.
-response body'e bu model verilir.
+Adds a `ProblemDetail` model for unhandled exceptions. Exception details are
+included in the response body using this default model.
 
-İstenirse overrload'u olan configure parametresiylse configure edilebilir.
-
-## When is Development Mode
+## Developer Exception Page
 
 You can use
 
@@ -75,6 +79,10 @@ if (app.Environment.IsDevelopment())
 ```
 
 for better development experience. This will give you more detail for exception.
+
+`UserDeveloperExceptionPage` is enabled by default when the app is running in
+the development environment and the app is created using
+`WebHost.CreateBuilder`.
 
 ## Chaining Exception Handlers
 
