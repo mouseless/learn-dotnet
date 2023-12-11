@@ -27,12 +27,36 @@ Then you should register it
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 ```
 
-You also need to call `UseExceptionHandler` with `errorHandlingPath` to add the
-`ExceptionHandlerMiddleware` to the request pipeline:
+You also need to call `UseExceptionHandler` which needs options parameters to
+add the `ExceptionHandlerMiddleware` to the request pipeline:
 
 ```csharp
 app.UseExceptionHandler("/error-handling-path");
+
+or
+
+app.UseExceptionHandler(opt => { });
 ```
+
+But if you add `ProblemDetails` as a service you don't need to give parameter to
+`UseExceptionHandler`.
+
+```csharp
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+builder.Services.AddProblemDetails();
+
+...
+
+app.UseExceptionHandler();
+```
+
+> :information_source:
+>
+> Default HTTP Status code return is 500, you customize it as follow if you need
+>
+> ```csharp
+> httpContext.Response.StatusCode = (int)HttpStatusCode.RequestTimeout;
+> ```
 
 ## UseExceptionHandler
 
@@ -47,7 +71,8 @@ development environment.
 
 ## Problem Details
 
-`Problem Details` is common json model for exceptions
+`Problem Details` is [RFC](https://datatracker.ietf.org/doc/html/rfc7807)
+standard to handle errors returned on HTTP APIs responses.
 
 ```json
 {
@@ -55,17 +80,16 @@ development environment.
     "Title": "",
     "Status": 500,
     "Detail": "",
-    "Instance": "",
-    "Extensions": [],
+    "Instance": ""
 }
-```
-
-```csharp
-builder.Services.AddProblemDetails();
 ```
 
 Adds a `ProblemDetail` model for unhandled exceptions. Exception details are
 included in the response body using this default model.
+
+```csharp
+builder.Services.AddProblemDetails();
+```
 
 When you want to return exception result in the same format in your handle
 exceptions, you can give your object of type `ProblemDetails` to the response in
