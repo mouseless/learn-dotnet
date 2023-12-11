@@ -27,12 +27,54 @@ Then you should register it
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 ```
 
-You also need to call `UseExceptionHandler` to add the
+You also need to call `UseExceptionHandler` with `errorHandlingPath` to add the
 `ExceptionHandlerMiddleware` to the request pipeline:
 
 ```csharp
-app.UseExceptionHandler();
+app.UseExceptionHandler("/error-handling-path");
 ```
+
+## UseExceptionHandler
+
+`UseExceptionHandler` add the `ExceptionHandlerMiddleware` to the request
+pipeline. `UseExceptionHandler()` verilmezse ExceptionHandler exception'ı handle etmek için çağırır. exception logunu basar ancak `UseExceptionHandler` verilmediği için `TryHandleException` false döner. developer exception page açılır. Unhandled exception atmış olur.
+
+## Problem Details
+
+Exceptionlar için genel bir json modelidir.
+
+```json
+{
+    "Type": "",
+    "Title": "",
+    "Status": 500,
+    "Detail": "",
+    "Instance": "",
+    "Extensions": [],
+}
+```
+
+```csharp
+builder.Services.AddProblemDetails();
+```
+
+ise Handle edilmeyen exceptionlar için kullanılacak bir default problem detail modeli ekler.
+response body'e bu model verilir.
+
+İstenirse overrload'u olan configure parametresiylse configure edilebilir.
+
+## When is Development Mode
+
+You can use
+
+```csharp
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+```
+
+for better development experience. This will give you more detail for exception.
 
 ## Chaining Exception Handlers
 
