@@ -122,7 +122,7 @@ Below you can see the result on the page
 
 ## Developer Exception Page
 
-You can use
+You can use Developer exception page for a better development experience.
 
 ```csharp
 if (app.Environment.IsDevelopment())
@@ -131,7 +131,7 @@ if (app.Environment.IsDevelopment())
 }
 ```
 
-for better development experience. This will give you more detail for exception.
+This will give you a more detailed exception information.
 
 `UserDeveloperExceptionPage` is enabled by default when the app is running in
 the development environment and the app is created using
