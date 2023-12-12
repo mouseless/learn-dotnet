@@ -1,10 +1,7 @@
-# Exception Handling With `IExceptionHandler`
+# Exception Handling
 
 We use `ExceptionHandlers` to manage exceptions in one place, which we derive
 from `IExceptionHandler`.
-
-To handle exceptions, you must write an exception class derived from
-`IExceptionHandler`.
 
 ```csharp
 public class CustomExceptionHandler : IExceptionHandler
@@ -12,134 +9,68 @@ public class CustomExceptionHandler : IExceptionHandler
     public ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
         ...
+
+        return true;
     }
 }
 ```
 
-> :information_source:
->
-> If the exception can be handled, it should return `true`. If the exception
-> can't be handled, it should return `false`.
-
-Then you should register it
+And register it
 
 ```csharp
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 ```
 
-You also need to call `UseExceptionHandler` which needs options parameters to
-add the `ExceptionHandlerMiddleware` to the request pipeline:
-
-```csharp
-app.UseExceptionHandler("/error-handling-path");
-
-or
-
-app.UseExceptionHandler(opt => { });
-```
-
-> :bulb:
+> :warning:
 >
-> If ASP.NET Core automatically logs the exceptions you handle as unhandled
-> under `ExceptionHandlerMiddleware`, you can turn it off  it off by setting
-> `Logging:LogLevel:Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware`
-> to `None` in `appsettings.json`. However, in this case, you guarantee that you
-> handle all exceptions.
+> When registering multiple exception handlers you should pay attention to the
+> order. It works according to the order of insertion.
 
-But if you add `ProblemDetails` as a service you don't need to give parameter to
-`UseExceptionHandler`.
+Also need to call `UseExceptionHandler` to add the `ExceptionHandlerMiddleware`
+to the request pipeline
 
 ```csharp
-builder.Services.AddExceptionHandler<CustomExceptionHandler>();
-builder.Services.AddProblemDetails();
-
-...
-
 app.UseExceptionHandler();
 ```
 
-> :information_source:
->
-> Default HTTP Status code return is 500, you customize it as follow if you need
->
-> ```csharp
-> httpContext.Response.StatusCode = (int)HttpStatusCode.RequestTimeout;
-> ```
+When we handle exception, we give the response message to [Problem
+Detail](#problem-details) object. Message content is as follows
 
-## Chaining Exception Handlers
+- **Type**: Exception document link
+- **Title**: Exception name without the suffix 'exception' in standard case
+- **Status**: Status codes
+- **Detail**: Exception's message,
+- **Extensions**: Exception's extra fields, if any
 
-You can add multiple exception handler, and they're called in the order they are
-registered. A possible use case for this is using exceptions for flow control.
+Below you can see the example response body on the page
 
-```csharp
-builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
-builder.Services.AddExceptionHandler<NotFoundExceptionHandler>();
+```json
+{"type":"http://localhost:5032/errors/parameter-required","title":"Parameter Required","status":500,"detail":"param2 is required."}
 ```
-
-In this case, in order not to handle the wrong exception, flow control can be
-provided by returning `false` of `TryHandleAsync` with an if control for the
-type of exceptions you do not want.
-
-```csharp
-public class NotFoundExceptionHandler : IExceptionHandler
-{
-    ...
-    public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
-    {
-        if (exception is not NotFoundException notFoundException)
-        {
-            return false;
-        }
-        ...
-    }
-}
-```
-
-## UseExceptionHandler
-
-`UseExceptionHandler` add the `ExceptionHandlerMiddleware` to the request
-pipeline.
-
-`ExceptionHandlerMiddleware` catches and logs unhandled exceptions, if a path
-is given re-executes the request using the given path. This middleware is to
-showcase exception info when the [Developer exception
-page](#developer-exception-page) is disabled due to the app not running on the
-development environment.
 
 ## Problem Details
 
 `Problem Details` is [RFC](https://datatracker.ietf.org/doc/html/rfc7807)
-standard to handle errors returned on HTTP APIs responses.
+standard to handle errors returned on HTTP APIs responses. You can look at the
+members of the `ProblemDetail` object from this
+[link](https://datatracker.ietf.org/doc/html/rfc7807#section-3.1).
 
-```json
-{
-    "Type": "",
-    "Title": "",
-    "Status": 500,
-    "Detail": "",
-    "Instance": ""
-}
-```
-
-Adds a `ProblemDetail` model for unhandled exceptions. Exception details are
-included in the response body using this default model.
+To use `ProblemDetail` for all unhandled exception messages we use
+`AddProblemDetail()` as below.
 
 ```csharp
 builder.Services.AddProblemDetails();
 ```
 
-When you want to return exception result in the same format in your handle
-exceptions, you can give your object of type `ProblemDetails` to the response in
-json format with `WriteAsJsonAsync()`.
+In the exceptions we handle, we give the `ProblemDetail` object we created to
+the response as below.
 
 ```csharp
 public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception,CancellationToken cancellationToken)
 {
     var problemDetails = new ProblemDetails
     {
-        Status = StatusCodes.Status500InternalServerError,
-        Title = "Custom Exception Handler",
-        Detail = exception.Message
+        ...
     };
 
     httpContext.Response.StatusCode = problemDetails.Status.Value;
@@ -151,62 +82,30 @@ public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception e
 }
 ```
 
-Below you can see the result on the page
-
-```json
-{"title":"Custom Exception Handler","status":500,"detail":"Hello Exception"}
-```
-
 ## Developer Exception Page
 
-You can use Developer exception page for a better development experience.
-
-```csharp
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-}
-```
-
-This will give you a more detailed exception information.
-
-`UserDeveloperExceptionPage` is enabled by default when the app is running in
-the development environment and the app is created using
-`WebHost.CreateBuilder`.
+Since we are requesting from Postman, we do not use developer exception page, we
+expect exception in response body in development environment. That's why we
+don't want a developer exception page.
 
 ## UseStatusCodePages
 
-By default, an ASP.NET Core app doesn't provide a status code page for HTTP
-error status codes, such as 404 - Not Found. When the app sets an HTTP 400-599
-error status code that doesn't have a body, it returns the status code and an
-empty response body. To enable default text-only handlers for common error
-status codes, call `UseStatusCodePages`
+By default, an ASP.NET Core application does not provide a status code page for
+HTTP error status codes such as 404 - Not Found, so we use `UseStatusCodePages`.
+
+When using `AddProblemDetail`, we use `UseStatusCodePages` in its bare form
+since `AddProblemDetail` already generates the response body for exceptions.
 
 ```csharp
-app.UseStatusCodePages(Text.Plain, "Status Code Page: {0}");
+app.UseStatusCodePages();
 ```
 
-When a request is made to a route that does not exist, it will give the
-following output.
+## Resources
 
-```text
-Status Code Page: 404
-```
+- [Handle errors in ASP.NET Core][handle-errors]
+- [Global Error Handling in ASP.NET Core 8][global-error-handling]
+- [Handling Web API Exceptions with ProblemDetails middleware][blog-post]
 
-Below you can see all `UseStatusCodePages` variants
-
-```csharp
-UseStatusCodePages();
-UseStatusCodePages(StatusCodePagesOptions options);
-UseStatusCodePages(Func<StatusCodeContext, Task> handler);
-UseStatusCodePages(string contentType, string bodyFormat);
-UseStatusCodePages(Action<IApplicationBuilder> configuration);
-UseStatusCodePagesWithRedirects(string locationFormat);
-UseStatusCodePagesWithReExecute(string pathFormat, string? queryFormat = null);
-```
-
-Resources:
-
-- [Handle errors in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/error-handling?view=aspnetcore-8.0#server-exception-handling)
-- [Global Error Handling in ASP.NET Core 8](https://www.milanjovanovic.tech/blog/global-error-handling-in-aspnetcore-8#new-way-iexceptionhandler)
-- [Handling Web API Exceptions with ProblemDetails middleware](https://andrewlock.net/handling-web-api-exceptions-with-problemdetails-middleware/)
+[blog-post]: https://andrewlock.net/handling-web-api-exceptions-with-problemdetails-middleware/
+[global-error-handling]: https://www.milanjovanovic.tech/blog/global-error-handling-in-aspnetcore-8#new-way-iexceptionhandler
+[handle-errors]: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/error-handling?view=aspnetcore-8.0#server-exception-handling
