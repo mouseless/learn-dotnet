@@ -52,8 +52,3 @@ Constructors](/primary-constructors/README.md).
 
 To see how we manage exceptions, visit [Exception
 Handling](/exception-handling/README.md).
-
-## Keyed Dependency Injection Services
-
-To see how we setup and use keyed dependency injection services, visit [Keyed
-Dependency Injection Services](/keyed-dependency-injection-services/README.md).
