@@ -74,11 +74,11 @@ Below you can see the example response body on the page
 
 ```json
 {
-    "type":"http://localhost:5032/errors/parameter-required",
-    "title":"Parameter Required",
-    "status":500,
-    "detail":"param2 is required.",
-    "name":"param2"
+  "type": "http://localhost:5032/errors/parameter-required",
+  "title": "Parameter Required",
+  "status": 500,
+  "detail": "param2 is required.",
+  "name": "param2"
 }
 ```
 
