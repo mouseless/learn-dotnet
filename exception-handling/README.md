@@ -15,7 +15,7 @@ public class CustomExceptionHandler : IExceptionHandler
 }
 ```
 
-And register it
+To use it, we register it with `AddExceptionHandler`
 
 ```csharp
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
@@ -33,37 +33,17 @@ to the request pipeline
 app.UseExceptionHandler();
 ```
 
-When we handle exception, we give the response message to [Problem
-Detail](#problem-details) object. Message content is as follows
+We also use `UseExceptionHandler` in development mode because we expect a json
+object as a response because we use Postman.
 
-- **Type**: Exception document link
-- **Title**: Exception name without the suffix 'exception' in standard case
-- **Status**: Status codes
-- **Detail**: Exception's message,
-- **Extensions**: Exception's extra fields, if any
+We expect a json object but we don't want a json object in a different format
+for each exception, so we use the
+[RFC](https://datatracker.ietf.org/doc/html/rfc7807) standard [Problem
+Detail](https://datatracker.ietf.org/doc/html/rfc7807#section-3.1)
+object to standardize it.
 
-Below you can see the example response body on the page
-
-```json
-{"type":"http://localhost:5032/errors/parameter-required","title":"Parameter Required","status":500,"detail":"param2 is required."}
-```
-
-## Problem Details
-
-`Problem Details` is [RFC](https://datatracker.ietf.org/doc/html/rfc7807)
-standard to handle errors returned on HTTP APIs responses. You can look at the
-members of the `ProblemDetail` object from this
-[link](https://datatracker.ietf.org/doc/html/rfc7807#section-3.1).
-
-To use `ProblemDetail` for all unhandled exception messages we use
-`AddProblemDetail()` as below.
-
-```csharp
-builder.Services.AddProblemDetails();
-```
-
-In the exceptions we handle, we give the `ProblemDetail` object we created to
-the response as below.
+To apply this standard in the exceptions we handle, we create the
+`ProblemDetail` object and give it to the response as follows
 
 ```csharp
 public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception,CancellationToken cancellationToken)
@@ -82,19 +62,35 @@ public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception e
 }
 ```
 
-## Developer Exception Page
+We fill the content of the object as below.
 
-Since we are requesting from Postman, we do not use developer exception page, we
-expect exception in response body in development environment. That's why we
-don't want a developer exception page.
+- **Type**: Exception document link
+- **Title**: Exception name without the suffix 'exception' in standard case
+- **Status**: Status codes
+- **Detail**: Exception's message,
+- **Extensions**: Exception's extra fields, if any
 
-## UseStatusCodePages
+Below you can see the example response body on the page
 
-By default, an ASP.NET Core application does not provide a status code page for
-HTTP error status codes such as 404 - Not Found, so we use `UseStatusCodePages`.
+```json
+{"type":"http://localhost:5032/errors/parameter-required","title":"Parameter Required","status":500,"detail":"param2 is required."}
+```
 
-When using `AddProblemDetail`, we use `UseStatusCodePages` in its bare form
-since `AddProblemDetail` already generates the response body for exceptions.
+In order to have the same standard in the exceptions we do not handle, we have
+applied the same standard in all exceptions by using `AddProblemDetails` as
+below.
+
+```csharp
+builder.Services.AddProblemDetails();
+```
+
+The only problem now is that exceptions like `404` don't have pages. For such
+exceptions, we use `UseStatusCodePages`. In this way, for example, instead of
+the browser's warning such as the page could not be found when you go to a path
+that does not exist, it shows our page and we display the exception with the
+`ProblemDetail` object.
+
+The addition is as follows
 
 ```csharp
 app.UseStatusCodePages();
