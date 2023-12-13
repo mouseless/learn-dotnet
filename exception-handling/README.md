@@ -73,7 +73,13 @@ We fill the content of the object as below.
 Below you can see the example response body on the page
 
 ```json
-{"type":"http://localhost:5032/errors/parameter-required","title":"Parameter Required","status":500,"detail":"param2 is required."}
+{
+    "type":"http://localhost:5032/errors/parameter-required",
+    "title":"Parameter Required",
+    "status":500,
+    "detail":"param2 is required.",
+    "name":"Parameter Required"
+}
 ```
 
 In order to have the same standard in the exceptions we do not handle, we have
