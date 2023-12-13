@@ -9,7 +9,6 @@ builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 var app = builder.Build();
 
 app.UseExceptionHandler();
-
 app.UseStatusCodePages();
 
 app.MapGet("/", () => "go to /summing?param1={0}&param2={1} route for summing");
