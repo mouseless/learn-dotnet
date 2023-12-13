@@ -13,7 +13,7 @@ public class CustomExceptionHandler : IExceptionHandler
         {
             Type = $"{httpContext.Request.Scheme}://{httpContext.Request.Host}/errors/parameter-required",
             Status = StatusCodes.Status500InternalServerError,
-            Title = parameterRequiredException.Name,
+            Title = "Parameter Required",
             Detail = parameterRequiredException.Message,
             Extensions = new Dictionary<string, object?>
             {

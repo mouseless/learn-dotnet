@@ -78,7 +78,7 @@ Below you can see the example response body on the page
     "title":"Parameter Required",
     "status":500,
     "detail":"param2 is required.",
-    "name":"Parameter Required"
+    "name":"param2"
 }
 ```
 
