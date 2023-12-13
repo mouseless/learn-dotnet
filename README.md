@@ -47,3 +47,8 @@ Generators](/regex-source-generators/README.md).
 
 To see how we use primary constructors, visit [Primary
 Constructors](/primary-constructors/README.md).
+
+## Exception Handling
+
+To see how we manage exceptions, visit [Exception
+Handling](/exception-handling/README.md).
