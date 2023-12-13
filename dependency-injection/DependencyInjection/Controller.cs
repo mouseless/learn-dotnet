@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DependencyInjection;
 
 [ApiController]
-public class Controller(Singleton _singleton, IServiceProvider _serviceProvider)
+public class Controller(IServiceProvider _serviceProvider, Singleton _singleton)
 {
     [HttpPost]
     [Route("stuff")]
