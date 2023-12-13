@@ -15,6 +15,9 @@ builder.Services.AddScoped<Scoped>();
 builder.Services.AddSingleton<Func<Transient>>(sp => () => sp.GetRequiredServiceUsingRequestServices<Transient>());
 builder.Services.AddTransient<Transient>();
 
+builder.Services.AddKeyedSingleton<IPersonal, PersonalA>("personal-a");
+builder.Services.AddKeyedSingleton<IPersonal, PersonalB>("personal-b");
+
 var app = builder.Build();
 
 app.UseRouting();
