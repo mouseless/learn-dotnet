@@ -50,7 +50,7 @@ better readability.
 > `HttpContext.RequestServices` instead of root service provider. Otherwise
 > scoped dependencies will cause a runtime error.
 
-## Keyed DI Services
+## Use Keyed DI Services Service Container
 
 Keyed Services allows us to register these services with a key for the service
 implementations registered with the same service type for our ease of use and to
