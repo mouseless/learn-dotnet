@@ -27,9 +27,9 @@ public class Controller
     }
 
     [HttpPost]
-    [Route("employee/programmers-name")]
-    public List<string> GetProgrammersName([FromKeyedServices("programmer")] IEnumerable<IEmployee> programmers)
+    [Route("employee/names")]
+    public List<string> GetEmployeesName([FromKeyedServices("employee")] IEnumerable<IEmployee> employees)
     {
-        return programmers.Select(p => p.Name).ToList();
+        return employees.Select(p => p.Name).ToList();
     }
 }

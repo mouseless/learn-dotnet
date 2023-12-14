@@ -17,8 +17,9 @@ builder.Services.AddTransient<Transient>();
 
 builder.Services.AddKeyedSingleton<IEmployee, Manager>("manager");
 builder.Services.AddKeyedSingleton<IEmployee, Engineer>("engineer");
-builder.Services.AddKeyedSingleton<IEmployee, ProgrammerA>("programmer");
-builder.Services.AddKeyedSingleton<IEmployee, ProgrammerB>("programmer");
+
+builder.Services.AddKeyedSingleton<IEmployee, Manager>("employee");
+builder.Services.AddKeyedSingleton<IEmployee, Engineer>("employee");
 
 var app = builder.Build();
 
