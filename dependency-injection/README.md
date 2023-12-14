@@ -50,53 +50,16 @@ better readability.
 > `HttpContext.RequestServices` instead of root service provider. Otherwise
 > scoped dependencies will cause a runtime error.
 
-## Use Keyed DI Services Service Container
+## Dependency Injection in Controllers
 
-Keyed Services allows us to register these services with a key for the service
-implementations registered with the same service type for our ease of use and to
-access them with this key when calling them.
-
-In the list below you can see extensions that you can use when
-registering services with a key.
-
-- `AddKeyedTransient<TService, TImplementation>(object key)`
-- `AddKeyedScoped<TService, TImplementation>(object key)`
-- `AddKeyedSingleton<TService, TImplementation>(object key)`
-
-As an example, let's assume that we have an `IPersonal` interface and two
-`PersonalA` and `PersonalB` services derived from it and register them as
-singletons. Let's use an enum to make it easy to recognize.
+When getting the services we register in the controllers, if we register with
+key, we get them with `FromKeyedServices` attribute in the relevant action. If
+we register normally we prefer to get them with `FromServices` attribute.
 
 ```csharp
-enum ServiceImplementation
-{
-    PersonalA,
-    PersonalB
-}
+public void Action([FromKeyedServices("key")] ServiceType service) { }
 
-builder.Services.AddKeyedSingleton<IPersonal, PersonalA>(ServiceImplementation.PersonalA);
-builder.Services.AddKeyedSingleton<IPersonal, PersonalB>(ServiceImplementation.PersonalB);
-```
-
-Now that we have registered them, we need to figure out how to call these
-services. We can use many ways for this. Some of the suggested ways:
-
-- `FromKeyedServices` attribute
-- `GetRequiredKeyedService` extension of `IServiceProvider`
-
-With the above case in mind, below are examples of the use of these pathways.
-
-```csharp
-public void FromKeyedServicesUsing([FromKeyedServices(ServiceImplementation.PersonalA)] IPersonal personal)
-{
-    ...
-}
-
-public void GetRequiredKeyedServiceUsing()
-{
-    var personal = _serviceProvider.GetRequiredKeyedService<IPersonal>(ServiceImplementation.PersonalB);
-    ...
-}
+public void Action([FromServices] ServiceType service) { }
 ```
 
 > :information_source:
@@ -104,13 +67,6 @@ public void GetRequiredKeyedServiceUsing()
 > If you intentionally register more than one service with the same key, you can
 > call them all using `IEnumerable` when calling the service, otherwise the last
 > one you added will come up.
->
-> ```csharp
-> public class MyClass([FromKeyedServices("keyService")] IEnumerable<ICustomService> services)
-> {
->   ...
-> }
-> ```
 
 ## Resources
 

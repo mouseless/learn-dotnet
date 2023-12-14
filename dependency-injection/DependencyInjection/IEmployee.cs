@@ -1,6 +1,6 @@
 namespace DependencyInjection;
 
-public interface IPersonal
+public interface IEmployee
 {
     public string Name => default!;
 }

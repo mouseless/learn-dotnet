@@ -3,28 +3,33 @@ using Microsoft.AspNetCore.Mvc;
 namespace DependencyInjection;
 
 [ApiController]
-public class Controller(IServiceProvider _serviceProvider, Singleton _singleton)
+public class Controller
 {
     [HttpPost]
     [Route("stuff")]
-    public void DoStuff()
+    public void DoStuff([FromServices] Singleton singleton)
     {
-        _singleton.DoStuff("controller");
+        singleton.DoStuff("controller");
     }
 
     [HttpPost]
-    [Route("from-keyed-services/personal-a")]
-    public string FromKeyedServicesUsing([FromKeyedServices(ServiceImplementation.PersonalA)] IPersonal personal)
+    [Route("employee/manager-name")]
+    public string GetManagerName([FromKeyedServices("manager")] IEmployee personal)
     {
         return personal.Name;
     }
 
     [HttpPost]
-    [Route("get-required-keyed-service-using/personal-b")]
-    public string GetRequiredKeyedServiceUsing()
+    [Route("employee/engineer-name")]
+    public string GetEngineerName([FromKeyedServices("engineer")] IEmployee personal)
     {
-        var personal = _serviceProvider.GetRequiredKeyedService<IPersonal>(ServiceImplementation.PersonalB);
-
         return personal.Name;
+    }
+
+    [HttpPost]
+    [Route("employee/programmers-name")]
+    public List<string> GetProgrammersName([FromKeyedServices("programmer")] IEnumerable<IEmployee> programmers)
+    {
+        return programmers.Select(p => p.Name).ToList();
     }
 }

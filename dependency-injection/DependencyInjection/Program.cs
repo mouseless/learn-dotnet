@@ -15,8 +15,10 @@ builder.Services.AddScoped<Scoped>();
 builder.Services.AddSingleton<Func<Transient>>(sp => () => sp.GetRequiredServiceUsingRequestServices<Transient>());
 builder.Services.AddTransient<Transient>();
 
-builder.Services.AddKeyedSingleton<IPersonal, PersonalA>(ServiceImplementation.PersonalA);
-builder.Services.AddKeyedSingleton<IPersonal, PersonalB>(ServiceImplementation.PersonalB);
+builder.Services.AddKeyedSingleton<IEmployee, Manager>("manager");
+builder.Services.AddKeyedSingleton<IEmployee, Engineer>("engineer");
+builder.Services.AddKeyedSingleton<IEmployee, ProgrammerA>("programmer");
+builder.Services.AddKeyedSingleton<IEmployee, ProgrammerB>("programmer");
 
 var app = builder.Build();
 
