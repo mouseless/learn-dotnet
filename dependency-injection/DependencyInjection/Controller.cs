@@ -12,24 +12,24 @@ public class Controller
         singleton.DoStuff("controller");
     }
 
-    [HttpPost]
-    [Route("employee/manager-name")]
-    public string GetManagerName([FromKeyedServices("manager")] IEmployee personal)
+    [HttpGet]
+    [Route("employees/manager")]
+    public IEmployee GetManager([FromKeyedServices("manager")] IEmployee employee)
     {
-        return personal.Name;
+        return employee;
     }
 
-    [HttpPost]
-    [Route("employee/engineer-name")]
-    public string GetEngineerName([FromKeyedServices("engineer")] IEmployee personal)
+    [HttpGet]
+    [Route("employees/engineer")]
+    public IEmployee GetEngineer([FromKeyedServices("engineer")] IEmployee employee)
     {
-        return personal.Name;
+        return employee;
     }
 
-    [HttpPost]
-    [Route("employee/names")]
-    public List<string> GetEmployeesName([FromKeyedServices("employee")] IEnumerable<IEmployee> employees)
+    [HttpGet]
+    [Route("employees")]
+    public IEnumerable<IEmployee> GetEmployees([FromKeyedServices("employee")] IEnumerable<IEmployee> employees)
     {
-        return employees.Select(p => p.Name).ToList();
+        return employees;
     }
 }

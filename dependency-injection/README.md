@@ -70,7 +70,7 @@ public void Action([FromServices] ServiceType service) { }
 
 ## Resources
 
-- Keyed DI Services
+- Dependency Injection in Controllers
   - [Keyed Services in .NET8's Dependency Injection][keyed-services-net8-di]
   - [Keyed service dependency injection container support][keyed-services-di-container-support]
 
