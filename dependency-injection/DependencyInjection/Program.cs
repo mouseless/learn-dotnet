@@ -15,11 +15,13 @@ builder.Services.AddScoped<Scoped>();
 builder.Services.AddSingleton<Func<Transient>>(sp => () => sp.GetRequiredServiceUsingRequestServices<Transient>());
 builder.Services.AddTransient<Transient>();
 
-builder.Services.AddKeyedSingleton<IEmployee, Manager>("manager");
-builder.Services.AddKeyedSingleton<IEmployee, Engineer>("engineer");
+builder.Services.AddSingleton<Manager>();
+builder.Services.AddKeyedSingleton<IEmployee, Manager>("manager", (sp, _) => sp.GetRequiredService<Manager>());
+builder.Services.AddSingleton<IEmployee, Manager>(sp => sp.GetRequiredService<Manager>());
 
-builder.Services.AddKeyedSingleton<IEmployee, Manager>("employee");
-builder.Services.AddKeyedSingleton<IEmployee, Engineer>("employee");
+builder.Services.AddSingleton<Engineer>();
+builder.Services.AddKeyedSingleton<IEmployee, Engineer>("engineer", (sp, _) => sp.GetRequiredService<Engineer>());
+builder.Services.AddSingleton<IEmployee, Engineer>(sp => sp.GetRequiredService<Engineer>());
 
 var app = builder.Build();
 

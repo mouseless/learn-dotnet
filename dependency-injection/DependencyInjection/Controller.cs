@@ -28,7 +28,7 @@ public class Controller
 
     [HttpGet]
     [Route("employees")]
-    public IEnumerable<IEmployee> GetEmployees([FromKeyedServices("employee")] IEnumerable<IEmployee> employees)
+    public IEnumerable<IEmployee> GetEmployees([FromServices] IEnumerable<IEmployee> employees)
     {
         return employees;
     }
