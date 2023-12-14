@@ -50,7 +50,7 @@ better readability.
 > `HttpContext.RequestServices` instead of root service provider. Otherwise
 > scoped dependencies will cause a runtime error.
 
-## Dependency Injection in Controllers
+## In Controllers
 
 When getting the services we register in the controllers, if we register with
 key, we get them with `FromKeyedServices` attribute in the relevant action. If
@@ -70,7 +70,7 @@ public void Action([FromServices] ServiceType service) { }
 
 ## Resources
 
-- Dependency Injection in Controllers
+- In Controllers
   - [Keyed Services in .NET8's Dependency Injection][keyed-services-net8-di]
   - [Keyed service dependency injection container support][keyed-services-di-container-support]
 
