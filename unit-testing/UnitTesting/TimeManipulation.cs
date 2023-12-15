@@ -2,7 +2,7 @@ using Microsoft.Extensions.Time.Testing;
 
 namespace UnitTesting;
 
-public class TimeManupilation : Spec
+public class TimeManipulation : Spec
 {
     class Information(TimeProvider _timeProvider)
     {

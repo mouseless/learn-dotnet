@@ -6,7 +6,7 @@ public class Singleton(Func<Scoped> _getScoped, Func<Transient> _newTransient, I
 
     public void DoStuff(string source)
     {
-        _logger.LogInformation($"{_timeProvider.GetUtcNow()}: Singleton[{_id}] is doing stuff from ${source}");
+        _logger.LogInformation($"Singleton[{_id}] is doing stuff from ${source}");
 
         _getScoped().DoStuff("singleton");
         _newTransient().DoStuff("singleton");
@@ -14,6 +14,8 @@ public class Singleton(Func<Scoped> _getScoped, Func<Transient> _newTransient, I
 
     public void DoOtherStuff(string source)
     {
-        _logger.LogInformation($"{_timeProvider.GetUtcNow()}: Singleton[{_id}] is doing other stuff from {source}");
+        _logger.LogInformation($"Singleton[{_id}] is doing other stuff from {source}");
     }
+
+    public DateTimeOffset GetNow() => _timeProvider.GetUtcNow();
 }

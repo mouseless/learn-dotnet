@@ -13,6 +13,13 @@ public class Controller
     }
 
     [HttpGet]
+    [Route("time")]
+    public DateTimeOffset GetNow([FromServices] Singleton singleton)
+    {
+        return singleton.GetNow();
+    }
+
+    [HttpGet]
     [Route("employees/manager")]
     public IEmployee GetManager([FromKeyedServices("manager")] IEmployee employee)
     {
