@@ -13,7 +13,7 @@ public class Controller
     }
 
     [HttpGet]
-    [Route("time")]
+    [Route("now")]
     public DateTimeOffset GetNow([FromServices] Singleton singleton)
     {
         return singleton.GetNow();
