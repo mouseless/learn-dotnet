@@ -68,6 +68,13 @@ public void Action([FromServices] ServiceType service) { }
 > call them all using `IEnumerable` when calling the service, otherwise the last
 > one you added will come up.
 
+## TimeProvider
+
+Previously, we were spending additional effort to make the parts associated with
+the `DateTime` object testable and low dependencies. To reduce this, we started
+using `TimeProvider`. We use `TimeProvider` by getting it from the relevant
+constructor using dependency injection.
+
 ## Resources
 
 - In Controllers
