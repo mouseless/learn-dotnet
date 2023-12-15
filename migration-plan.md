@@ -68,7 +68,7 @@ foreach (var element in single)
 
 ## Default lambda parameters
 
-You can now define default values for parameters on lambda expressions.
+You can now define default values for parameters on lambda expressions. .
 
 ```csharp
 var IncrementBy = (int source, int increment = 1) => source + increment;
