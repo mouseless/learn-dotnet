@@ -65,6 +65,13 @@ foreach (var element in single)
 // 1, 2, 3, 4, 5, 6, 7, 8, 9,
 ```
 
+Dictionary initialization with values uses the old syntax.
+
+```csharp
+//Dictionary<string, string> dictionary = new() [ ["key"] = "value"];
+Dictionary<string, string> dictionary = new() { ["key"] = "value"};
+```
+
 Array, list or dictionary initialization no longer requires `new` operator.
 
 ```csharp

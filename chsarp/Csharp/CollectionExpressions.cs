@@ -13,7 +13,7 @@ public class CollectionExpressions
     {
         int[] intArray = [1, 2, 3, 4, 5];
         List<int> intList = [1, 2, 3, 4, 5];
-        Dictionary<string, int> dictionary = new() { ["test"] = 1, ["test2"] = 2 };
+        Dictionary<string, string> dictionary = new() { ["key"] = "value" };
 
         int[] intCollection = [.. intArray, .. intList];
         int[] anotherIntCollection = [.. intCollection, 1, 2, 3, 4, 5];
