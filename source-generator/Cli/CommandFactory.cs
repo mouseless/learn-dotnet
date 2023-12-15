@@ -18,7 +18,7 @@ public class CommandFactory
             case "webapp":
                 return new WebApp();
             default:
-                throw new Exception("Not match any class");
+                throw new("Not match any class");
         }
     }
 }
