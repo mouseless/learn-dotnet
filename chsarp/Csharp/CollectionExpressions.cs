@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace Csharp;
+namespace CSharp;
 
 public class CollectionExpressions(ILogger<CollectionExpressions> _logger)
 {
