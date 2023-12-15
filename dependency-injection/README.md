@@ -49,3 +49,30 @@ better readability.
 > When registering a generic factory function, make sure you use
 > `HttpContext.RequestServices` instead of root service provider. Otherwise
 > scoped dependencies will cause a runtime error.
+
+## In Controllers
+
+When getting the services we register in the controllers, if we register with
+key, we get them with `FromKeyedServices` attribute in the relevant action. If
+we register normally we prefer to get them with `FromServices` attribute.
+
+```csharp
+public void Action([FromKeyedServices("key")] ServiceType service) { }
+
+public void Action([FromServices] ServiceType service) { }
+```
+
+> :information_source:
+>
+> If you intentionally register more than one service with the same key, you can
+> call them all using `IEnumerable` when calling the service, otherwise the last
+> one you added will come up.
+
+## Resources
+
+- In Controllers
+  - [Keyed Services in .NET8's Dependency Injection][keyed-services-net8-di]
+  - [Keyed service dependency injection container support][keyed-services-di-container-support]
+
+[keyed-services-net8-di]: https://dev.to/xaberue/keyed-services-in-net8s-dependency-injection-2gni
+[keyed-services-di-container-support]: https://andrewlock.net/exploring-the-dotnet-8-preview-keyed-services-dependency-injection-support/
