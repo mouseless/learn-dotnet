@@ -17,5 +17,17 @@ public class CollectionExpressions
 
         int[] intCollection = [.. intArray, .. intList];
         int[] anotherIntCollection = [.. intCollection, 1, 2, 3, 4, 5];
+
+        Console.WriteLine(anotherIntCollection);
     }
+
+    public void CallMethods()
+    {
+        SomeMethod("arg1", "arg2", "arg3");
+
+        SomeMethod(args: ["arg1", "arg2", "arg3"]);
+    }
+
+    public void SomeMethod(params string[] args) { }
+    public void SomeOtherMethod(string[] args) { }
 }
