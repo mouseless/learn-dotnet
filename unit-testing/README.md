@@ -50,7 +50,7 @@ descriptive naming in our test cases.
 
 `MockMe` TBD...
 
-## Time Time Manipulation
+## Time Manipulation
 
 To manipulate time where we use `TimeProvider`, we use `FakeTimeProvider` from
 Microsoft to create a fake time and use it as `TimeProvider`.
