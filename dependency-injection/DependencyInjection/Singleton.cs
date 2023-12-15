@@ -17,5 +17,5 @@ public class Singleton(Func<Scoped> _getScoped, Func<Transient> _newTransient, I
         _logger.LogInformation($"Singleton[{_id}] is doing other stuff from {source}");
     }
 
-    public DateTimeOffset GetNow() => _timeProvider.GetUtcNow();
+    public DateTime GetNow() => _timeProvider.GetLocalNow().DateTime;
 }
