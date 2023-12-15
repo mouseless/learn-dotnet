@@ -66,6 +66,30 @@ foreach (var element in single)
 // 1, 2, 3, 4, 5, 6, 7, 8, 9,
 ```
 
+Dictionary initialization with values uses the old syntax.
+
+```csharp
+//Dictionary<string, string> dictionary = new() [ ["key"] = "value"];
+Dictionary<string, string> dictionary = new() { ["key"] = "value"};
+```
+
+Array, list or dictionary initialization no longer requires `new` operator.
+
+```csharp
+int[] array = [];
+List<int> list = [];
+Dictionary<int, string> dictionary = [];
+```
+
+Using the spread operator, `spread_element` is iterated and added to collection.
+
+```csharp
+int[] array = [];
+List<int> list = [];
+
+int[] anotherArray = [.. array, .. list];
+```
+
 ## Default lambda parameters
 
 You can now define default values for parameters on lambda expressions.
