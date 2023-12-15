@@ -69,15 +69,15 @@ Array, list or dictionary initialization no longer requires `new` operator.
 
 ```csharp
 int[] array = [];
-List<int> list = []
-Dictionary<int, string> dictionary = []
+List<int> list = [];
+Dictionary<int, string> dictionary = [];
 ```
 
 Using the spread operator, `spread_element` is iterated and added to collection.
 
 ```csharp
 int[] array = [];
-List<int> list = []
+List<int> list = [];
 
 int[] anotherArray = [.. array, .. list];
 ```
@@ -105,8 +105,8 @@ public class CustomCollection : IEnumerable<SomeClass>
   
     ...
 
-    CustomCollection customCollection = new()
-    SomeClass[] array = [.. customCollection]
+    CustomCollection customCollection = new();
+    SomeClass[] array = [.. customCollection];
 ```
 
 To make your custom collections initializable with spread operators you need to
@@ -122,8 +122,8 @@ public class CustomCollection : IEnumerable<SomeClass>
 
   ...
 
-  List<SomeClass> someClassList = []
-  CustomCollection customCollection = [ s1, s2, s3, s4, .. someClassList ]
+  List<SomeClass> someClassList = [];
+  CustomCollection customCollection = [ s1, s2, s3, s4, .. someClassList ];
 ```
 
 Using the collection builder attribute, you can provide a builder for you custom
