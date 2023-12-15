@@ -96,7 +96,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "exception-handling", "excep
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExceptionHandling", "exception-handling\ExceptionHandling\ExceptionHandling.csproj", "{658DFE92-7D9E-4DD6-979C-57460629A5E2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharp", "chsarp\Csharp\CSharp.csproj", "{8C3B6F82-4740-4059-B526-E5EF74CD69D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharp", "chsarp\CSharp.csproj", "{8C3B6F82-4740-4059-B526-E5EF74CD69D0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "csharp", "csharp", "{8D3DAA2C-A035-47DC-92DE-A0DA501B32BF}"
 EndProject
