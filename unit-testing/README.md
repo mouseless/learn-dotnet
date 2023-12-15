@@ -49,3 +49,8 @@ By using the name `GiveMe` for these methods, we ensure meaningful and
 descriptive naming in our test cases.
 
 `MockMe` TBD...
+
+## Time Manipulation
+
+To manipulate time where we use `TimeProvider`, we use `FakeTimeProvider` from
+Microsoft to create a fake time and use it as `TimeProvider`.
