@@ -100,6 +100,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharp", "chsarp\CSharp.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "csharp", "csharp", "{8D3DAA2C-A035-47DC-92DE-A0DA501B32BF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "native-aot", "native-aot", "{A6FDF528-DB3B-4838-8D9D-F3E0F08DF97A}"
+	ProjectSection(SolutionItems) = preProject
+		native-aot\README.md = native-aot\README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NativeAOT", "native-aot\NativeAOT\NativeAOT.csproj", "{AD006E83-4501-47B5-BEEA-BA9326A3D630}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -166,6 +173,10 @@ Global
 		{8C3B6F82-4740-4059-B526-E5EF74CD69D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C3B6F82-4740-4059-B526-E5EF74CD69D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C3B6F82-4740-4059-B526-E5EF74CD69D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD006E83-4501-47B5-BEEA-BA9326A3D630}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD006E83-4501-47B5-BEEA-BA9326A3D630}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD006E83-4501-47B5-BEEA-BA9326A3D630}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD006E83-4501-47B5-BEEA-BA9326A3D630}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -201,6 +212,8 @@ Global
 		{658DFE92-7D9E-4DD6-979C-57460629A5E2} = {1D0A109B-6458-4C04-B400-F9484310595C}
 		{8C3B6F82-4740-4059-B526-E5EF74CD69D0} = {8D3DAA2C-A035-47DC-92DE-A0DA501B32BF}
 		{8D3DAA2C-A035-47DC-92DE-A0DA501B32BF} = {E148C898-1BFD-4F28-8940-583CC50F90DB}
+		{A6FDF528-DB3B-4838-8D9D-F3E0F08DF97A} = {E148C898-1BFD-4F28-8940-583CC50F90DB}
+		{AD006E83-4501-47B5-BEEA-BA9326A3D630} = {A6FDF528-DB3B-4838-8D9D-F3E0F08DF97A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ECEAECE7-49E5-4CBC-B84D-5FF82F2399FC}
