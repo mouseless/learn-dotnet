@@ -1,18 +1,12 @@
 public static class ServiceProviderExtensions
 {
     public static T GetRequiredServiceUsingRequestServices<T>(this IServiceProvider source) where T : notnull
-    => (T)source.GetRequiredServiceUsingRequestServices(typeof(T));
-
-    public static object GetRequiredServiceUsingRequestServices(this IServiceProvider source, Type type)
     {
         var http = source.GetRequiredService<IHttpContextAccessor>();
 
-        if (http.HttpContext is null) { return source.GetRequiredService(type); }
+        if (http.HttpContext is null) { return source.GetRequiredService<T>(); }
 
-        var context = http.HttpContext;
-        var serviceProvider = context.RequestServices;
-
-        return serviceProvider.GetRequiredService(type);
+        return http.HttpContext.RequestServices.GetRequiredService<T>();
     }
 
     public static void AddTransientWithFactory<TService>(this IServiceCollection source) where TService : class =>

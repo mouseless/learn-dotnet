@@ -20,22 +20,15 @@ public class TransientDisposable : IDisposable
 
     protected virtual void Dispose(bool disposing)
     {
-        _logger.LogInformation($"dispose called on: {nameof(TransientDisposable)}");
+        _logger.LogInformation($"dispose called on: {nameof(TransientDisposable)};_isDisposed:{_disposedValue}");
 
         if (!_disposedValue)
         {
             if (disposing)
             {
-                try
-                {
-                    _logger.LogInformation($"disposing: {nameof(TransientDisposable)}");
-                    _getScopedWithFactory().DoSomething();
-                    _logger.LogInformation($"disposed: {nameof(TransientDisposable)}");
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError($"dispose failed: {ex.Message}");
-                }
+                _logger.LogInformation($"disposing: {nameof(TransientDisposable)}");
+                _getScopedWithFactory().DoSomething();
+                _logger.LogInformation($"disposed: {nameof(TransientDisposable)}");
             }
 
             _disposedValue = true;
