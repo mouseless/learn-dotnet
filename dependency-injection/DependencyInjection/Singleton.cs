@@ -1,6 +1,6 @@
 namespace DependencyInjection;
 
-public class Singleton(Func<Scoped> _getScoped, Func<Transient> _newTransient, ILogger<Singleton> _logger)
+public class Singleton(Func<Scoped> _getScoped, Func<Transient> _newTransient, ILogger<Singleton> _logger, TimeProvider _timeProvider)
 {
     readonly Guid _id = Guid.NewGuid();
 
@@ -16,4 +16,6 @@ public class Singleton(Func<Scoped> _getScoped, Func<Transient> _newTransient, I
     {
         _logger.LogInformation($"Singleton[{_id}] is doing other stuff from {source}");
     }
+
+    public DateTime GetNow() => _timeProvider.GetLocalNow().DateTime;
 }

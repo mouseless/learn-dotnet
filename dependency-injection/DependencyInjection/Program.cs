@@ -9,6 +9,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<Singleton>();
 
+builder.Services.AddSingleton(TimeProvider.System);
+
 builder.Services.AddSingleton<Func<Scoped>>(sp => () => sp.GetRequiredServiceUsingRequestServices<Scoped>());
 builder.Services.AddScoped<Scoped>();
 
