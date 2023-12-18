@@ -101,6 +101,12 @@ Console.WriteLine(IncrementBy(5)); // 6
 Console.WriteLine(IncrementBy(5, 2)); // 7
 ```
 
+You can also declare lambda expressions with a params array as parameter.
+
+```csharp
+var sum = (params int[] values) => { ... }
+```
+
 ## Source Link
 
 We use the Source Link feature in our open source projects to improve the
