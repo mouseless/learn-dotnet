@@ -71,10 +71,10 @@ builder.Services.AddSingleton<Func<Scoped>>(sp => () =>
     var httpContext = sp.GetRequiredService<IHttpContextAccessor>().HttpContext;
 
     return httpContext.RequestServices.GetRequiredService<Scoped>()
-} );
+});
 ```
 
-Ifyou want to perform extra operations during disposal of a service, you can 
+If you want to perform extra operations during disposal of a service, you can 
 register a service which implements `IDisposable` and `Dispose()` method
 will be called at the end of each request.
 
