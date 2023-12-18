@@ -15,6 +15,10 @@ builder.Services.AddScoped<Scoped>();
 builder.Services.AddSingleton<Func<Transient>>(sp => () => sp.GetRequiredServiceUsingRequestServices<Transient>());
 builder.Services.AddTransient<Transient>();
 
+builder.Services.AddTransientWithFactory<TransientDisposable>();
+builder.Services.AddScopedWithFactory<ScopedWithFactory>();
+builder.Services.AddLogging();
+
 var app = builder.Build();
 
 app.UseRouting();
@@ -27,5 +31,7 @@ app.MapGet("/", context =>
 
     return Task.CompletedTask;
 });
+
+app.UseMiddleware<RequestLogMiddleware>();
 
 app.Run();
