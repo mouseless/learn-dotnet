@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 var serviceCollection = new ServiceCollection();
 
 serviceCollection.AddSingleton<CollectionExpressions>();
-serviceCollection.AddSingleton<DefaultLambdaParameters>();
+serviceCollection.AddSingleton<LambdaParameters>();
 
 serviceCollection.AddLogging(options =>
 {
@@ -16,11 +16,12 @@ serviceCollection.AddLogging(options =>
 var serviceProvider = serviceCollection.BuildServiceProvider();
 
 var collectionExpressions = serviceProvider.GetRequiredService<CollectionExpressions>();
-var defaultLambdaParameters = serviceProvider.GetRequiredService<DefaultLambdaParameters>();
+var lambdaParameters = serviceProvider.GetRequiredService<LambdaParameters>();
 
 collectionExpressions.EmptyCollectionInitialization();
 collectionExpressions.CollectionInitialization();
 collectionExpressions.CallMethods();
 
-defaultLambdaParameters.DefaultParameters();
-defaultLambdaParameters.ParamsArrayParameters();
+lambdaParameters.OptionalParameters();
+lambdaParameters.ParamsArrayParameters();
+lambdaParameters.NewAcceptedBehaviour();
