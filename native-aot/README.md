@@ -11,6 +11,14 @@ languages with NativeAOT.
 
 ### Hangi projerlerde kullanıyor? Console? Web?
 
+web - yes
+console - yes
+lib - yes
+
+#### Web detaylı +,-
+
+bir yerde https desteği yok gibi okudum detaylı bakılacak :x:
+
 ## Bu feature neden geliştirildi ?
 
 ## Eksileri neler? Bize nerelerde sorun çıkarabilir ?
