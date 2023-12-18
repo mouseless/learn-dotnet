@@ -59,3 +59,7 @@ better readability.
 > When registering a generic factory function, make sure you use
 > `HttpContext.RequestServices` instead of root service provider. Otherwise
 > scoped dependencies will cause a runtime error.
+
+## Disposable Services
+
+
