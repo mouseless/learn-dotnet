@@ -18,7 +18,10 @@ public class DefaultLambdaParameters(ILogger<CollectionExpressions> _logger)
 
         var action = incrementValue;
         action();
+    }
 
+    public void ParamsArrayParameters()
+    {
         var sumValues = (params int[] values) =>
         {
             _logger.LogInformation($"Called with {values.Length} parameters");

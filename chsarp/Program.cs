@@ -23,3 +23,4 @@ collectionExpressions.CollectionInitialization();
 collectionExpressions.CallMethods();
 
 defaultLambdaParameters.DefaultParameters();
+defaultLambdaParameters.ParamsArrayParameters();
