@@ -43,6 +43,10 @@ between CoreCLR(default development) and Native AOT.
 dotnet in sample projede örneği var. Sorun olmayacaktır.
 bkz: https://github.com/dotnet/samples/blob/main/core/nativeaot/HelloWorld/README.md
 
+Native AOT publish edilen platform'u targetladığı ve sadece o platformda
+çalışabildiği için Docker üzerinden container'da çalıştırmak farklı platformdan
+dolayı çalışmama problemini ortadan kaldıracağı için öneriliyor.
+
 ## Artıları neler?
 
 ### Build native libraries
