@@ -16,4 +16,13 @@ public class Controller
     {
         _singleton.DoStuff("controller");
     }
+
+    [HttpPost]
+    [Route("/transients/dispose")]
+    public async Task UseTransientDisposable([FromServices] Func<TransientDisposable> newTransientDisposable)
+    {
+        using var transientDisposable = newTransientDisposable();
+
+        await transientDisposable.Process();
+    }
 }

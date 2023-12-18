@@ -15,6 +15,9 @@ builder.Services.AddScoped<Scoped>();
 builder.Services.AddSingleton<Func<Transient>>(sp => () => sp.GetRequiredServiceUsingRequestServices<Transient>());
 builder.Services.AddTransient<Transient>();
 
+builder.Services.AddSingleton<Func<TransientDisposable>>(sp => () => sp.GetRequiredServiceUsingRequestServices<TransientDisposable>());
+builder.Services.AddTransient<TransientDisposable>();
+
 var app = builder.Build();
 
 app.UseRouting();
