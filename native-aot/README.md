@@ -15,11 +15,17 @@ web - yes
 console - yes
 lib - yes
 
-#### Web detaylı +,-
+#### ASP.NET Core Web API (native AOT) detaylı +,-
 
-bir yerde https desteği yok gibi okudum detaylı bakılacak :x:
+ASP.NET Core Web API'si (yerel AOT) template'i olabilecek en hafif program ile geliyor
+CreateSlimBuilder kullanılıyor bu durumda IIS, https gibi destekleri olmuyor.
+bunlar daha sonra aktif edilebilir.
 
 ## Bu feature neden geliştirildi ?
+
+minimal api ler için gereksiz yükü azaltarak ahead of time da yapılabilecek işi
+just in time da yaptırıp startup süresini ve gereksiz bellek boyutunu azalmak
+için geliştirilmiş.
 
 ## Eksileri neler? Bize nerelerde sorun çıkarabilir ?
 
@@ -56,6 +62,10 @@ bkz: https://github.com/dotnet/samples/tree/main/core/nativeaot/NativeLibrary
 
 ## Nasıl çalıştırılır ?
 
+`PublishAot` enable edip publish alındığında çalışıyor. publish alırken console
+da `Generating native code` yazısını gördüğünüzde aot okay demektir ve çıktı
+4 file oluyor.
+
 ### Geliştirme aşamasında nasıl olacak?
 
 if PublishAot is present in the project file, the behavior should be the same
@@ -71,6 +81,15 @@ Native AOT publish edilen platform'u targetladığı ve sadece o platformda
 dolayı çalışmama problemini ortadan kaldıracağı için öneriliyor.
 
 ## Do da kullanabilir miyiz ? Blueprint olarak sunabilirmiyiz ?
+
+kullanmak basit PublishAot yi enable edince aot olarak publish ediyorsun ve eğer
+bir sorun varsa ve aot ile publish olmuyorsa errorleri gösteriyor ancak yinede
+errorleri çözünce sorunların hepsinin kalktığını düşünmemek gerek ve full test
+etmekte fayda var deniyor.
+
+!! sanırım newtonsoft json sanırım aot desteklemiyor. ayrıca buradaki kaynak
+var olan projenin aot geçişini anlatıyor
+https://blog.martincostello.com/native-aot-make-dotnet-lambda-go-brr/#:~:text=involved%20proposition%20though...-,Removing%20Newtonsoft.Json,-The%20Alexa.NET
 
 ### csproj da publish aot diye belirttiğimizi gördük. Do ile do yu kullananlara bunu nasıl sunacağız. Do da aot olarak isteğe bağlı nasıl yayınanabilir ?
 
@@ -121,3 +140,12 @@ for more https://github.com/dotnet/runtime/blob/main/docs/design/features/global
 - `EventSourceSupport`: true/false. Default for Native AOT
 - `ServerGarbageCollection`: true/false
 - `GarbageCollectionAdaptationMode`: 0/1. Default for Native AOT
+
+## reflection a izin yoksa DI çalışmıyor mu ?
+
+M.E.DI, Autofac, DryIoc, Grace, LightInject, StrongInject and other DI
+containers working.
+
+reflection-free mode ta kullanırsak bazı reflectionlara izin veriliyor. ama ms bunu önermiyor.
+
+https://github.com/dotnet/runtime/blob/main/src/coreclr/nativeaot/docs/reflection-free-mode.md
