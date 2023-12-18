@@ -15,8 +15,9 @@ builder.Services.AddScoped<Scoped>();
 builder.Services.AddSingleton<Func<Transient>>(sp => () => sp.GetRequiredServiceUsingRequestServices<Transient>());
 builder.Services.AddTransient<Transient>();
 
-builder.Services.AddTransientWithFactory<TransientDisposable>();
-builder.Services.AddScopedWithFactory<ScopedWithFactory>();
+builder.Services.AddSingleton<Func<TransientDisposable>>(sp => () => sp.GetRequiredServiceUsingRequestServices<TransientDisposable>());
+builder.Services.AddTransient<TransientDisposable>();
+
 builder.Services.AddLogging();
 
 var app = builder.Build();

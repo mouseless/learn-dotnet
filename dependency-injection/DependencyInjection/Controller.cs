@@ -6,12 +6,10 @@ namespace DependencyInjection;
 public class Controller
 {
     readonly Singleton _singleton;
-    readonly ILogger<Controller> _logger;
 
-    public Controller(Singleton singleton, ILogger<Controller> logger)
+    public Controller(Singleton singleton)
     {
         _singleton = singleton;
-        _logger = logger;
     }
 
     [HttpPost]
@@ -21,17 +19,12 @@ public class Controller
         _singleton.DoStuff("controller");
     }
 
-    [HttpGet]
-    [Route("/transient-disposable-test")]
-    public async Task TransientDisposable()
+    [HttpPost]
+    [Route("/transients/dispose")]
+    public async Task TransientDisposableWithUsing([FromServices] Func<TransientDisposable> newTransientDisposable)
     {
-        await _singleton.TestTransientDisposable();
-    }
+        using var transientDisposable = newTransientDisposable();
 
-    [HttpGet]
-    [Route("/transient-disposable-with-using")]
-    public async Task TransientDisposableWithUsing()
-    {
-        await _singleton.TestTransientDisposableWithUsing();
+        await transientDisposable.Process();
     }
 }
