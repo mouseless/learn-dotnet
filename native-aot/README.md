@@ -4,12 +4,6 @@
 `<IsAotCompatible>true</IsAotCompatible>` is used to indicate whether a library
 is compatible with Native AOT
 
-- Not necessarily faster at runtime, but no longer uses JIT so can be.
-- Publis is slower
-- Startup time is significantly faster
-- Takes less space, better for docker
-- Loosing some capabilities due to not using JIT and trimming
-
 ## Ne işe yarıyor?
 
 you through building native libraries that can be consumed by other programming
@@ -45,6 +39,21 @@ MVC, Blazor, SPA, EntityF, JWT hariç diğer kimlik doğrulaması, Oturum, Spa d
   That is, some warnings in the runtime libraries aren't actionable by end
   developers.
 
+## Artıları neler?
+
+- Not necessarily faster at runtime, but no longer uses JIT so can be.
+- Publis is slower
+- Startup time is significantly faster
+- Takes less space, better for docker
+- Loosing some capabilities due to not using JIT and trimming
+
+### Build native libraries
+
+Publishing .NET class libraries as Native AOT allows creating libraries that can
+be consumed from non-.NET programming languages. The produced native library is
+self-contained and doesn't require a .NET runtime to be installed.
+bkz: https://github.com/dotnet/samples/tree/main/core/nativeaot/NativeLibrary
+
 ## Nasıl çalıştırılır ?
 
 ### Geliştirme aşamasında nasıl olacak?
@@ -60,15 +69,6 @@ bkz: https://github.com/dotnet/samples/blob/main/core/nativeaot/HelloWorld/READM
 Native AOT publish edilen platform'u targetladığı ve sadece o platformda
 çalışabildiği için Docker üzerinden container'da çalıştırmak farklı platformdan
 dolayı çalışmama problemini ortadan kaldıracağı için öneriliyor.
-
-## Artıları neler?
-
-### Build native libraries
-
-Publishing .NET class libraries as Native AOT allows creating libraries that can
-be consumed from non-.NET programming languages. The produced native library is
-self-contained and doesn't require a .NET runtime to be installed.
-bkz: https://github.com/dotnet/samples/tree/main/core/nativeaot/NativeLibrary
 
 ## Do da kullanabilir miyiz ? Blueprint olarak sunabilirmiyiz ?
 
