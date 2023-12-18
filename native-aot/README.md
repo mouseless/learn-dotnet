@@ -4,6 +4,12 @@
 `<IsAotCompatible>true</IsAotCompatible>` is used to indicate whether a library
 is compatible with Native AOT
 
+- Not necessarily faster at runtime, but no longer uses JIT so can be.
+- Publis is slower
+- Startup time is significantly faster
+- Takes less space, better for docker
+- Loosing some capabilities due to not using JIT and trimming
+
 ## Ne işe yarıyor?
 
 you through building native libraries that can be consumed by other programming
@@ -97,3 +103,21 @@ invariant mode behavior is defined in this document.
 - Time Zone display name on Linux
 
 for more https://github.com/dotnet/runtime/blob/main/docs/design/features/globalization-invariant-mode.md
+
+## Publishing Options
+
+- `PublishSelfContained`: Standalone application the does not need a framework
+- `PublishTrimmed`: https://learn.microsoft.com/en-us/dotnet/core/deploying/trimming/trim-self-contained
+- `PublishReadyToRun`: Pre-Compiles the application, does not use JIT at start
+  up (does not remove JIT, you still get the benefits from it)
+- `PublishSingleFile`
+- `NativeAot`
+
+### More Publish Options
+
+- `OptimizationPrefference`: size/speed. Optimize size or speed, default value
+  is size
+- `InvatiantGlobalization`: [InvatiantGlobalization](#invariantglobalization-nedir)
+- `EventSourceSupport`: true/false. Default for Native AOT
+- `ServerGarbageCollection`: true/false
+- `GarbageCollectionAdaptationMode`: 0/1. Default for Native AOT
