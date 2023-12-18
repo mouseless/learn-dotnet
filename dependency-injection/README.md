@@ -63,7 +63,7 @@ better readability.
 ## Disposable Services
 
 When using factory method for getting services, we use 
-`HttpContext.RequestServices.
+`HttpContext.RequestServices`.
 
 ```csharp
 builder.Services.AddSingleton<Func<Scoped>>(sp => () =>
@@ -74,8 +74,19 @@ builder.Services.AddSingleton<Func<Scoped>>(sp => () =>
 } );
 ```
 
-When you register a service which implements `IDisposable`, `Dispose()` method
+Ifyou want to perform extra operations during disposal of a service, you can 
+register a service which implements `IDisposable` and `Dispose()` method
 will be called at the end of each request.
+
+```csharp
+public class DisposableService : IDisposable
+{
+    void IDisposable.Dispose()
+    {
+        // Do Stuff
+    }
+}
+```
 
 ### Manually disposing a disposable transient
 
@@ -92,5 +103,5 @@ public async Task Process()
 }
 ```
 
-See [TransientDisposable.cs](/DependencyInjection/TransientDisposable.cs) for
+See [TransientDisposable.cs](./DependencyInjection/TransientDisposable.cs) for
 a solution to avoid any issues when dispose is called a second time.
