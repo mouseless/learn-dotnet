@@ -21,7 +21,7 @@ public class Controller
 
     [HttpPost]
     [Route("/transients/dispose")]
-    public async Task TransientDisposableWithUsing([FromServices] Func<TransientDisposable> newTransientDisposable)
+    public async Task UseTransientDisposable([FromServices] Func<TransientDisposable> newTransientDisposable)
     {
         using var transientDisposable = newTransientDisposable();
 

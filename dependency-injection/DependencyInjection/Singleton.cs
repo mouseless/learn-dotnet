@@ -4,15 +4,11 @@ public class Singleton
 {
     readonly Func<Scoped> _getScoped;
     readonly Func<Transient> _newTransient;
-    readonly Func<TransientDisposable> _newTransientDisposable;
     readonly ILogger<Singleton> _logger;
     readonly Guid _id = Guid.NewGuid();
 
-    public Singleton(Func<Scoped> getScoped, Func<Transient> newTransient, ILogger<Singleton> logger, Func<TransientDisposable> newTransientDisposable)
-    {
+    public Singleton(Func<Scoped> getScoped, Func<Transient> newTransient, ILogger<Singleton> logger) =>
         (_getScoped, _newTransient, _logger) = (getScoped, newTransient, logger);
-        _newTransientDisposable = newTransientDisposable;
-    }
 
     public void DoStuff(string source)
     {
@@ -25,19 +21,5 @@ public class Singleton
     public void DoOtherStuff(string source)
     {
         _logger.LogInformation($"Singleton[{_id}] is doing other stuff from {source}");
-    }
-
-    public async Task TestTransientDisposable()
-    {
-        var transientDisposable = _newTransientDisposable();
-
-        await transientDisposable.Process();
-    }
-
-    public async Task TestTransientDisposableWithUsing()
-    {
-        using var transientDisposable = _newTransientDisposable();
-
-        await transientDisposable.Process();
     }
 }

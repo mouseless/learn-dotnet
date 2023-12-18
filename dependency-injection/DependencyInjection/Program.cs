@@ -18,8 +18,6 @@ builder.Services.AddTransient<Transient>();
 builder.Services.AddSingleton<Func<TransientDisposable>>(sp => () => sp.GetRequiredServiceUsingRequestServices<TransientDisposable>());
 builder.Services.AddTransient<TransientDisposable>();
 
-builder.Services.AddLogging();
-
 var app = builder.Build();
 
 app.UseRouting();
@@ -32,7 +30,5 @@ app.MapGet("/", context =>
 
     return Task.CompletedTask;
 });
-
-app.UseMiddleware<RequestLogMiddleware>();
 
 app.Run();
