@@ -62,6 +62,9 @@ bkz: https://github.com/dotnet/samples/tree/main/core/nativeaot/NativeLibrary
 
 ## source generator ile uyumlu mu ?
 
+Native AOT is compatible with source generation, it is not compatible with
+runtime code generation.
+
 ## InvariantGlobalization nedir ?
 
 `<InvariantGlobalization>true</InvariantGlobalization>` enables you to remove
