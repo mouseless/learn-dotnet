@@ -4,6 +4,8 @@
 
 ## Ne işe yarıyor?
 
+### Hangi projerlerde kullanıyor? Console? Web?
+
 ## Bu feature neden geliştirildi ?
 
 ## Eksileri neler? Bize nerelerde sorun çıkarabilir ?
