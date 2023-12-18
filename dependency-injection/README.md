@@ -62,4 +62,35 @@ better readability.
 
 ## Disposable Services
 
+When using factory method for getting services, we use 
+`HttpContext.RequestServices.
 
+```csharp
+builder.Services.AddSingleton<Func<Scoped>>(sp => () =>
+{
+    var httpContext = sp.GetRequiredService<IHttpContextAccessor>().HttpContext;
+
+    return httpContext.RequestServices.GetRequiredService<Scoped>()
+} );
+```
+
+When you register a service which implements `IDisposable`, `Dispose()` method
+will be called at the end of each request.
+
+### Manually disposing a disposable transient
+
+The below code demonstrates a manually disposing a service with using statment. 
+However, since the service is resolved from `HttpContext.RequestServices`, 
+dispose will be called a second time when request is completed. 
+
+```csharp
+public async Task Process()
+{
+    using var transientDisposable = _newTransientDisposable();
+
+    await transientDisposable.Process();
+}
+```
+
+See [TransientDisposable.cs](/DependencyInjection/TransientDisposable.cs) for
+a solution to avoid any issues when dispose is called a second time.
