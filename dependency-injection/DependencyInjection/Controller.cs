@@ -7,10 +7,8 @@ public class Controller
 {
     readonly Singleton _singleton;
 
-    public Controller(Singleton singleton)
-    {
+    public Controller(Singleton singleton) => 
         _singleton = singleton;
-    }
 
     [HttpPost]
     [Route("stuff")]
