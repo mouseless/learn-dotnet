@@ -1,11 +1,13 @@
 # Native AOT
 
 `<PublishAot>true</PublishAot>` uygulamayı aot olarak yayınlamak için
-`<IsAotCompatible>true</IsAotCompatible>` is used to indicate whether a library is compatible with Native AOT
+`<IsAotCompatible>true</IsAotCompatible>` is used to indicate whether a library
+is compatible with Native AOT
 
 ## Ne işe yarıyor?
 
-you through building native libraries that can be consumed by other programming languages with NativeAOT.
+you through building native libraries that can be consumed by other programming
+languages with NativeAOT.
 
 ### Hangi projerlerde kullanıyor? Console? Web?
 
@@ -21,9 +23,13 @@ MVC, Blazor, SPA, EntityF, JWT hariç diğer kimlik doğrulaması, Oturum, Spa d
 - Windows: No built-in COM.
 - Requires trimming
 - Implies compilation into a single file, which has known incompatibilities
-- Apps include required runtime libraries, increasing their size as compared to framework-dependent apps.
-- System.Linq.Expressions always use their interpreted form, which is slower than run-time generated compiled code.
-- Not all the runtime libraries are fully annotated to be Native AOT compatible. That is, some warnings in the runtime libraries aren't actionable by end developers.
+- Apps include required runtime libraries, increasing their size as compared to
+  framework-dependent apps.
+- System.Linq.Expressions always use their interpreted form, which is slower
+  than run-time generated compiled code.
+- Not all the runtime libraries are fully annotated to be Native AOT compatible.
+  That is, some warnings in the runtime libraries aren't actionable by end
+  developers.
 
 ## Nasıl çalıştırılır ?
 
@@ -44,7 +50,7 @@ bkz: https://github.com/dotnet/samples/blob/main/core/nativeaot/HelloWorld/READM
 Publishing .NET class libraries as Native AOT allows creating libraries that can
 be consumed from non-.NET programming languages. The produced native library is
 self-contained and doesn't require a .NET runtime to be installed.
-bkz:https://github.com/dotnet/samples/tree/main/core/nativeaot/NativeLibrary
+bkz: https://github.com/dotnet/samples/tree/main/core/nativeaot/NativeLibrary
 
 ## Do da kullanabilir miyiz ? Blueprint olarak sunabilirmiyiz ?
 
@@ -55,3 +61,24 @@ bkz:https://github.com/dotnet/samples/tree/main/core/nativeaot/NativeLibrary
 ### package.props ve build.props kullanıyoruz aynı solutionda diğer projeler ile ortak alanda bulunması sorun teşkil ediyor mu ?
 
 ## source generator ile uyumlu mu ?
+
+## InvariantGlobalization nedir ?
+
+`<InvariantGlobalization>true</InvariantGlobalization>` enables you to remove
+application dependencies on globalization data and globalization behavior. This
+mode is an opt-in feature that provides more flexibility if you care more about
+reducing dependencies and the size of distribution than globalization
+functionality or globalization-correctness.
+
+The following scenarios are affected when the invariant mode is enabled. Their
+invariant mode behavior is defined in this document.
+
+- Cultures and culture data
+- String casing
+- String sorting and searching
+- Sort keys
+- String Normalization
+- Internationalized Domain Names (IDN) support
+- Time Zone display name on Linux
+
+for more https://github.com/dotnet/runtime/blob/main/docs/design/features/globalization-invariant-mode.md
