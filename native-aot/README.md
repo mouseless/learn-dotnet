@@ -130,6 +130,9 @@ show errors on IDE like Roslyn Analyzers but catches all the errors.
 
 ### package.props ve build.props kullanıyoruz aynı solutionda diğer projeler ile ortak alanda bulunması sorun teşkil ediyor mu ?
 
+Sorun olmuyor. `PublishAot`'yi `directory.build.props`'a ekleyebilirsiniz
+deniyor.
+
 ## source generator ile uyumlu mu ?
 
 Native AOT is compatible with source generation, it is not compatible with
