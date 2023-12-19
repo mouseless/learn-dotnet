@@ -1,3 +1,5 @@
+using System.Reflection;
+
 namespace NativeAOT;
 
 public class MyService(DependService _dependService, ILogger<MyService> _logger)
@@ -20,5 +22,13 @@ public class MyService(DependService _dependService, ILogger<MyService> _logger)
     public void MethodLogging()
     {
         _logger.LogWarning("My Service Log");
+    }
+
+    public string AccessAssembly()
+    {
+        return $@"
+        EntryAssembly: {Assembly.GetEntryAssembly()}
+        MyService Assembly FullName: {typeof(MyService).Assembly.FullName}
+        ";
     }
 }
