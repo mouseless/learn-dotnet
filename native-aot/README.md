@@ -182,3 +182,8 @@ containers working.
 reflection-free mode ta kullanırsak bazı reflectionlara izin veriliyor. ama ms bunu önermiyor.
 
 https://github.com/dotnet/runtime/blob/main/src/coreclr/nativeaot/docs/reflection-free-mode.md
+
+## Controller lar çalışıyormu ?
+
+hayır mvc desteklenmediği için çalışmıyor. AddController() service i native aot
+de hata veriyor.
