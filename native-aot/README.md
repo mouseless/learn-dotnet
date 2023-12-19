@@ -192,3 +192,14 @@ hayır mvc desteklenmediği için çalışmıyor. AddController() service i nati
 de hata veriyor.
 
 ## RD.xml dosyası nedir ?
+
+AOT compiler might miss some types if the application uses reflection, you can
+add an `rd.xml` file to help ILCompiler find the types that should be analyzed.
+You can tell to use the probided `rd.xlm` file by adding
+`RdXmlFile Include="rd.xml"` to your project file. To make compiler analyze all
+the types in the module add `Assembly Name="AssemblyName" Dynamic="RequiredAll"`
+You can also select some types to be analyzed by adding `Types` tag under the
+`Assembly`, `<Type Name="TypeDirective" Dynamic="Required All" />` which will
+make ILCompiler analyze all occurences of the given type. You can check the type
+directives from;
+https://github.com/dotnet/corert/blob/master/Documentation/using-corert/rd-xml-format.md#types-directives
