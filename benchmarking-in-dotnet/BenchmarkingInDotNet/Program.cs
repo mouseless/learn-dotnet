@@ -2,6 +2,5 @@
 using BenchmarkDotNet.Running;
 using BenchmarkingInDotNet;
 
-Console.WriteLine("Hello, World!");
-
-BenchmarkRunner.Run<Testing>();
+BenchmarkRunner.Run(assembly: typeof(Testing).Assembly);
+//BenchmarkSwitcher.FromAssembly(typeof(Testing).Assembly).Run(args);

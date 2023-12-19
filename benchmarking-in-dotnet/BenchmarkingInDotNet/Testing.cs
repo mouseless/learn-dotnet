@@ -3,15 +3,21 @@ using System.Text;
 
 namespace BenchmarkingInDotNet;
 
-[SimpleJob(launchCount: 1, warmupCount: 10, iterationCount: 20)]
+[CustomJob(5, 10)]
 public class Testing
 {
-    [Benchmark]
+    [ParamsSource(nameof(Values))]
+    public int Count { get; set; }
+
+    // public property
+    public IEnumerable<int> Values => new[] { 100, 200 };
+
+    [Benchmark(Baseline = true)]
     public string TestString()
     {
         var result = string.Empty;
 
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < Count; i++)
         {
             result += i;
         }
@@ -24,7 +30,7 @@ public class Testing
     {
         var result = new StringBuilder();
 
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < Count; i++)
         {
             result.Append(i);
         }
