@@ -93,7 +93,17 @@ https://blog.martincostello.com/native-aot-make-dotnet-lambda-go-brr/#:~:text=in
 
 ### csproj da publish aot diye belirttiğimizi gördük. Do ile do yu kullananlara bunu nasıl sunacağız. Do da aot olarak isteğe bağlı nasıl yayınanabilir ?
 
+The only aproach I could find was maintaining Native AOT compatible versions of
+`Do` libraries for example `Do.Blueprints.Service.AOT`, add `PublishAot` to
+their csproj. Using this approach Do packages with `AOT` suffix will be Native
+AOT compatible thus wont create errors when the user publishes using Native AOT.
+Target platform may cause issues, when publishing using Native AOT it targets
+the platform it is published on so the `.dll` and `.exe` can only work on the
+same platform it is published for example `linux, windows x32, windows x64)` etc
+
 ## Her package ile çalışır mı? çalışmıyorsa hangi tarz packageler ile uygun değil?
+
+https://learn.microsoft.com/en-us/aspnet/core/fundamentals/native-aot?view=aspnetcore-8.0
 
 Native AOT is not compatible with all packages. There are analyzers that show
 possible errors before publish and you can determine which packages are not
