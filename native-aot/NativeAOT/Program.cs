@@ -34,6 +34,4 @@ api.MapPost("/todo", ([FromBody] Todo todo, Database db) => db.Insert(todo));
 app.Run();
 
 [JsonSerializable(typeof(List<Todo>))]
-internal partial class AppJsonSerializerContext : JsonSerializerContext
-{
-}
+internal partial class AppJsonSerializerContext : JsonSerializerContext { }
