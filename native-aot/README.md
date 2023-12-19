@@ -95,6 +95,29 @@ https://blog.martincostello.com/native-aot-make-dotnet-lambda-go-brr/#:~:text=in
 
 ## Her package ile çalışır mı? çalışmıyorsa hangi tarz packageler ile uygun değil?
 
+Native AOT is not compatible with all packages. There are analyzers that show
+possible errors before publish and you can determine which packages are not
+compatible by test publishing and getting the error log.
+
+### Catching possible errors due to trimming
+
+https://devblogs.microsoft.com/dotnet/creating-aot-compatible-libraries/#analyzing-net-libraries
+You can enable analyzers to determine errors before Native AOT publish. Roslyn
+Analyzers does not guarantee catchin all errors but shows the errors fast.
+Publishing using Native AOT is another way to find errors, takes longer, can't
+show errors on IDE like Roslyn Analyzers but catches all the errors.
+
+### Error attributes
+
+- RequiresUnreferencedCode: Current type or method is not compatible with
+  trimming
+- RequiresDynamicCode: If the method explicitly calls into
+  System.Reflection.Emit which isnt compatible with Native AOT
+- DynamicallyAccessedMembers: When using generic `T` to create a new type
+  instance from, trimming tool doesn't know which types are going to be used
+  when calling the constructor and can't guarantee it wont trim a necessary
+  constructor for the app to work.
+
 ### package.props ve build.props kullanıyoruz aynı solutionda diğer projeler ile ortak alanda bulunması sorun teşkil ediyor mu ?
 
 ## source generator ile uyumlu mu ?
