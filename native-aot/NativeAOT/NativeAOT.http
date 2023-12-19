@@ -1,11 +1,21 @@
 @NativeAOT_HostAddress = http://localhost:5000
 
-GET {{NativeAOT_HostAddress}}/todos/
+GET {{NativeAOT_HostAddress}}/test/type
 Accept: application/json
 
 ###
 
-GET {{NativeAOT_HostAddress}}/todos/1
+GET {{NativeAOT_HostAddress}}/test/di
+Accept: application/json
+
+###
+
+GET {{NativeAOT_HostAddress}}/test/generic-type
+Accept: application/json
+
+###
+
+GET {{NativeAOT_HostAddress}}/test/logging
 Accept: application/json
 
 ###

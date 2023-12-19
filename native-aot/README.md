@@ -190,3 +190,5 @@ https://github.com/dotnet/runtime/blob/main/src/coreclr/nativeaot/docs/reflectio
 
 hayır mvc desteklenmediği için çalışmıyor. AddController() service i native aot
 de hata veriyor.
+
+## RD.xml dosyası nedir ?
