@@ -14,7 +14,7 @@ bld/
 # vs
 **/.vs/**/*
 
-# vusial studio code
+# visual studio code
 .vscode/
 
 # dotnet sdk
@@ -22,6 +22,7 @@ global.json
 
 # generated file
 **/Generated/**/*.cs
+**/BenchmarkDotNet.Artifacts/**
 
 # generated schemas
 **/*.schema.json
