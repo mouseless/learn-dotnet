@@ -24,6 +24,13 @@ public class MyService(DependService _dependService, ILogger<MyService> _logger)
         _logger.LogWarning("My Service Log");
     }
 
+    public object MethodDynamic(dynamic param)
+    {
+        param.MyService = "My Service";
+        return param;
+    }
+
+    // TODO - reflection örneği
     public string AccessAssembly()
     {
         return $@"

@@ -225,3 +225,18 @@ cloud/serverless, Linux, environments:
   isn't used by API applications anyway
 
 https://andrewlock.net/exploring-the-dotnet-8-preview-comparing-createbuilder-to-the-new-createslimbuilder-method/
+
+## Dynamic type çalışıyor mu?
+
+Hayır.
+
+`Trim analysis warning IL2026:`
+
+```text
+System.NotSupportedException: JsonTypeInfo metadata for type
+'System.Dynamic.ExpandoObject' was not provided by TypeInfoResolver of type
+'[AppJsonSerializerContext]'. If using source generation, ensure that all root
+types passed to the serializer have been annotated with
+'JsonSerializableAttribute', along with any types that might be serialized
+polymorphically.
+```
