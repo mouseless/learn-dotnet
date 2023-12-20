@@ -24,7 +24,7 @@ You can see them in the links below.
 ### CSharp
 
 - **[Nullable Usage:](/nullable-usage/README.md)** How we use nullable.
-- **[Other C# Usages:](/)** Other `C#` language features we use
+- **[Other C# Usages:](/csharp/README.md)** Other `C#` language features we use
 - **[Primary Constructors:](/primary-constructors/README.md)** How we use
   primary constructors.
 
