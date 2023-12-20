@@ -1,8 +1,13 @@
 # Native AOT
 
-`<PublishAot>true</PublishAot>` uygulamayı aot olarak yayınlamak için
-`<IsAotCompatible>true</IsAotCompatible>` is used to indicate whether a library
-is compatible with Native AOT
+- `<PublishAot>true</PublishAot>` uygulamayı aot olarak yayınlamak için
+- `<IsAotCompatible>true</IsAotCompatible>` is used to indicate whether a library
+  is compatible with Native AOT
+  This one property will enable the three underlying Roslyn analyzers:
+
+  - EnableTrimAnalyzer
+  - EnableSingleFileAnalyzer
+  - EnableAotAnalyzer
 
 ## Ne işe yarıyor?
 
