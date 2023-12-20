@@ -1,6 +1,21 @@
 # Native AOT
 
-- `<PublishAot>true</PublishAot>` uygulamayı aot olarak yayınlamak için
+We researched that we can switch to Native AOT in our projects. And we decided
+that it does not satisfy our needs at the moment. You can see the research notes
+below.
+
+## To Use
+
+You need to enable `PublishAot` to use it. Then when we publish, the project
+will be compiled with AOT.
+
+### What does RD.xml do?
+
+## Why we didn't use it
+
+We cannot use Native AOT because we use `Newtonsoft.Json`, `dynamic` type,
+`MySql`, `MVC` etc.
+
 - `<IsAotCompatible>true</IsAotCompatible>` is used to indicate whether a library
   is compatible with Native AOT
   This one property will enable the three underlying Roslyn analyzers:

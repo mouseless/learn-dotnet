@@ -1,5 +1,4 @@
 using System.Data.Common;
-using System.Dynamic;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
@@ -14,7 +13,7 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 
 builder.Services.AddScoped<Database>();
 builder.Services.AddScoped<DbConnection, SqliteConnection>(_ =>
-    new SqliteConnection($"Data Source=C:\\projects\\learn-dotnet\\native-aot\\NativeAOT\\native.sqlite")
+    new SqliteConnection($"Data Source=native.sqlite")
 );
 
 builder.Services.AddSingleton<DependService>();
@@ -27,9 +26,8 @@ var api = app.MapGroup("/test");
 api.MapGet("/di", (MyService _myService) => _myService.MethodStringReturn());
 api.MapGet("/type", (MyService _myService) => _myService.MethodType());
 api.MapGet("/generic-type", (MyService _myService) => _myService.MethodGenericType());
-api.MapGet("/dynamic", (MyService _myService) => _myService.MethodDynamic(new ExpandoObject()));
 api.MapGet("/logging", (MyService _myService) => _myService.MethodLogging());
-api.MapGet("/access-assembly", (MyService _myService) => _myService.AccessAssembly());
+api.MapGet("/access-assembly", (MyService _myService) => _myService.MethodAccessAssembly());
 api.MapGet("/todo/{id}", async (int id, Database db) => await db.GetById(id));
 api.MapGet("/todo", async (Database db) => await db.GetAll());
 api.MapPost("/todo", ([FromBody] Todo todo, Database db) => db.Insert(todo));
