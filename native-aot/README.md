@@ -203,3 +203,20 @@ You can also select some types to be analyzed by adding `Types` tag under the
 make ILCompiler analyze all occurences of the given type. You can check the type
 directives from;
 https://github.com/dotnet/corert/blob/master/Documentation/using-corert/rd-xml-format.md#types-directives
+
+## Neden tekrar eklenebilen bazı featurelar kaldırıldı örneğin https gibi ?
+
+Most of the remaining features that were removed have been taken out because
+they're not typically used in the scenarios that AOT targets i.e.
+cloud/serverless, Linux, environments:
+
+- These environments tend to be Linux (if you're worried about startup times,
+  you're not going to be hosting behind IIS on Windows) so removing the EventLog
+  and IIS support makes sense.
+- It's common to handle HTTPS or HTTP/3 behind a TLS termination proxy, so that
+  you don't have to manage certificates in your app.
+- You won't (hopefully!) have a debugger attached in a production environment.
+- UseStaticWebAssets() isn't necessary when publishing your app, and typically
+  isn't used by API applications anyway
+
+https://andrewlock.net/exploring-the-dotnet-8-preview-comparing-createbuilder-to-the-new-createslimbuilder-method/
