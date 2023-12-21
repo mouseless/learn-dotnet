@@ -27,4 +27,4 @@ global.json
 **/*.schema.json
 
 # sqlite db files
-*.sqlite
+**/*.sqlite
