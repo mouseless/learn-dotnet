@@ -31,4 +31,13 @@ public class MyService(DependService _dependService, ILogger<MyService> _logger)
         MyService Assembly FullName: {typeof(MyService).Assembly.FullName}
         ";
     }
+
+    public void MethodReflection()
+    {
+        Type classType = Type.GetType("NativeAOT.SampleClass")!;
+        ConstructorInfo constructor = classType.GetConstructor(Type.EmptyTypes)!;
+        object newInstance = constructor.Invoke(null);
+
+        Type.GetType("NativeAOT.SampleClass")!.GetMethod("GetMessage")!.Invoke(newInstance, null);
+    }
 }
