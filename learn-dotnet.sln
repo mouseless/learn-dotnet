@@ -107,6 +107,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NativeAOT", "native-aot\Nat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharp", "csharp\CSharp\CSharp.csproj", "{7299B336-9340-4E15-B0EE-B59C2770D7EE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "benchmarking-in-dotnet", "benchmarking-in-dotnet", "{32202E5E-02C2-48CA-9D8D-687146EB0232}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenchmarkingInDotNet", "benchmarking-in-dotnet\BenchmarkingInDotNet\BenchmarkingInDotNet.csproj", "{6E92E509-834F-403C-A0B0-3B691F3C816D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -177,6 +181,10 @@ Global
 		{7299B336-9340-4E15-B0EE-B59C2770D7EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7299B336-9340-4E15-B0EE-B59C2770D7EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7299B336-9340-4E15-B0EE-B59C2770D7EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E92E509-834F-403C-A0B0-3B691F3C816D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E92E509-834F-403C-A0B0-3B691F3C816D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E92E509-834F-403C-A0B0-3B691F3C816D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E92E509-834F-403C-A0B0-3B691F3C816D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -214,6 +222,8 @@ Global
 		{A6FDF528-DB3B-4838-8D9D-F3E0F08DF97A} = {E148C898-1BFD-4F28-8940-583CC50F90DB}
 		{AD006E83-4501-47B5-BEEA-BA9326A3D630} = {A6FDF528-DB3B-4838-8D9D-F3E0F08DF97A}
 		{7299B336-9340-4E15-B0EE-B59C2770D7EE} = {8D3DAA2C-A035-47DC-92DE-A0DA501B32BF}
+		{32202E5E-02C2-48CA-9D8D-687146EB0232} = {E148C898-1BFD-4F28-8940-583CC50F90DB}
+		{6E92E509-834F-403C-A0B0-3B691F3C816D} = {32202E5E-02C2-48CA-9D8D-687146EB0232}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ECEAECE7-49E5-4CBC-B84D-5FF82F2399FC}
