@@ -7,22 +7,19 @@ below.
 ## To Use
 
 You need to enable `PublishAot` to use it. Then when we publish, the project
-will be compiled with AOT.
+will be compiled with AOT. The target platform is important when publishing
+because it only works on that platform. For more [detail][publish using cli].
 
 ### What does RD.xml do?
+
+AOT compiler might miss some types if the application uses reflection, you can
+add an `rd.xml` file to help ILCompiler find the types that should be analyzed.
+For more [detail][rd.xml].
 
 ## Why we didn't use it
 
 We cannot use Native AOT because we use `Newtonsoft.Json`, `dynamic` type,
 `MySql`, `MVC` etc.
-
-- `<IsAotCompatible>true</IsAotCompatible>` is used to indicate whether a library
-  is compatible with Native AOT
-  This one property will enable the three underlying Roslyn analyzers:
-
-  - EnableTrimAnalyzer
-  - EnableSingleFileAnalyzer
-  - EnableAotAnalyzer
 
 ## Ne işe yarıyor?
 
@@ -255,3 +252,6 @@ types passed to the serializer have been annotated with
 'JsonSerializableAttribute', along with any types that might be serialized
 polymorphically.
 ```
+
+[publish using cli]: https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/?tabs=net8plus%2Cwindows#publish-native-aot-using-the-cli
+[rd.xml]: https://github.com/dotnet/corert/blob/master/Documentation/using-corert/rd-xml-format.md
