@@ -1,6 +1,6 @@
 @NativeAOT_HostAddress = http://localhost:5000
 
-GET {{NativeAOT_HostAddress}}/test/type
+GET {{NativeAOT_HostAddress}}/test/access-assembly
 Accept: application/json
 
 ###
@@ -17,5 +17,36 @@ Accept: application/json
 
 GET {{NativeAOT_HostAddress}}/test/logging
 Accept: application/json
+
+###
+
+GET {{NativeAOT_HostAddress}}/test/reflection
+Accept: application/json
+
+###
+
+GET {{NativeAOT_HostAddress}}/test/todo
+Accept: application/json
+
+###
+
+GET {{NativeAOT_HostAddress}}/test/todo/1
+Accept: application/json
+
+###
+
+GET {{NativeAOT_HostAddress}}/test/type
+Accept: application/json
+
+###
+
+POST {{NativeAOT_HostAddress}}/test/todo
+Content-Type: application/json
+
+{
+  "Id": 1,
+  "Title": "Sample Request",
+  "Description": "Sample Request Description"
+}
 
 ###

@@ -23,14 +23,14 @@ builder.Services.AddLogging();
 var app = builder.Build();
 
 var api = app.MapGroup("/test");
+api.MapGet("/access-assembly", (MyService _myService) => _myService.MethodAccessAssembly());
 api.MapGet("/di", (MyService _myService) => _myService.MethodStringReturn());
-api.MapGet("/type", (MyService _myService) => _myService.MethodType());
 api.MapGet("/generic-type", (MyService _myService) => _myService.MethodGenericType());
 api.MapGet("/logging", (MyService _myService) => _myService.MethodLogging());
-api.MapGet("/access-assembly", (MyService _myService) => _myService.MethodAccessAssembly());
 api.MapGet("/reflection", (MyService _myService) => _myService.MethodReflection());
-api.MapGet("/todo/{id}", async (int id, Database db) => await db.GetById(id));
 api.MapGet("/todo", async (Database db) => await db.GetAll());
+api.MapGet("/todo/{id}", async (int id, Database db) => await db.GetById(id));
+api.MapGet("/type", (MyService _myService) => _myService.MethodType());
 api.MapPost("/todo", ([FromBody] Todo todo, Database db) => db.Insert(todo));
 
 app.Run();
