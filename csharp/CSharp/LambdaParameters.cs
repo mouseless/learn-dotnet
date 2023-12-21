@@ -21,7 +21,7 @@ public class LambdaParameters(ILogger<CollectionExpressions> _logger)
         action(1, 2, 3, 4, 5);
     }
 
-    public void NewAcceptedBehaviour()
+    public void NewAcceptedBehavior()
     {
         void Optional(int value = 2) { }
         void Params(params int[] values) { }

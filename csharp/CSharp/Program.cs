@@ -24,4 +24,4 @@ collectionExpressions.CallMethods();
 
 lambdaParameters.OptionalParameters();
 lambdaParameters.ParamsArrayParameters();
-lambdaParameters.NewAcceptedBehaviour();
+lambdaParameters.NewAcceptedBehavior();
