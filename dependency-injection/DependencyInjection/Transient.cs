@@ -1,14 +1,8 @@
 namespace DependencyInjection;
 
-public class Transient
+public class Transient(Singleton _singleton, Scoped _scoped, ILogger<Transient> _logger)
 {
-    readonly Singleton _singleton;
-    readonly Scoped _scoped;
-    readonly ILogger<Transient> _logger;
     readonly Guid _id = Guid.NewGuid();
-
-    public Transient(Singleton singleton, Scoped scoped, ILogger<Transient> logger) =>
-        (_singleton, _scoped, _logger) = (singleton, scoped, logger);
 
     internal void DoStuff(string source)
     {

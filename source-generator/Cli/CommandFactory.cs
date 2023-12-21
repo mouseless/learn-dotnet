@@ -11,8 +11,6 @@ public class CommandFactory
 
     public ICommand Create()
     {
-        string commandName = _commandName.ToLower();
-
         switch (_commandName.ToLower())
         {
             case "domain":
@@ -20,7 +18,7 @@ public class CommandFactory
             case "webapp":
                 return new WebApp();
             default:
-                throw new Exception("Not match any class");
+                throw new("Not match any class");
         }
     }
 }

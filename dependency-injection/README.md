@@ -14,13 +14,8 @@ scoped, service called `ServiceB`, where `ServiceA` requires an instance of
 `ServiceB` when exposing a business functionality;
 
 ```csharp
-public class ServiceA
+public class ServiceA(IServiceProvider _serviceProvider)
 {
-    readonly IServiceProvider _serviceProvider;
-
-    public ServiceA(IServiceProvider serviceProvider) =>
-        _serviceProvider = serviceProvider;
-
     public void DoStuff()
     {
         var serviceB = _serviceProvider.GetRequiredService<ServiceB>();
@@ -35,13 +30,8 @@ type of usage is called service locator anti-pattern, which we workaround by
 using a generic factory as shown in below;
 
 ```csharp
-public class ServiceA
+public class ServiceA(Func<ServiceB> _newServiceB)
 {
-    readonly Func<ServiceB> _newServiceB;
-
-    public ServiceA(Func<ServiceB> newServiceB) =>
-        _newServiceB = newServiceB;
-
     public void DoStuff()
     {
         var serviceB = _newServiceB();
@@ -62,7 +52,7 @@ better readability.
 
 ## Disposable Services
 
-When using factory method for getting services, we use 
+When using factory method for getting services, we use
 `HttpContext.RequestServices`.
 
 ```csharp
@@ -74,7 +64,7 @@ builder.Services.AddSingleton<Func<Scoped>>(sp => () =>
 });
 ```
 
-If you want to perform extra operations during disposal of a service, you can 
+If you want to perform extra operations during disposal of a service, you can
 register a service which implements `IDisposable` and `Dispose()` method
 will be called at the end of each request.
 
@@ -90,9 +80,9 @@ public class DisposableService : IDisposable
 
 ### Manually disposing a disposable transient
 
-The below code demonstrates a manually disposing a service with using statment. 
-However, since the service is resolved from `HttpContext.RequestServices`, 
-dispose will be called a second time when request is completed. 
+The below code demonstrates a manually disposing a service with using statment.
+However, since the service is resolved from `HttpContext.RequestServices`,
+dispose will be called a second time when request is completed.
 
 ```csharp
 public async Task Process()
@@ -105,3 +95,37 @@ public async Task Process()
 
 See [TransientDisposable.cs](./DependencyInjection/TransientDisposable.cs) for
 a solution to avoid any issues when dispose is called a second time.
+
+## In Controllers
+
+When getting the services we register in the controllers, if we register with
+key, we get them with `FromKeyedServices` attribute in the relevant action. If
+we register normally we prefer to get them with `FromServices` attribute.
+
+```csharp
+public void Action([FromKeyedServices("key")] ServiceType service) { }
+
+public void Action([FromServices] ServiceType service) { }
+```
+
+> :information_source:
+>
+> If you intentionally register more than one service with the same key, you can
+> call them all using `IEnumerable` when calling the service, otherwise the last
+> one you added will come up.
+
+## TimeProvider
+
+Previously, we were spending additional effort to make the parts associated with
+the `DateTime` object testable and low dependencies. To reduce this, we started
+using `TimeProvider`. We use `TimeProvider` by getting it from the relevant
+constructor using dependency injection.
+
+## Resources
+
+- In Controllers
+  - [Keyed Services in .NET8's Dependency Injection][keyed-services-net8-di]
+  - [Keyed service dependency injection container support][keyed-services-di-container-support]
+
+[keyed-services-net8-di]: https://dev.to/xaberue/keyed-services-in-net8s-dependency-injection-2gni
+[keyed-services-di-container-support]: https://andrewlock.net/exploring-the-dotnet-8-preview-keyed-services-dependency-injection-support/
