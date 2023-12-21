@@ -14,11 +14,11 @@ public class Testing
     public IEnumerable<int> Values => [100, 200];
 
     [GlobalSetup]
-    public void GlobalSetup() => 
+    public void GlobalSetup() =>
         Console.WriteLine("Global Setup");
 
     [GlobalCleanup]
-    public void GlobalCleanup() => 
+    public void GlobalCleanup() =>
         Console.WriteLine("Global Cleanup");
 
     [Benchmark(Baseline = true)]
