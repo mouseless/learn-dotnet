@@ -1,4 +1,5 @@
 ﻿using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Environments;
 using BenchmarkDotNet.Jobs;
 
 namespace BenchmarkingInDotNet;
@@ -13,6 +14,7 @@ public class CustomJob : Attribute, IConfigSource
         var job = new Job()
         {
             Run = { LaunchCount = 1, WarmupCount = warmupCount, IterationCount = iterationCount },
+            Accuracy = { EvaluateOverhead = false }
         };
 
         Config = ManualConfig.CreateEmpty().AddJob(job);

@@ -1,16 +1,23 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Jobs;
 using System.Text;
 
 namespace BenchmarkingInDotNet;
 
-[CustomJob(5, 10)]
+[SimpleJob(RuntimeMoniker.Net60)]
+[SimpleJob(RuntimeMoniker.Net70)]
 public class Testing
 {
     [ParamsSource(nameof(Values))]
     public int Count { get; set; }
 
-    // public property
     public IEnumerable<int> Values => new[] { 100, 200 };
+
+    [GlobalSetup]
+    public void GlobalSetup() => Console.WriteLine("Global Setup");
+
+    [GlobalCleanup]
+    public void GlobalCleanup() => Console.WriteLine("Global Cleanup");
 
     [Benchmark(Baseline = true)]
     public string TestString()

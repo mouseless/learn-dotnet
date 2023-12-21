@@ -22,7 +22,7 @@ global.json
 
 # generated file
 **/Generated/**/*.cs
-**/BenchmarkDotNet.Artifacts/**
+**/.benchmark/**
 
 # generated schemas
 **/*.schema.json
