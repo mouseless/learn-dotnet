@@ -39,4 +39,13 @@ public class Controller
     {
         return employees;
     }
+
+    [HttpPost]
+    [Route("/transients/dispose")]
+    public async Task UseTransientDisposable([FromServices] Func<TransientDisposable> newTransientDisposable)
+    {
+        using var transientDisposable = newTransientDisposable();
+
+        await transientDisposable.Process();
+    }
 }
