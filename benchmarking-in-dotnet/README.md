@@ -1,7 +1,7 @@
 # Benchmarking in DotNet
 
-This is a simple project to demonstrate how we run benchmarksin dotnet using 
-[BenchmarkDotNet](https://benchmarkdotnet.org/) library.
+This is a simple project to demonstrate how we run benchmarking dotnet using 
+[BenchmarkDotNet][] library.
 
 ## BenchmarkDotNet
 
@@ -10,7 +10,7 @@ This is a simple project to demonstrate how we run benchmarksin dotnet using
 - Create a console application, add `BenchmarkDotNet` nuget package.
 - Add a test class which contains benchmark methods
 - Add `[SimplJob]` attribute to the class
-- Add `[Benchmark]` attrivbute to methods
+- Add `[Benchmark]` attribute to methods
 
 > :warning:
 >
@@ -24,28 +24,23 @@ Add following code to _program.cs_ file.
   BenchmarkRunner.Run<Testing>();
 ```
 
-See [How To Run](https://benchmarkdotnet.org/articles/guides/how-to-run.html)
-for more details.
+See [How To Run][] for more details.
 
 ### Config
 
 Configs provide setup for building a benchmark by setting up various 
-configuration. See 
-[Config](https://benchmarkdotnet.org/articles/configs/configs.html) for more 
-details.
+configuration. See [Config][] for more details.
 
 ### Jobs
 
 Jobs define how a run is performed based. Parameters for a benchmark run
 such as _RunStrategy_,_RuntimeMoniker_,_LaunchCount_,_IterationCount_. See 
-[Jobs](https://benchmarkdotnet.org/articles/configs/jobs.html) for mor details. 
+[Jobs][] for more details. 
 
 ### Setup and Cleanup
 
 `BenchmarkDotNet` supports setup and cleanup methods before each launch or
-invocation. See 
-[Setup and Cleanup](https://benchmarkdotnet.org/articles/features/setup-and-cleanup.html)
-for more details
+invocation. See [Setup and Cleanup][] for more details
 
 ### Important Notes
 
@@ -61,6 +56,10 @@ for more details
 - Static methods are not supported, instance methods can be tested
 - Benchmarked classes should have `public`
 - Benchmarked methods should be `public`
-- Setup and Cleanup methods does not support Task return type
+- Setup and Cleanup methods does not support `Task` return type
 
-
+[BenchmarkDotNet]: https://benchmarkdotnet.org/
+[How To Run]: https://benchmarkdotnet.org/articles/guides/how-to-run.html
+[Config]: https://benchmarkdotnet.org/articles/configs/configs.html
+[Jobs]: https://benchmarkdotnet.org/articles/configs/jobs.html
+[Setup and Cleanup]: https://benchmarkdotnet.org/articles/features/setup-and-cleanup.html
