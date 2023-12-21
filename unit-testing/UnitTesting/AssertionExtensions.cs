@@ -10,7 +10,7 @@ public static class AssertionExtensions
     }
 
     // GiveMe
-    public static List<int> Figures(this Spec.Stubber source, int min = 0, int max = 9)
+    public static List<int> Figures(this Spec.Stubber _, int min = 0, int max = 9)
     {
         List<int> result = new();
 

@@ -2,24 +2,11 @@
 
 namespace NullableUsage;
 
-public class PersonService
+public class PersonService(Func<Person> _newPerson, IFinder _finder, ILogger<PersonService> _logger, Json _json)
 {
-    readonly Func<Person> _newPerson;
-    readonly IFinder _finder;
-    readonly ILogger<PersonService> _logger;
-    readonly Json _json;
-
-    public PersonService(Func<Person> newPerson, IFinder finder, ILogger<PersonService> logger, Json json)
-    {
-        _newPerson = newPerson;
-        _finder = finder;
-        _logger = logger;
-        _json = json;
-    }
-
     public void AddPerson(string? name)
     {
-        if (name is null) { throw new ArgumentNullException(nameof(name)); }
+        ArgumentException.ThrowIfNullOrEmpty(name, nameof(name));
 
         AddPerson(name, null);
     }
@@ -45,8 +32,8 @@ public class PersonService
     {
         _logger.LogInformation($"Try updating person => name: {name}, middleName: {middleName}");
 
-        if (name is null) { throw new ArgumentNullException(nameof(name)); }
-        if (middleName is null) { throw new ArgumentNullException(nameof(middleName)); }
+        ArgumentException.ThrowIfNullOrEmpty(name, nameof(name));
+        ArgumentException.ThrowIfNullOrEmpty(middleName, nameof(middleName));
 
         var person = _finder.Find(name);
 

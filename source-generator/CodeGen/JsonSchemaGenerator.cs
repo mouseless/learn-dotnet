@@ -46,11 +46,12 @@ public partial class JsonSchemaGenerator : IIncrementalGenerator
                 if (classSymbol?.ContainingNamespace?.ToString() == config.ControllerServicesNamespace &&
                     classSymbol?.DeclaredAccessibility == Accessibility.Public)
                 {
-                    ServiceModel applicationModel = new();
-
-                    applicationModel.TargetNamespace = config.TargetProject;
-                    applicationModel.Namespace = classSymbol.ContainingNamespace.ToString();
-                    applicationModel.Name = classSymbol?.Name;
+                    ServiceModel applicationModel = new()
+                    {
+                        TargetNamespace = config.TargetProject,
+                        Namespace = classSymbol.ContainingNamespace.ToString(),
+                        Name = classSymbol?.Name
+                    };
 
                     var methods = classSymbol?.GetMembers()
                         .OfType<IMethodSymbol>()

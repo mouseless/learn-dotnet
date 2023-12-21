@@ -17,7 +17,7 @@ public class Assertions : Spec
     [Test]
     public void Throws_exception_message_assertion()
     {
-        Action action = () => throw new Exception("test");
+        Action action = () => throw new("test");
 
         action.ShouldThrow<Exception>().Message.ShouldBe("test");
     }

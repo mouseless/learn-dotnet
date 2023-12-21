@@ -25,3 +25,6 @@ global.json
 
 # generated schemas
 **/*.schema.json
+
+# sqlite db files
+**/*.sqlite
