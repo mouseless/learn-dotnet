@@ -2,53 +2,54 @@
 
 Learning new dotnet and csharp features
 
-## Source Generator
+## Active Usages
 
-See [Source Generator](/source-generator/README.md) for our process and purpose
-of learning the source generator.
+There are some that we have researched and decided to use here.
 
-## Unit Testing
+You can see them in the links below.
 
-To read our documentation on how we write unit tests, the rules, naming
-conventions and libraries we use, see [Unit Test](/unit-testing/README.md)
-here.
+### C\#
 
-## Dependency Injection
+- **[Nullable Usage:](/nullable-usage/README.md)** How we use nullable.
+- **[Primary Constructors:](/primary-constructors/README.md)** How we use
+  primary constructors.
+- **[Other:](/csharp/README.md)** Other `C#` language features we use
 
-To see how we setup and use dependency injection visit [Dependency
-Injection](/dependency-injection/README.md).
+### .NET
 
-## Nullable Usage
+- **[Analyzers:](/analyzers/README.md)** How we use `Stylecop.Analyzers`.
+- **[Central Package Manager:](/central-package-management/README.md)** How we
+  manage packages from the center.
+  exceptions.
+- **[Regex Source Generators:](/regex-source-generators/README.md)** How we use
+  regex source generators.
+- **[Source Generator:](/source-generator/README.md)** Our process and purpose
+  of learning the source generator.
+- **[Unit Testing:](/unit-testing/README.md)** Our documentation on how we write
+  unit tests, the rules, naming conventions and libraries we use.
 
-To see how we use nullable, visit [Nullable Usage](/nullable-usage/README.md).
+### ASP.NET Core
 
-## Analyzers
+- **[Dependency Injection:](/dependency-injection/README.md)** How we setup and
+  use dependency injection.
+- **[Exception Handling:](/exception-handling/README.md)** How we manage
 
-To see how we use Stylecop.Analyzers, visit [Stylecop.Analyzers
-Usage](/analyzers/README.md).
+## Researches
 
-## Central Package Manager
+There are some that we have researched to use here, but as a result of the
+research, we have decided not to use them or to use them later.
 
-To see how we manage packages from the center, visit [Central Package
-Manager](/central-package-management/README.md).
+You can see them in the links below.
 
-## Publish Over Dockerfile
+### .NET
 
-We've considered using `dotnet publish` over `Dockerfile`. For now we've
-decided to keep using `Dockerfile`. Visit [Publish Over
-Dockerfile](/publish-over-dockerfile/README.md) to see our research.
+- **[Publish Over Dockerfile:](/publish-over-dockerfile/README.md)** We've
+  considered using `dotnet publish` over `Dockerfile`. For now we've decided to
+  keep using `Dockerfile`.
 
-## Regex Source Generators
+### ASP.NET Core
 
-To see how we use regex source generators, visit [Regex Source
-Generators](/regex-source-generators/README.md).
-
-## Primary Constructors
-
-To see how we use primary constructors, visit [Primary
-Constructors](/primary-constructors/README.md).
-
-## Exception Handling
-
-To see how we manage exceptions, visit [Exception
-Handling](/exception-handling/README.md).
+- **[Native AOT:](./native-aot/README.md)** We are considering using
+  `Native AOT` for our small and minimal API and CLI applications. For now, we
+  are not using Native AOT because it is new and does not satisfy many of our
+  needs.
