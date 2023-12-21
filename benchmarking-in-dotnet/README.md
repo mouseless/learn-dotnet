@@ -57,6 +57,8 @@ invocation. See [Setup and Cleanup][] for more details
 - Benchmarked classes should have `public`
 - Benchmarked methods should be `public`
 - Setup and Cleanup methods does not support `Task` return type
+- We use `./.benchmark/` path for output results, add this directory to 
+  `.gitignore` file
 
 [BenchmarkDotNet]: https://benchmarkdotnet.org/
 [How To Run]: https://benchmarkdotnet.org/articles/guides/how-to-run.html

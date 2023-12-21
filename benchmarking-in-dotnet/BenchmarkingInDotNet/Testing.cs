@@ -1,17 +1,15 @@
 ﻿using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Jobs;
 using System.Text;
 
 namespace BenchmarkingInDotNet;
 
-[SimpleJob(RuntimeMoniker.Net70)]
-[SimpleJob(RuntimeMoniker.Net80)]
+[SimpleJob(warmupCount: 1, iterationCount: 2, invocationCount: 10)]
 public class Testing
 {
     [ParamsSource(nameof(Values))]
     public int Count { get; set; }
 
-    public IEnumerable<int> Values => [100, 200];
+    public IEnumerable<int> Values => [10, 20];
 
     [GlobalSetup]
     public void GlobalSetup() =>
