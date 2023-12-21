@@ -37,7 +37,7 @@ details.
 ### Jobs
 
 Jobs define how a run is performed based. Parameters for a benchmark run
-such as _RunStrategy_,_RuntimeMoniker_,_LaunchCount_,_IteraationCount_ can be See 
+such as _RunStrategy_,_RuntimeMoniker_,_LaunchCount_,_IterationCount_. See 
 [Jobs](https://benchmarkdotnet.org/articles/configs/jobs.html) for mor details. 
 
 ### Setup and Cleanup
