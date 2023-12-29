@@ -1,8 +1,9 @@
 # Primary Constructor
 
-We use primary constructor in records and for dependency injection. This is to
-get the dependencies in the constructor of the classes and to get rid of the
-assignment lines in the constructor that are not logic and take up space.
+We use primary constructor in records, dependency injection and exceptions. This
+is to get the dependencies and parameter in the constructor of the classes and
+to get rid of the assignment lines in the constructor that are not logic and
+take up space.
 
 > :warning:
 >
@@ -12,10 +13,13 @@ assignment lines in the constructor that are not logic and take up space.
 ## Usage in Records
 
 ```csharp
-public record MyRecord(object parameter);
+public record MyRecord(object Parameter);
 ```
 
 ## Usage for Dependency Injection
+
+When using the primary constructor for dependency injection, we put an
+underscore at the beginning of the parameter names.
 
 ```csharp
 public class MyService(Dependency _dependency)
@@ -43,3 +47,13 @@ public class MyService(Dependency _dependency)
 >     }
 > }
 > ```
+
+## Usage for Exceptions
+
+When using the primary constructor in exceptions, we initialize the parameter
+names with a lowercase letter
+
+```csharp
+public class MyException(string message)
+    : Exception(message) { }
+```
