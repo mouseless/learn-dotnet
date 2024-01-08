@@ -1,17 +1,9 @@
 ﻿namespace DependencyInjection;
 
-public class TransientDisposable : IDisposable
+public class TransientDisposable(Func<Scoped> _getScoped, ILogger<TransientDisposable> _logger)
+    : IDisposable
 {
-    readonly Func<Scoped> _getScoped;
-    readonly ILogger<TransientDisposable> _logger;
-
     bool _disposed;
-
-    public TransientDisposable(Func<Scoped> getScoped, ILogger<TransientDisposable> logger)
-    {
-        _getScoped = getScoped;
-        _logger = logger;
-    }
 
     internal async Task Process() => await Task.Delay(500);
 
