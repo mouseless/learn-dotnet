@@ -1,8 +1,8 @@
 # Primary Constructors
 
-We use Primary Constructors to get rid of constructors with only assignments and
-no logic to achieve a cleaner code and better representation of required
-dependencies and initialization parameters.
+We use Primary Constructors to achieve a better representation of required
+dependencies and initialization parameters and get rid of constructors with only
+assignments and no logic to have a simpler code.
 
 > :warning:
 >
