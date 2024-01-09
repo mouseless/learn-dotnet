@@ -22,8 +22,8 @@ When using the primary constructor for dependency injection, we put an
 underscore at the beginning of the parameter names.
 
 ```csharp
-public class MyService(Dependency _dependency)
-    : ServiceBase(_dependency)
+public class MyService(Dependency _dependency, OtherDependency otherDependency)
+    : ServiceBase(_dependency, otherDependency)
 {
     public void DoStuff()
     {
@@ -38,8 +38,8 @@ public class MyService(Dependency _dependency)
 > `this` as shown below.
 >
 > ```csharp
-> public class MyService(Dependency _dependency)
->    : ServiceBase(_dependency)
+> public class MyService(Dependency _dependency, OtherDependency otherDependency)
+>    : ServiceBase(_dependency, otherDependency)
 > {
 >     protected MyService() : this(default!) { }
 >
@@ -59,3 +59,15 @@ names with a lowercase letter
 public class MyException(string message)
     : Exception(message) { }
 ```
+
+## Naming Rules
+
+When using Primary Constructor, we pay attention to some naming conventions.
+These are
+
+- If we use the parameter as a field in class, we name it with the prefix `_`.
+- If we equate the parameter to the property in the class and use that property,
+  we do not use the underscore prefix.
+- If we do not use the parameter in the class but pass it to the base class, we
+  make sure that the parameter is the same as the parameter name in the base
+  class.
