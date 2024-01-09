@@ -1,9 +1,8 @@
-# Primary Constructor
+# Primary Constructors
 
-We use primary constructor in records, dependency injection and exceptions. This
-is to get the dependencies and parameter in the constructor of the classes and
-to get rid of the assignment lines in the constructor that are not logic and
-take up space.
+We use Primary Constructors to get rid of constructors with only assignments and
+no logic to achieve a cleaner code and better representation of required
+dependencies and initialization parameters.
 
 > :warning:
 >
@@ -18,12 +17,11 @@ public record MyRecord(object Parameter);
 
 ## Usage for Dependency Injection
 
-When using the primary constructor for dependency injection, we put an
-underscore at the beginning of the parameter names.
+When using the primary constructor for dependency injection.
 
 ```csharp
-public class MyService(Dependency _dependency, OtherDependency otherDependency)
-    : ServiceBase(_dependency, otherDependency)
+public class MyService(Dependency _dependency)
+    : ServiceBase(_dependency)
 {
     public void DoStuff()
     {
@@ -38,8 +36,8 @@ public class MyService(Dependency _dependency, OtherDependency otherDependency)
 > `this` as shown below.
 >
 > ```csharp
-> public class MyService(Dependency _dependency, OtherDependency otherDependency)
->    : ServiceBase(_dependency, otherDependency)
+> public class MyService(Dependency _dependency)
+>    : ServiceBase(_dependency)
 > {
 >     protected MyService() : this(default!) { }
 >
@@ -50,24 +48,24 @@ public class MyService(Dependency _dependency, OtherDependency otherDependency)
 > }
 > ```
 
-## Usage for Exceptions
+## Initializing Base Class
 
-When using the primary constructor in exceptions, we initialize the parameter
-names with a lowercase letter
+When using the primary constructor with base class.
 
 ```csharp
 public class MyException(string message)
     : Exception(message) { }
 ```
 
-## Naming Rules
+## Naming Conventions
 
-When using Primary Constructor, we pay attention to some naming conventions.
-These are
+When using Primary Constructor, we use following naming conventions;
 
-- If we use the parameter as a field in class, we name it with the prefix `_`.
+- If we use the parameter as a field in class, we use camel case with underscore
+  prefix.
 - If we equate the parameter to the property in the class and use that property,
-  we do not use the underscore prefix.
+  we use camel case without underscore prefix.
 - If we do not use the parameter in the class but pass it to the base class, we
-  make sure that the parameter is the same as the parameter name in the base
+  make sure that the parameter has the same name as the parameter in the base
   class.
+- In records, we use initial case in parameter name.
