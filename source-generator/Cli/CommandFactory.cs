@@ -1,14 +1,7 @@
 namespace Cli;
 
-public class CommandFactory
+public class CommandFactory(string _commandName)
 {
-    readonly string _commandName;
-
-    public CommandFactory(string commandName)
-    {
-        _commandName = commandName;
-    }
-
     public ICommand Create()
     {
         switch (_commandName.ToLower())

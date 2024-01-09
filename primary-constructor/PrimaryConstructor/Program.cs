@@ -11,4 +11,5 @@ var serviceProvider = serviceCollection.BuildServiceProvider();
 var dependent = serviceProvider.GetRequiredService<Dependent>();
 
 dependent.ShowMessage();
+dependent.ShowBaseMessage();
 dependent.ThrowException();

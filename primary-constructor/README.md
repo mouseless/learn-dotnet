@@ -23,6 +23,7 @@ underscore at the beginning of the parameter names.
 
 ```csharp
 public class MyService(Dependency _dependency)
+    : ServiceBase(_dependency)
 {
     public void DoStuff()
     {
@@ -38,6 +39,7 @@ public class MyService(Dependency _dependency)
 >
 > ```csharp
 > public class MyService(Dependency _dependency)
+>    : ServiceBase(_dependency)
 > {
 >     protected MyService() : this(default!) { }
 >
