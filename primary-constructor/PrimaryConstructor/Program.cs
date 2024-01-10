@@ -3,13 +3,11 @@ using PrimaryConstructor;
 
 var serviceCollection = new ServiceCollection();
 
-serviceCollection.AddSingleton<Dependency>();
-serviceCollection.AddSingleton<Dependent>();
+serviceCollection.AddSingleton<ICustomerService, CustomerService>();
+serviceCollection.AddSingleton<Discount>();
 
 var serviceProvider = serviceCollection.BuildServiceProvider();
 
-var dependent = serviceProvider.GetRequiredService<Dependent>();
+var dependent = serviceProvider.GetRequiredService<Discount>();
 
-dependent.ShowMessage();
-dependent.ShowBaseMessage();
-dependent.ThrowException();
+dependent.Send();
