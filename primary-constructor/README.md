@@ -20,7 +20,7 @@ public record EmployeeDTO(string Name, string Surname);
 ```csharp
 public class EmployeeService(IConfiguration _configuration)
 {
-    public void AddEmployee()
+    public void AddEmployee(EmployeeDTO employee)
     {
         _configuration.GetValue(...);
     }
@@ -32,9 +32,9 @@ public class EmployeeService(IConfiguration _configuration)
 ```csharp
 public class Person(string name, string surname)
 {
-    public virtual string Name { get; } = name;
-    public virtual string Surname { get; } = surname;
-    public virtual string FullName { get; } = name + surname;
+    public string Name { get; } = name;
+    public string Surname { get; } = surname;
+    public string FullName { get; } = name + surname;
 }
 ```
 
@@ -46,9 +46,9 @@ public class Person(string name, string surname)
 > ```csharp
 > // CS9124: Parameter 'xxx' is captured into the state of the enclosing type and its
 > // value is also used to initialize a field, property, or event.
-> public virtual string FullName => name + surname;
+> public string FullName => name + surname;
 > // or
-> public virtual string GetFullName() => name + surname;
+> public string GetFullName() => name + surname;
 > ```
 
 ## Initializing Base Class
@@ -57,20 +57,25 @@ public class Person(string name, string surname)
 public class Employee(int branchId, string name, string surname)
     : Person(name, surname)
 {
-    public virtual int BranchId { get; } = branchId;
+    public int BranchId { get; } = branchId;
 }
 ```
 
-## Using More Than One Constructors
+> :warning:
+>
+> It is not possible to use a parameter both as a field within a class and as a
+> parameter in the base class simultaneously.
 
-If you need to add other constructors, you must use the `this` constructor
+## Secondary Constructors
+
+If you need to add secondary constructors, you must use the `this` constructor
 initializer as shown below.
 
 ```csharp
-public class BirthDate(int year, int month, int day)
+public class Assignment(Employee employee, DateTime dateTime)
 {
-    public BirthDate(DateTime dateTime)
-       : this(dateTime.year, dateTime.month, dateTime.day) { }
+    public Assignment(Employee employee, TimeProvider timeProvider)
+       : this(employee, timeProvider.GetNow()) { }
 
     ...
 }

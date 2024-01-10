@@ -3,11 +3,11 @@ using PrimaryConstructor;
 
 var serviceCollection = new ServiceCollection();
 
-serviceCollection.AddSingleton<ICustomerService, CustomerService>();
-serviceCollection.AddSingleton<Discount>();
+serviceCollection.AddSingleton<IBookService, BookService>();
+serviceCollection.AddSingleton<BookWorld>();
 
 var serviceProvider = serviceCollection.BuildServiceProvider();
 
-var dependent = serviceProvider.GetRequiredService<Discount>();
+var dependent = serviceProvider.GetRequiredService<BookWorld>();
 
-dependent.Send();
+dependent.ShowMeCards();
