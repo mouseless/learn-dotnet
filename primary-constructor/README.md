@@ -4,7 +4,7 @@ We use Primary Constructors to achieve a better representation of required
 dependencies and initialization parameters and get rid of constructors with only
 assignments and no logic to have a simpler code.
 
-> :warning:
+> ⚠️
 >
 > .NET 8 and C# 12 are required. If you are using Visual Studio and you get
 > unsupported  warning, make sure you get update.
@@ -12,49 +12,68 @@ assignments and no logic to have a simpler code.
 ## Usage in Records
 
 ```csharp
-public record MyRecord(object Parameter);
+public record EmployeeDTO(string Name, string Surname);
 ```
 
 ## Usage for Dependency Injection
 
-When using the primary constructor for dependency injection.
-
 ```csharp
-public class MyService(Dependency _dependency)
-    : ServiceBase(_dependency)
+public class EmployeeService(IConfiguration _configuration)
 {
-    public void DoStuff()
+    public void AddEmployee()
     {
-        _dependency.DoStuff();
+        _configuration.GetValue(...);
     }
 }
 ```
 
-> :bulb:
+## Initializing Property
+
+```csharp
+public class Person(string name, string surname)
+{
+    public virtual string Name { get; } = name;
+    public virtual string Surname { get; } = surname;
+    public virtual string FullName { get; } = name + surname;
+}
+```
+
+> ⚠️
 >
-> If you need to give default values to the parameters, you can give them using
-> `this` as shown below.
+> When you assign a parameter to initialize a property or a field you can not
+> reference this parameter in methods or calculated properties.
 >
 > ```csharp
-> public class MyService(Dependency _dependency)
->    : ServiceBase(_dependency)
-> {
->     protected MyService() : this(default!) { }
->
->     public void DoStuff()
->     {
->         _dependency.DoStuff();
->     }
-> }
+> // CS9124: Parameter 'xxx' is captured into the state of the enclosing type and its
+> // value is also used to initialize a field, property, or event.
+> public virtual string FullName => name + surname;
+> // or
+> public virtual string GetFullName() => name + surname;
 > ```
 
 ## Initializing Base Class
 
-When using the primary constructor with base class.
+```csharp
+public class Employee(int branchId, string name, string surname)
+    : Person(name, surname)
+{
+    public virtual int BranchId { get; } = branchId;
+}
+```
+
+## Using More Than One Constructors
+
+If you need to add other constructors, you must use the `this` constructor
+initializer as shown below.
 
 ```csharp
-public class MyException(string message)
-    : Exception(message) { }
+public class BirthDate(int year, int month, int day)
+{
+    public BirthDate(DateTime dateTime)
+       : this(dateTime.year, dateTime.month, dateTime.day) { }
+
+    ...
+}
 ```
 
 ## Naming Conventions
@@ -63,9 +82,9 @@ When using Primary Constructor, we use following naming conventions;
 
 - If we use the parameter as a field in class, we use camel case with underscore
   prefix.
-- If we equate the parameter to the property in the class and use that property,
+- If we assign the parameter to the property in the class and use that property,
   we use camel case without underscore prefix.
 - If we do not use the parameter in the class but pass it to the base class, we
   make sure that the parameter has the same name as the parameter in the base
   class.
-- In records, we use initial case in parameter name.
+- In records, we use pascal case in parameter name.
