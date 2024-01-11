@@ -4,7 +4,7 @@ We use Primary Constructors to achieve a better representation of required
 dependencies and initialization parameters and get rid of constructors with only
 assignments and no logic to have a simpler code.
 
-> ⚠️
+> :warning:
 >
 > .NET 8 and C# 12 are required. If you are using Visual Studio and you get
 > unsupported  warning, make sure you get update.
@@ -28,7 +28,7 @@ constructor, field and parameter.
 If the parameter is directly used as a field, place an underscore (`_`) as a
 prefix, just like a field name.
 
-> 💡This is mostly the case for dependency injection.
+> :bulb: This is mostly the case for dependency injection.
 
 ```csharp
 public class Salary(SalaryCalculator _calculator)
