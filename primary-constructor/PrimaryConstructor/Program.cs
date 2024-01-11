@@ -1,13 +1,13 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using PrimaryConstructor;
 
 var serviceCollection = new ServiceCollection();
 
-serviceCollection.AddSingleton<IBookService, BookService>();
-serviceCollection.AddSingleton<BookWorld>();
+serviceCollection.AddSingleton<SalaryCalculator>();
+serviceCollection.AddSingleton<YearlySalary>();
 
 var serviceProvider = serviceCollection.BuildServiceProvider();
 
-var dependent = serviceProvider.GetRequiredService<BookWorld>();
+var dependent = serviceProvider.GetRequiredService<YearlySalary>();
 
-dependent.ShowMeCards();
+var employee = new Employee("John", new(2024, 01, 11));
+Console.WriteLine($"{employee.Name}'s yearly salary: {dependent.GetSalary(employee)}");

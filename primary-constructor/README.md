@@ -11,85 +11,94 @@ assignments and no logic to have a simpler code.
 
 ## Usage in Records
 
+Since records use given parameter name as the name of its corresponding property
+name, we use `PascalCase` in parameter names of record primary constructors.
+
 ```csharp
-public record EmployeeDTO(string Name, string Surname);
+public record EmployeeRequest(string Name, string Surname);
 ```
 
-## Usage for Dependency Injection
+## Usage in Classes
+
+For classes there are two types of usages for a parameter of the primary
+constructor, field and parameter.
+
+### As Fields
+
+If the parameter is directly used as a field, place an underscore (`_`) as a
+prefix, just like a field name.
+
+> 💡This is mostly the case for dependency injection.
 
 ```csharp
-public class EmployeeService(IConfiguration _configuration)
+public class Salary(SalaryCalculator _calculator)
 {
-    public void AddEmployee(EmployeeDTO employee)
-    {
-        _configuration.GetValue(...);
-    }
+    public virtual decimal GetSalary(Employee employee) =>
+        _calculator.Calculate(employee.Seniority);
 }
 ```
 
-## Initializing Property
+### As Parameters
+
+If a parameter is assigned to a property, use `camelCase`.
 
 ```csharp
 public class Person(string name, string surname)
 {
     public string Name { get; } = name;
     public string Surname { get; } = surname;
-    public string FullName { get; } = name + surname;
+    public string FullName { get; } = $"{name} {surname}";
 }
 ```
 
-> ⚠️
->
-> When you assign a parameter to initialize a property or a field you can not
-> reference this parameter in methods or calculated properties.
->
-> ```csharp
-> // CS9124: Parameter 'xxx' is captured into the state of the enclosing type and its
-> // value is also used to initialize a field, property, or event.
-> public string FullName => name + surname;
-> // or
-> public string GetFullName() => name + surname;
-> ```
+### Initializing Base Class
 
-## Initializing Base Class
+Derived classes must follow parameter names in base constructors.
 
 ```csharp
-public class Employee(int branchId, string name, string surname)
-    : Person(name, surname)
+public class CustomException(string message)
+    : Exception(message) { }
+
+public class YearlySalary(ISalaryCalculator _calculator)
+    : Salary(_calculator)
 {
-    public int BranchId { get; } = branchId;
+    public override decimal GetSalary(Employee employee) =>
+        base.GetSalary(employee) * 12;
 }
 ```
 
-> :warning:
->
-> It is not possible to use a parameter both as a field within a class and as a
-> parameter in the base class simultaneously.
+### Potential Conflicts
 
-## Secondary Constructors
+In practice, it should not be the case for a class to have parameters both as
+fields and parameters. If you encounter such a case please consider refactoring
+your code.
+
+When both field and parameter usage is possible for a class, prefer the
+parameter usage over field usage. Please see below demonstration;
+
+```csharp
+public class Employee(string name) // This is the preferred usage
+    : IPerson
+{
+    string IPerson.Name { get; } = name;
+}
+
+public class Employee(string _name)
+    : IPerson
+{
+    string IPerson.Name => _name;
+}
+```
+
+## Constructor Overloads
 
 If you need to add secondary constructors, you must use the `this` constructor
 initializer as shown below.
 
 ```csharp
-public class Assignment(Employee employee, DateTime dateTime)
+public class CustomException(string message, Exception innerException)
 {
-    public Assignment(Employee employee, TimeProvider timeProvider)
-       : this(employee, timeProvider.GetNow()) { }
-
-    ...
+    public CustomException(string message)
+       : this(message, default!) { }
 }
 ```
-
-## Naming Conventions
-
-When using Primary Constructor, we use following naming conventions;
-
-- If we use the parameter as a field in class, we use camel case with underscore
-  prefix.
-- If we assign the parameter to the property in the class and use that property,
-  we use camel case without underscore prefix.
-- If we do not use the parameter in the class but pass it to the base class, we
-  make sure that the parameter has the same name as the parameter in the base
-  class.
-- In records, we use pascal case in parameter name.
