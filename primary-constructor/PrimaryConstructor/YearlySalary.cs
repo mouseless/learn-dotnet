@@ -1,6 +1,6 @@
 public class YearlySalary(SalaryCalculator _calculator)
-    : Salary(_calculator)
+    : SalaryBase(_calculator)
 {
     public override decimal GetSalary(Employee employee) =>
-        base.GetSalary(employee) * 12;
+        Calculate(employee.DateOfHire) * 12;
 }

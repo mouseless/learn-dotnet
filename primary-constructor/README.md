@@ -31,10 +31,9 @@ prefix, just like a field name.
 > :bulb: This is mostly the case for dependency injection.
 
 ```csharp
-public class Salary(SalaryCalculator _calculator)
+public class SalaryBase(SalaryCalculator _calculator)
 {
-    public virtual decimal GetSalary(Employee employee) =>
-        _calculator.Calculate(employee.Seniority);
+    ...
 }
 ```
 
@@ -43,11 +42,10 @@ public class Salary(SalaryCalculator _calculator)
 If a parameter is assigned to a property, use `camelCase`.
 
 ```csharp
-public class Person(string name, string surname)
+public class Employee(string name, DateTime dateOfHire)
 {
     public string Name { get; } = name;
-    public string Surname { get; } = surname;
-    public string FullName { get; } = $"{name} {surname}";
+    public DateTime DateOfHire { get; } = dateOfHire;
 }
 ```
 
@@ -56,14 +54,13 @@ public class Person(string name, string surname)
 Derived classes must follow parameter names in base constructors.
 
 ```csharp
-public class CustomException(string message)
+public class OutOfWorkingYearRangeException(string message)
     : Exception(message) { }
 
-public class YearlySalary(ISalaryCalculator _calculator)
-    : Salary(_calculator)
+public class YearlySalary(SalaryCalculator _calculator)
+    : SalaryBase(_calculator)
 {
-    public override decimal GetSalary(Employee employee) =>
-        base.GetSalary(employee) * 12;
+    ...
 }
 ```
 
@@ -96,9 +93,10 @@ If you need to add secondary constructors, you must use the `this` constructor
 initializer as shown below.
 
 ```csharp
-public class CustomException(string message, Exception innerException)
+public class OutOfWorkingYearRangeException(string message, Exception? innerException)
+    : Exception(message, innerException)
 {
-    public CustomException(string message)
-       : this(message, default!) { }
+    public OutOfWorkingYearRangeException(string message)
+       : this(message, default) { }
 }
 ```
