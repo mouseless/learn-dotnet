@@ -11,7 +11,7 @@ You can see them in the links below.
 ### C\#
 
 - **[Nullable Usage:](/nullable-usage/README.md)** How we use nullable.
-- **[Primary Constructors:](/primary-constructors/README.md)** How we use
+- **[Primary Constructors:](/primary constructor/README.md)** How we use
   primary constructors.
 - **[Other:](/csharp/README.md)** Other `C#` language features we use
 
