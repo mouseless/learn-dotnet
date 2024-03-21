@@ -8,7 +8,7 @@ namespace Stylecop.Analyzers;
 [SomeOther]
 public class ConventionallyCorrect : SomeBaseClass
 {
-    readonly string _field;
+    readonly string field;
     public string AccessibleField => _field;
     static readonly string StaticField = string.Empty;
 
