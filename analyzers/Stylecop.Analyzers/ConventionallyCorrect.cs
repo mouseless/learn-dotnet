@@ -21,7 +21,7 @@ public class ConventionallyCorrect : SomeBaseClass
         _field = string.Empty;
         Property = 0;
 
-        ArrayProperty = Array.Empty<string>();
+        ArrayProperty = [];
     }
 
     public ConventionallyCorrect(string field, int property)
@@ -29,7 +29,7 @@ public class ConventionallyCorrect : SomeBaseClass
         _field = field;
         Property = property;
 
-        ArrayProperty = new string[3] { _field, AccessibleField, StaticField };
+        ArrayProperty = [_field, AccessibleField, StaticField];
     }
 
     public string SomeMethod()
@@ -45,16 +45,11 @@ public class ConventionallyCorrect : SomeBaseClass
         SomeEnum someEnum
     )
     {
-        Func<bool> isNull = () =>
+        bool IsNull()
         {
-            if (parameter != null && someEnum == SomeEnum.Base)
-            {
-                return true;
-            }
+            return parameter != null && someEnum == SomeEnum.Base;
+        }
 
-            return false;
-        };
-
-        return isNull() ? stringParameter : StaticField;
+        return IsNull() ? stringParameter : StaticField;
     }
 }
