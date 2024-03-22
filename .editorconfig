@@ -54,8 +54,8 @@ trim_trailing_whitespace = true
 dotnet_style_coalesce_expression = true:suggestion
 dotnet_style_null_propagation = true:suggestion
 dotnet_style_prefer_is_null_check_over_reference_equality_method = true:suggestion
-dotnet_style_prefer_auto_properties = true:silent
-dotnet_style_object_initializer = true:suggestion
+dotnet_style_prefer_auto_properties = false:silent
+dotnet_style_object_initializer = true:error
 dotnet_style_prefer_collection_expression = true:suggestion
 dotnet_style_collection_initializer = true:suggestion
 dotnet_style_prefer_simplified_boolean_expressions = true:suggestion
@@ -71,7 +71,7 @@ insert_final_newline = true
 dotnet_style_readonly_field = true:suggestion
 dotnet_style_predefined_type_for_member_access = true:silent
 dotnet_style_predefined_type_for_locals_parameters_members = true:silent
-dotnet_style_require_accessibility_modifiers = for_non_interface_members:silent
+dotnet_style_require_accessibility_modifiers = never:error
 dotnet_style_allow_statement_immediately_after_block_experimental = true:silent
 dotnet_style_allow_multiple_blank_lines_experimental = true:silent
 dotnet_code_quality_unused_parameters = all:suggestion
@@ -79,7 +79,7 @@ dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:silent
 dotnet_style_parentheses_in_arithmetic_binary_operators = always_for_clarity:silent
 dotnet_style_parentheses_in_other_operators = never_if_unnecessary:silent
 dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:silent
-dotnet_style_qualification_for_field = false:silent
+dotnet_style_qualification_for_field = false:error
 dotnet_style_qualification_for_property = false:silent
 dotnet_style_qualification_for_event = false:silent
 dotnet_style_qualification_for_method = false:silent
@@ -89,7 +89,7 @@ csharp_indent_labels = one_less_than_current
 csharp_using_directive_placement = outside_namespace:silent
 csharp_prefer_simple_using_statement = true:suggestion
 csharp_prefer_braces = true:silent
-csharp_style_namespace_declarations = block_scoped:silent
+csharp_style_namespace_declarations = file_scoped:silent
 csharp_style_prefer_method_group_conversion = true:silent
 csharp_style_prefer_top_level_statements = true:silent
 csharp_style_prefer_primary_constructors = true:suggestion
@@ -101,7 +101,7 @@ csharp_style_expression_bodied_indexers = true:silent
 csharp_style_expression_bodied_accessors = true:silent
 csharp_style_expression_bodied_lambdas = true:silent
 csharp_style_expression_bodied_local_functions = false:silent
-csharp_style_throw_expression = true:suggestion
+csharp_style_throw_expression = true:error
 csharp_style_prefer_null_check_over_type_check = true:suggestion
 csharp_space_around_binary_operators = before_and_after
 csharp_space_after_comma = true
@@ -118,7 +118,7 @@ csharp_style_prefer_utf8_string_literals = true:suggestion
 csharp_style_deconstructed_variable_declaration = true:suggestion
 csharp_style_unused_value_assignment_preference = discard_variable:suggestion
 csharp_style_unused_value_expression_statement_preference = discard_variable:silent
-csharp_prefer_static_local_function = true:suggestion
+csharp_prefer_static_local_function = false:suggestion
 csharp_style_prefer_readonly_struct = true:suggestion
 csharp_style_prefer_readonly_struct_member = true:suggestion
 csharp_style_allow_blank_lines_between_consecutive_braces_experimental = true:silent
@@ -129,14 +129,115 @@ csharp_style_allow_blank_line_after_token_in_arrow_expression_clause_experimenta
 csharp_style_conditional_delegate_call = true:suggestion
 csharp_style_prefer_switch_expression = true:suggestion
 csharp_style_prefer_pattern_matching = true:silent
-csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
+csharp_style_pattern_matching_over_is_with_cast_check = true:error
 csharp_style_pattern_matching_over_as_with_null_check = true:suggestion
 csharp_style_prefer_not_pattern = true:suggestion
 csharp_style_prefer_extended_property_pattern = true:suggestion
-csharp_style_var_for_built_in_types = false:silent
+csharp_style_var_for_built_in_types = false:error
 csharp_style_var_when_type_is_apparent = false:silent
 csharp_style_var_elsewhere = false:silent
-dotnet_diagnostic.IDE0300.severity = error
+dotnet_diagnostic.IDE0001.severity = error # System.IO.FileInfo file;
+dotnet_diagnostic.IDE0002.severity = error # C.M1();
+dotnet_diagnostic.IDE0003.severity = error
+dotnet_diagnostic.IDE0004.severity = error # int v = (int)0;
+dotnet_diagnostic.IDE0005.severity = error # using System.IO;    // IDE0005: Using directive is unnecessary
+dotnet_diagnostic.IDE0007.severity = error
+dotnet_diagnostic.IDE0009.severity = error
+dotnet_diagnostic.IDE0010.severity = error # // IDE0010: Add missing cases switch (e)
+dotnet_diagnostic.IDE0011.severity = error # if (test) { this.Display(); }
+dotnet_diagnostic.IDE0016.severity = error # this.s = s ?? throw new ArgumentNullException(nameof(s));
+dotnet_diagnostic.IDE0017.severity = error # c.Age = 21; -> var c = new Customer() { Age = 21 };
+dotnet_diagnostic.IDE0018.severity = error # int i; -> if (int.TryParse(value, out int i)) {...}
+dotnet_diagnostic.IDE0019.severity = error # var s = o as string; -> if (o is string s) {...}
+dotnet_diagnostic.IDE0020.severity = error # if (o is int) {var i = (int)o; ... } -> if (o is int i) {...}
+dotnet_diagnostic.IDE0021.severity = error # public Customer(int age) { Age = age; } -> public Customer(int age) => Age = age;
+dotnet_diagnostic.IDE0022.severity = error # expression_bodied_methods
+dotnet_diagnostic.IDE0023.severity = error # expression_bodied_operators
+dotnet_diagnostic.IDE0024.severity = error # expression_bodied_operators
+dotnet_diagnostic.IDE0025.severity = error # expression_bodied_properties
+dotnet_diagnostic.IDE0026.severity = error # expression_bodied_...
+dotnet_diagnostic.IDE0027.severity = error # expression_bodied_...
+dotnet_diagnostic.IDE0028.severity = error # prefer_collection_expression
+dotnet_diagnostic.IDE0029.severity = error # coalesce_expression x ?? y;
+dotnet_diagnostic.IDE0030.severity = error # coalesce_expression x ?? y;
+dotnet_diagnostic.IDE0031.severity = error # null_propagation o?.ToString();
+dotnet_diagnostic.IDE0032.severity = error # prefer_auto_properties
+dotnet_diagnostic.IDE0033.severity = error # explicit_tuple_names
+dotnet_diagnostic.IDE0034.severity = error # prefer_simple_default_expression
+dotnet_diagnostic.IDE0035.severity = error # Remove unreachable code
+dotnet_diagnostic.IDE0036.severity = error # preferred_modifier_order
+dotnet_diagnostic.IDE0037.severity = error # prefer_inferred_tuple_names, prefer_inferred_anonymous_type_member_names
+dotnet_diagnostic.IDE0038.severity = error # pattern_matching_over_is_with_cast_check
+dotnet_diagnostic.IDE0039.severity = error # prefer_local_over_anonymous_function
+dotnet_diagnostic.IDE0040.severity = error # require_accessibility_modifiers
+dotnet_diagnostic.IDE0041.severity = error # prefer_is_null_check_over_reference_equality_method
+dotnet_diagnostic.IDE0042.severity = error # deconstructed_variable_declaration
+dotnet_diagnostic.IDE0044.severity = error # readonly_field
+dotnet_diagnostic.IDE0045.severity = error # prefer_conditional_expression_over_assignment
+dotnet_diagnostic.IDE0046.severity = error # prefer_conditional_expression_over_return
+dotnet_diagnostic.IDE0047.severity = error # parentheses_in_arithmetic_binary_operators
+dotnet_diagnostic.IDE0048.severity = error # parentheses_in_arithmetic_binary_operators
+dotnet_diagnostic.IDE0049.severity = error # predefined_type_for_locals_parameters_members
+dotnet_diagnostic.IDE0050.severity = error # var t1 = (a: 1, b: 2); -> var t1 = new { a = 1, b = 2 };
+dotnet_diagnostic.IDE0051.severity = error # Remove unused private members
+dotnet_diagnostic.IDE0052.severity = error # Remove unread private members
+dotnet_diagnostic.IDE0053.severity = error # expression_bodied_lambdas `x => { return x * x; };` ->  x => x * x;
+dotnet_diagnostic.IDE0054.severity = error # prefer_compound_assignment
+dotnet_diagnostic.IDE0056.severity = error # prefer_index_operator `names[names.Length - 1];` -> names[^1];
+dotnet_diagnostic.IDE0057.severity = error # prefer_range_operator 'sentence.Substring(0, sentence.Length - 4);' -> 'sentence[0..^4];'
+dotnet_diagnostic.IDE0058.severity = error # unused_value_expression_statement_preference
+dotnet_diagnostic.IDE0059.severity = error # unused_value_assignment_preference
+dotnet_diagnostic.IDE0060.severity = error # code_quality_unused_parameters
+dotnet_diagnostic.IDE0061.severity = error # expression_bodied_local_functions
+dotnet_diagnostic.IDE0062.severity = error # prefer_static_local_function
+dotnet_diagnostic.IDE0063.severity = error # prefer_simple_using_statement
+dotnet_diagnostic.IDE0064.severity = error # ?
+dotnet_diagnostic.IDE0065.severity = error # using_directive_placement
+dotnet_diagnostic.IDE0066.severity = error # prefer_switch_expression
+dotnet_diagnostic.IDE0070.severity = error # using System.HashCode.Combine
+dotnet_diagnostic.IDE0071.severity = error # prefer_simplified_interpolation
+dotnet_diagnostic.IDE0072.severity = error # no missing cases
+dotnet_diagnostic.IDE0073.severity = none # file_header_template
+dotnet_diagnostic.IDE0074.severity = error # prefer_compound_assignment
+dotnet_diagnostic.IDE0075.severity = error # prefer_simplified_boolean_expressions 'M1() && M2() ? true : false' -> 'M1() && M2()'
+dotnet_diagnostic.IDE0078.severity = error # prefer_pattern_matching '!(o is C c)' -> 'o is not C c'
+dotnet_diagnostic.IDE0079.severity = error # remove_unnecessary_suppression_exclusions
+dotnet_diagnostic.IDE0080.severity = error # remove null-forgiving 'if (o !is string)' -> 'if (o is not string)', 'if (!(o is string))', 'if (o is string)'
+dotnet_diagnostic.IDE0081.severity = error # ?
+dotnet_diagnostic.IDE0082.severity = error # var n1 = typeof(T).Name; -> var n1 = nameof(T);
+dotnet_diagnostic.IDE0083.severity = error # prefer_not_pattern 'var y = !(o is C c);' -> 'var y = o is not C c;'
+dotnet_diagnostic.IDE0084.severity = none # visual basic
+dotnet_diagnostic.IDE0090.severity = error # implicit_object_creation_when_type_is_apparent 'new C()' -> 'new()'
+dotnet_diagnostic.IDE0100.severity = error # 'if (x == true) { }' -> 'if (x) { }'
+dotnet_diagnostic.IDE0110.severity = error # Remove unnecessary discard
+dotnet_diagnostic.IDE0120.severity = error # Simplify LINQ expression
+dotnet_diagnostic.IDE0130.severity = none # Namespace does not match folder structure
+dotnet_diagnostic.IDE0140.severity = error # Simplify object creation 'Dim x As Student = New Student()' -> 'Dim x As New Student()'
+dotnet_diagnostic.IDE0150.severity = error # Prefer 'null' check over type check
+dotnet_diagnostic.IDE0160.severity = error # namespace_declarations
+dotnet_diagnostic.IDE0161.severity = error # namespace_declarations
+dotnet_diagnostic.IDE0170.severity = error # prefer_extended_property_pattern '{ Start: { Y: 0 } } or { End: { Y: 0 } }' -> '{ Start.Y: 0 } or { End.Y: 0 }'
+dotnet_diagnostic.IDE0180.severity = error # prefer_tuple_swap
+dotnet_diagnostic.IDE0200.severity = error # prefer_method_group_conversion '.Where(n => IsEven(n))' -> '.Where(IsEven)'
+dotnet_diagnostic.IDE0210.severity = error # prefer_top_level_statements Convert to top-level statements
+dotnet_diagnostic.IDE0211.severity = error # prefer_top_level_statements Convert to 'Program.Main' style program
+dotnet_diagnostic.IDE0220.severity = error # Add explicit cast in foreach loop
+dotnet_diagnostic.IDE0230.severity = none # prefer_utf8_string_literals 'ReadOnlySpan<byte> _ = new byte[] { 65, 66, 67 };' -> 'ReadOnlySpan<byte> _ = "ABC"u8;'
+dotnet_diagnostic.IDE0240.severity = error # Nullable directive is redundant
+dotnet_diagnostic.IDE0241.severity = error # Nullable directive is unnecessary
+dotnet_diagnostic.IDE0250.severity = error # Struct can be made 'readonly'
+dotnet_diagnostic.IDE0251.severity = error # Member can be made 'readonly' prefer_readonly_struct_member
+dotnet_diagnostic.IDE0260.severity = error # Use pattern matching pattern_matching_over_as_with_null_check
+dotnet_diagnostic.IDE0270.severity = error # coalesce_expression
+dotnet_diagnostic.IDE0280.severity = error # Use 'nameof' 'void M([NotNullIfNotNull("input")] string? input)' -> 'void M([NotNullIfNotNull(nameof(input))] string? input)'
+dotnet_diagnostic.IDE0290.severity = error # prefer_primary_constructors
+dotnet_diagnostic.IDE0300.severity = error # Use collection expression for array
+dotnet_diagnostic.IDE0301.severity = error # Use collection expression for empty
+dotnet_diagnostic.IDE0302.severity = error # Use collection expression for stackalloc
+dotnet_diagnostic.IDE0303.severity = error # Use collection expression for Create()
+dotnet_diagnostic.IDE0304.severity = error # Use collection expression for builder
+dotnet_diagnostic.IDE0305.severity = error # Use collection expression for fluent
+dotnet_diagnostic.IDE1005.severity = error # Use conditional delegate call
 
 # Stylecop
 
