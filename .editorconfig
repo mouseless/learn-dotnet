@@ -250,6 +250,7 @@ dotnet_diagnostic.IDE0305.severity = error # Use collection expression for fluen
 dotnet_diagnostic.IDE1005.severity = error # Use conditional delegate call
 
 # Stylecop
+
 dotnet_analyzer_diagnostic.category-StyleCop.CSharp.AlternativeRules.severity = none
 dotnet_analyzer_diagnostic.category-StyleCop.CSharp.DocumentationRules.severity = none
 dotnet_analyzer_diagnostic.category-StyleCop.CSharp.LayoutRules.severity = none
@@ -259,6 +260,7 @@ dotnet_analyzer_diagnostic.category-StyleCop.CSharp.OrderingRules.severity = non
 dotnet_analyzer_diagnostic.category-StyleCop.CSharp.ReadabilityRules.severity = none
 dotnet_analyzer_diagnostic.category-StyleCop.CSharp.SpacingRules.severity = none
 dotnet_analyzer_diagnostic.category-StyleCop.CSharp.SpecialRules.severity = none
+dotnet_diagnostic.SA0001.severity = none # I don't know why but this rule was supposed to be closed together with the special rules above.
 dotnet_diagnostic.SA1507.severity = error # Code Must Not Contain Multiple Blank Lines In A Row
 dotnet_diagnostic.SA1110.severity = error # Opening Parenthesis Must Be On Declaration Line
 dotnet_diagnostic.SA1112.severity = error # Closing Parenthesis Must Be On Line Of Opening Parenthesis
