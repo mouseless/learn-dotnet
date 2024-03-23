@@ -10,7 +10,7 @@ public class ConventionallyCorrect : SomeBaseClass
 {
     readonly string _field;
     public string AccessibleField => _field;
-    static readonly string StaticField = string.Empty;
+    static readonly string _staticField = string.Empty;
 
     public int Property { get; private set; }
     public string[] ArrayProperty { get; private set; }
@@ -29,14 +29,14 @@ public class ConventionallyCorrect : SomeBaseClass
         _field = field;
         Property = property;
 
-        ArrayProperty = [_field, AccessibleField, StaticField];
+        ArrayProperty = [_field, AccessibleField, _staticField];
     }
 
     public string SomeMethod()
     {
         Property++;
 
-        return StaticField;
+        return _staticField;
     }
 
     public string SomeGenericMethod<TClass>(
@@ -50,6 +50,6 @@ public class ConventionallyCorrect : SomeBaseClass
             return parameter != null && someEnum == SomeEnum.Base;
         }
 
-        return IsNull() ? stringParameter : StaticField;
+        return IsNull() ? stringParameter : _staticField;
     }
 }
