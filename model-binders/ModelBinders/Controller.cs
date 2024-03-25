@@ -6,33 +6,37 @@ namespace ModelBinders;
 public class Controller
 {
     [HttpGet]
-    [Route("model-ones/{model-id}")]
-    public ModelOne GetModelOne([FromRoute(Name = "model-id")] ModelOne model) =>
+    [Route("model-ones/{modelId}")]
+    public ModelOne GetModelOne([FromRoute(Name = "modelId")] ModelOne model) =>
         model;
+
+    public record PostModelOneRequest(string Name);
 
     [HttpPost]
     [Route("model-ones")]
-    public ModelOne Post([FromServices] IQuery<ModelOne> modelOnes, string name)
+    public ModelOne PostModelOne([FromServices] IQuery<ModelOne> modelOnes, [FromBody] PostModelOneRequest request)
     {
         var id = Guid.NewGuid();
 
-        modelOnes.Add(id, new(id, name));
+        modelOnes.Add(id, new(id, request.Name));
 
         return modelOnes[id];
     }
 
     [HttpGet]
-    [Route("model-twos/{model-id}")]
-    public ModelTwo GetModelTwo([FromRoute(Name = "model-id")] ModelTwo model) =>
+    [Route("model-twos")]
+    public ModelTwo GetModelTwo([FromQuery(Name = "modelId")] ModelTwo model) =>
         model;
+
+    public record PostModelTwoRequest(string Name);
 
     [HttpPost]
     [Route("model-twos")]
-    public ModelTwo Post([FromServices] IQuery<ModelTwo> modelTwos, string name)
+    public ModelTwo Post([FromServices] IQuery<ModelTwo> modelTwos, [FromBody] PostModelTwoRequest request)
     {
         var id = Guid.NewGuid();
 
-        modelTwos.Add(id, new(id, name));
+        modelTwos.Add(id, new(id, request.Name));
 
         return modelTwos[id];
     }
