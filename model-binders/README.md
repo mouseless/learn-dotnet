@@ -7,12 +7,12 @@ goal.
 ## Result
 
 We've decided to solve this problem through code generation instead of model
-binding because of inconsistency between libraries, lack of features;
+binding because of inconsistency between libraries & lack of features;
 
-> - model binding does not seem to support nested properties, which requires
->   custom solution for json serializer as well
-> - it doesn't work well with swashbuckle, which is another thing to maintain
-> - microsoft does not recommend to use model binders to lookup for entities
+- model binding does not seem to support nested properties, which requires
+  custom solution for json serializer as well
+- it doesn't work well with swashbuckle, which is another thing to maintain
+- microsoft does not recommend to use model binders to lookup for entities
 
 ## A Potential Solution
 
@@ -47,7 +47,7 @@ public class QueryModelBinderProvider : IModelBinderProvider
 
 - When a value type implements `IParseable<T>`, .NET automatically makes use of
   `static abstract TryParse` method in the interface. So no need to write custom
-  model binders for custom value types any more :party:
+  model binders for custom value types any more :partying_face:
 - In case `IParseable` is not enough, `TypeConverter` classes is another option
   to bind a value type
 - `record` types are allowed to have primary constructors, but regular `class`
