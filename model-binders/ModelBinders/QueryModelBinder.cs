@@ -9,12 +9,8 @@ public class QueryModelBinder<TModel>(IQuery<TModel> _query)
     {
         var modelName = bindingContext.ModelName;
 
-        // Try to fetch the value of the argument by name
         var valueProviderResult = bindingContext.ValueProvider.GetValue(modelName);
-        if (valueProviderResult == ValueProviderResult.None)
-        {
-            return Task.CompletedTask;
-        }
+        if (valueProviderResult == ValueProviderResult.None) { return Task.CompletedTask; }
 
         bindingContext.ModelState.SetModelValue(modelName, valueProviderResult);
 

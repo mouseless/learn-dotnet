@@ -4,7 +4,36 @@ We needed to be able to use an entity directly from an action parameter. This
 research was done to learn how to utilize custom model binders to achieve this
 goal.
 
-## Highlights
+## Solution
+
+We've used `IModelBinder` interface to implement a custom solution. It provides
+a clean base to design a custom model binding for entities.
+
+```csharp
+public class QueryModelBinder<TModel>(IQuery<TModel> _query)
+    : IModelBinder
+{
+    public Task BindModelAsync(ModelBindingContext bindingContext)
+    {
+        // ... put find entity logic here using `_query`
+    }
+}
+```
+
+To map a model binder for a model, we've used `IModelBinderProvider`.
+
+```csharp
+public class QueryModelBinderProvider : IModelBinderProvider
+{
+    public IModelBinder? GetBinder(ModelBinderProviderContext context)
+    {
+        // check if given context.Metadata.ModelType is an entity
+        // return query of that type using context.Services
+    }
+}
+```
+
+## Other Highlights
 
 - When a value type implements `IParseable<T>`, .NET automatically makes use of
   `static abstract TryParse` method in the interface. So no need to write custom
@@ -14,22 +43,6 @@ goal.
 - `record` types are allowed to have primary constructors, but regular `class`
   types with a primary constructor does not get automatically bound as a model
 - Returning status code directly from model binders is not recommended
-
-## Solution
-
-We've used `IModelBinder` interface to implement a custom solution. It provides
-a clean base to design a custom model binding for entities.
-
-```csharp
-public class CustomEntityBinder<T>(IGenericRepository<T> _repository)
-    : IModelBinder
-{
-    public Task BindModelAsync(ModelBindingContext bindingContext)
-    {
-        // ... put find entity logic here using `_repository`
-    }
-}
-```
 
 ## Links to Follow
 

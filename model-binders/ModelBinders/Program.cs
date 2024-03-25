@@ -9,8 +9,8 @@ builder.Services.AddControllers(options =>
 });
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<Models>();
-builder.Services.AddSingleton<IQuery<Model>>(sp => sp.GetRequiredService<Models>());
+builder.Services.AddSingleton<IQuery<ModelOne>, ModelOnes>();
+builder.Services.AddSingleton<IQuery<ModelTwo>, ModelTwos>();
 builder.Services.AddSingleton(typeof(QueryModelBinder<>));
 
 var app = builder.Build();
