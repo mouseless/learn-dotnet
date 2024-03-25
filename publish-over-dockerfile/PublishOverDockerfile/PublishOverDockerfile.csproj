@@ -5,8 +5,4 @@
     <ContainerRepository>learn-publish-over-dockerfile</ContainerRepository>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Build.Containers" />
-  </ItemGroup>
-
 </Project>
