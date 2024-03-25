@@ -1,6 +1,7 @@
 namespace ModelBinders;
 
-public record Model(
-    Guid Id,
-    string Name
-);
+public class Model(Guid _id, string _name)
+{
+    public Guid Id => _id;
+    public string Name => _name;
+}
