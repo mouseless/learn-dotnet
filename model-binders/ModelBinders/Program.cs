@@ -7,6 +7,7 @@ builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<Models>();
+builder.Services.AddSingleton<IQuery<Model>>(sp => sp.GetRequiredService<Models>());
 
 var app = builder.Build();
 
