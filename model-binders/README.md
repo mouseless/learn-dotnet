@@ -4,7 +4,17 @@ We needed to be able to use an entity directly from an action parameter. This
 research was done to learn how to utilize custom model binders to achieve this
 goal.
 
-## Solution
+## Result
+
+We've decided to solve this problem through code generation instead of model
+binding because of inconsistency between libraries, lack of features;
+
+> - model binding does not seem to support nested properties, which requires
+>   custom solution for json serializer as well
+> - it doesn't work well with swashbuckle, which is another thing to maintain
+> - microsoft does not recommend to use model binders to lookup for entities
+
+## A Potential Solution
 
 We've used `IModelBinder` interface to implement a custom solution. It provides
 a clean base to design a custom model binding for entities.
