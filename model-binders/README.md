@@ -13,6 +13,7 @@ goal.
   to bind a value type
 - `record` types are allowed to have primary constructors, but regular `class`
   types with a primary constructor does not get automatically bound as a model
+- Returning status code directly from model binders is not recommended
 
 ## Solution
 
