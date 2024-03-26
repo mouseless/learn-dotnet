@@ -1,5 +1,3 @@
-root = true
-
 [*.cs]
 #### Naming styles ####
 
