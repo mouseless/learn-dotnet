@@ -8,10 +8,6 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <CodeAnalysisRuleSet>../../stylecop.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers.Unstable">
       <PrivateAssets>all</PrivateAssets>
