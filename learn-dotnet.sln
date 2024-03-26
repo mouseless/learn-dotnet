@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "analyzers", "analyzers", "{
 		analyzers\README.md = analyzers\README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stylecop.Analyzers", "analyzers\Stylecop.Analyzers\Stylecop.Analyzers.csproj", "{DE4DF340-C6AF-4F97-830E-1614BC8CB4B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnalyzersSample", "analyzers\Stylecop.Analyzers\AnalyzersSample.csproj", "{DE4DF340-C6AF-4F97-830E-1614BC8CB4B6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "central-package-management", "central-package-management", "{1388F723-B25D-4020-8F5B-B7A4B2BD067F}"
 	ProjectSection(SolutionItems) = preProject

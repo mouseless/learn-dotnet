@@ -1,5 +1,5 @@
 
-[*.{cs,vb}]
+[*.cs]
 #### Naming styles ####
 
 # Naming rules
@@ -146,6 +146,14 @@ csharp_style_prefer_extended_property_pattern = true:suggestion
 csharp_style_var_for_built_in_types = false:error
 csharp_style_var_when_type_is_apparent = false:silent
 csharp_style_var_elsewhere = false:silent
+
+# IDE
+
+dotnet_analyzer_diagnostic.category-Style.severity = none
+dotnet_diagnostic.IDE0035.severity = error # Remove unreachable code
+
+dotnet_diagnostic.IDE0004.severity = error
+
 dotnet_diagnostic.IDE0001.severity = error # System.IO.FileInfo file;
 dotnet_diagnostic.IDE0002.severity = error # class C { C.M1(); }
 dotnet_diagnostic.IDE0003.severity = error
@@ -174,7 +182,6 @@ dotnet_diagnostic.IDE0031.severity = error # null_propagation o?.ToString();
 dotnet_diagnostic.IDE0032.severity = error # prefer_auto_properties
 dotnet_diagnostic.IDE0033.severity = error # explicit_tuple_names
 dotnet_diagnostic.IDE0034.severity = error # prefer_simple_default_expression
-dotnet_diagnostic.IDE0035.severity = error # Remove unreachable code
 dotnet_diagnostic.IDE0036.severity = error # preferred_modifier_order
 dotnet_diagnostic.IDE0037.severity = error # prefer_inferred_tuple_names, prefer_inferred_anonymous_type_member_names
 dotnet_diagnostic.IDE0038.severity = error # pattern_matching_over_is_with_cast_check
@@ -201,7 +208,7 @@ dotnet_diagnostic.IDE0060.severity = error # code_quality_unused_parameters
 dotnet_diagnostic.IDE0061.severity = error # expression_bodied_local_functions
 dotnet_diagnostic.IDE0062.severity = error # prefer_static_local_function
 dotnet_diagnostic.IDE0063.severity = error # prefer_simple_using_statement
-dotnet_diagnostic.IDE0064.severity = error # ?
+dotnet_diagnostic.IDE0064.severity = error # Make struct fields writable
 dotnet_diagnostic.IDE0065.severity = error # using_directive_placement
 dotnet_diagnostic.IDE0066.severity = error # prefer_switch_expression
 dotnet_diagnostic.IDE0070.severity = error # using System.HashCode.Combine
@@ -213,10 +220,10 @@ dotnet_diagnostic.IDE0075.severity = error # prefer_simplified_boolean_expressio
 dotnet_diagnostic.IDE0078.severity = error # prefer_pattern_matching '!(o is C c)' -> 'o is not C c'
 dotnet_diagnostic.IDE0079.severity = error # remove_unnecessary_suppression_exclusions
 dotnet_diagnostic.IDE0080.severity = error # remove null-forgiving 'if (o !is string)' -> 'if (o is not string)', 'if (!(o is string))', 'if (o is string)'
-dotnet_diagnostic.IDE0081.severity = error # ?
+dotnet_diagnostic.IDE0081.severity = none # visual basic rule
 dotnet_diagnostic.IDE0082.severity = error # var n1 = typeof(T).Name; -> var n1 = nameof(T);
 dotnet_diagnostic.IDE0083.severity = error # prefer_not_pattern 'var y = !(o is C c);' -> 'var y = o is not C c;'
-dotnet_diagnostic.IDE0084.severity = none # visual basic
+dotnet_diagnostic.IDE0084.severity = none # visual basic rule
 dotnet_diagnostic.IDE0090.severity = error # implicit_object_creation_when_type_is_apparent 'new C()' -> 'new()'
 dotnet_diagnostic.IDE0100.severity = error # 'if (x == true) { }' -> 'if (x) { }'
 dotnet_diagnostic.IDE0110.severity = error # Remove unnecessary discard
@@ -261,11 +268,12 @@ dotnet_analyzer_diagnostic.category-StyleCop.CSharp.ReadabilityRules.severity = 
 dotnet_analyzer_diagnostic.category-StyleCop.CSharp.SpacingRules.severity = none
 dotnet_analyzer_diagnostic.category-StyleCop.CSharp.SpecialRules.severity = none
 dotnet_diagnostic.SA0001.severity = none # I don't know why but this rule was supposed to be closed together with the special rules above.
+dotnet_diagnostic.SA1122.severity = error # Use String Empty For Empty Strings
+
 dotnet_diagnostic.SA1507.severity = error # Code Must Not Contain Multiple Blank Lines In A Row
 dotnet_diagnostic.SA1110.severity = error # Opening Parenthesis Must Be On Declaration Line
 dotnet_diagnostic.SA1112.severity = error # Closing Parenthesis Must Be On Line Of Opening Parenthesis
 dotnet_diagnostic.SA1113.severity = error # Comma Must Be On Same Line As Previous Parameter
-dotnet_diagnostic.SA1122.severity = error # Use String Empty For Empty Strings
 dotnet_diagnostic.SA1131.severity = error # Use Readable Conditions
 dotnet_diagnostic.SA1132.severity = error # Do Not Combine Fields
 dotnet_diagnostic.SA1133.severity = error # Do Not Combine Attributes
