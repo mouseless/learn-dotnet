@@ -3,6 +3,10 @@
 We run Analyzers before build to improve code quality, fix style issues and
 ensure standardized code writing.
 
+In order not to skip warnings and to have a clean typing, we raise the warnings
+to error by making `<CodeAnalysisTreatWarningsAsErrors>` `true`. See
+[AnalyzersSample.csproj](AnalyzersSample.csproj).
+
 We use the `.editorconfig` file to manage analyzers. See
 [.editorconfig](/.editorconfig) to see how we manage it. The following
 explanations will go through `.editorconfig`.
@@ -12,7 +16,11 @@ explanations will go through `.editorconfig`.
 We use Code Style rules from Microsoft's Code Analysis tool with dotnet to
 maintain our code writing standard and keep code quality high.
 
-We use the rules we will use in `error` mode.
+By setting `<AnalysisModeStyle>` to `All` and `<EnforceCodeStyleInBuild>` to
+`true`, we enable Code Style suggestions/warnings and make them visible during
+build.
+
+We set the rules we will use in `error` mode.
 
 ```ini
 dotnet_diagnostic.IDE<rule number>.severity = error
@@ -25,6 +33,9 @@ then override it by opening the rules we use under it.
 dotnet_analyzer_diagnostic.category-<category>.severity = none
 dotnet_diagnostic.IDE<rule number>.severity = error
 ```
+
+Since we don't use documentation in code, we make `<GenerateDocumentationFile>`
+`false`. See [AnalyzersSample.csproj](AnalyzersSample.csproj).
 
 ## Stylecop.Analyzers
 
