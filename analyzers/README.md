@@ -14,16 +14,16 @@ maintain our code writing standard and keep code quality high.
 
 We use the rules we will use in `error` mode.
 
-```editorconfig
-dotnet_diagnostic.IDE{rule number}.severity = error
+```ini
+dotnet_diagnostic.IDE<rule number>.severity = error
 ```
 
 Instead of setting rules we don't use to `none`, we close the category. We can
 then override it by opening the rules we use under it.
 
-```editorconfig
-dotnet_analyzer_diagnostic.category-Style.severity = none
-dotnet_diagnostic.IDE{rule number}.severity = error
+```ini
+dotnet_analyzer_diagnostic.category-<category>.severity = none
+dotnet_diagnostic.IDE<rule number>.severity = error
 ```
 
 ## Stylecop.Analyzers
@@ -34,14 +34,14 @@ insufficient.
 Since `Stylecop.Analyzers` has a lot of rules and we don't use most of them, we
 prefer to keep the direct categories closed.
 
-```editorconfig
-dotnet_analyzer_diagnostic.category-StyleCop.CSharp.{category}.severity = none
+```ini
+dotnet_analyzer_diagnostic.category-StyleCop.CSharp.<category>.severity = none
 ```
 
 To activate any rule
 
-```editorconfig
-dotnet_diagnostic.SA{rule number}.severity = error
+```ini
+dotnet_diagnostic.SA<rule number>.severity = error
 ```
 
 See [Stylecop.Analyzers.csproj](/analyzers/Stylecop.Analyzers/Stylecop.Analyzers.csproj)

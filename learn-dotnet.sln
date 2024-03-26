@@ -8,8 +8,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "analyzers", "analyzers", "{
 		analyzers\README.md = analyzers\README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnalyzersSample", "analyzers\Stylecop.Analyzers\AnalyzersSample.csproj", "{DE4DF340-C6AF-4F97-830E-1614BC8CB4B6}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "central-package-management", "central-package-management", "{1388F723-B25D-4020-8F5B-B7A4B2BD067F}"
 	ProjectSection(SolutionItems) = preProject
 		central-package-management\README.md = central-package-management\README.md
@@ -112,16 +110,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "benchmarking-in-dotnet", "b
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BenchmarkingInDotNet", "benchmarking-in-dotnet\BenchmarkingInDotNet\BenchmarkingInDotNet.csproj", "{6E92E509-834F-403C-A0B0-3B691F3C816D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnalyzersSample", "analyzers\AnalyzersSample\AnalyzersSample.csproj", "{F7185339-B401-483F-8FB5-FBC9A1D4DBFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DE4DF340-C6AF-4F97-830E-1614BC8CB4B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DE4DF340-C6AF-4F97-830E-1614BC8CB4B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DE4DF340-C6AF-4F97-830E-1614BC8CB4B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DE4DF340-C6AF-4F97-830E-1614BC8CB4B6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C5868FAC-1628-4400-8018-7DD14E4A6119}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C5868FAC-1628-4400-8018-7DD14E4A6119}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5868FAC-1628-4400-8018-7DD14E4A6119}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -186,13 +182,16 @@ Global
 		{6E92E509-834F-403C-A0B0-3B691F3C816D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E92E509-834F-403C-A0B0-3B691F3C816D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E92E509-834F-403C-A0B0-3B691F3C816D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7185339-B401-483F-8FB5-FBC9A1D4DBFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7185339-B401-483F-8FB5-FBC9A1D4DBFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7185339-B401-483F-8FB5-FBC9A1D4DBFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7185339-B401-483F-8FB5-FBC9A1D4DBFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AF835CF7-F63E-4667-A84D-298D4FF2E095} = {E148C898-1BFD-4F28-8940-583CC50F90DB}
-		{DE4DF340-C6AF-4F97-830E-1614BC8CB4B6} = {AF835CF7-F63E-4667-A84D-298D4FF2E095}
 		{1388F723-B25D-4020-8F5B-B7A4B2BD067F} = {E148C898-1BFD-4F28-8940-583CC50F90DB}
 		{C5868FAC-1628-4400-8018-7DD14E4A6119} = {1388F723-B25D-4020-8F5B-B7A4B2BD067F}
 		{6AB76071-4AF2-49EF-ACDC-3F5EEBC73958} = {1388F723-B25D-4020-8F5B-B7A4B2BD067F}
@@ -225,6 +224,7 @@ Global
 		{7299B336-9340-4E15-B0EE-B59C2770D7EE} = {8D3DAA2C-A035-47DC-92DE-A0DA501B32BF}
 		{32202E5E-02C2-48CA-9D8D-687146EB0232} = {E148C898-1BFD-4F28-8940-583CC50F90DB}
 		{6E92E509-834F-403C-A0B0-3B691F3C816D} = {32202E5E-02C2-48CA-9D8D-687146EB0232}
+		{F7185339-B401-483F-8FB5-FBC9A1D4DBFC} = {AF835CF7-F63E-4667-A84D-298D4FF2E095}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ECEAECE7-49E5-4CBC-B84D-5FF82F2399FC}
