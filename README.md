@@ -33,6 +33,7 @@ You can see them in the links below.
 - **[Dependency Injection:](/dependency-injection/README.md)** How we setup and
   use dependency injection.
 - **[Exception Handling:](/exception-handling/README.md)** How we manage
+  exceptions.
 
 ## Researches
 
@@ -49,6 +50,8 @@ You can see them in the links below.
 
 ### ASP.NET Core
 
+- **[Model Binders:](./model-binders/README.md)** How to map custom types to
+  action parameters to allow entities directly from action parameters
 - **[Native AOT:](./native-aot/README.md)** We are considering using
   `Native AOT` for our small and minimal API and CLI applications. For now, we
   are not using Native AOT because it is new and does not satisfy many of our
