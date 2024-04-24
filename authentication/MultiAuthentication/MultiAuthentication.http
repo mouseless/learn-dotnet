@@ -1,0 +1,6 @@
+@MultiAuthentication_HostAddress = http://localhost:5002
+
+GET {{MultiAuthentication_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
