@@ -8,7 +8,18 @@ namespace MultiAuthentication.Controllers;
 public class PolicyAndSchemesController(IHttpContextAccessor httpContextAccessor) : ControllerBase
 {
     [HttpGet]
-    [Authorize(AuthenticationSchemes = "Default")]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("default-scheme")]
+    public object DefaultScheme()
+    {
+        var principal = httpContextAccessor.HttpContext?.User ?? throw new();
+
+        return principal.ToDictionary();
+    }
+
+    [HttpGet]
+    [Authorize(AuthenticationSchemes = "OrganizationId")]
     [Produces("application/json")]
     [Route("single-scheme")]
     public object SingleScheme()
@@ -32,8 +43,19 @@ public class PolicyAndSchemesController(IHttpContextAccessor httpContextAccessor
     [HttpGet]
     [Authorize(Policy = "Backend")]
     [Produces("application/json")]
-    [Route("policy-with-multi-scheme")]
-    public object MultiSchemeFromPolicy()
+    [Route("backend-policy")]
+    public object BackendPolicy()
+    {
+        var principal = httpContextAccessor.HttpContext?.User ?? throw new();
+
+        return principal.ToDictionary();
+    }
+
+    [HttpGet]
+    [Authorize(Policy = "ExternalSystem")]
+    [Produces("application/json")]
+    [Route("external-system-policy")]
+    public object ExternalSystemPolicy()
     {
         var principal = httpContextAccessor.HttpContext?.User ?? throw new();
 

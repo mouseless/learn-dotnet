@@ -44,7 +44,7 @@ public static class MultiAuthenticationExtensions
             return "ApiKey";
         });
 
-        source.AddOptions<AuthenticationSchemeOptions>("Default");
+        source.AddOptions<AuthenticationSchemeOptions>();
         source.AddAuthorization();
     }
 
@@ -56,19 +56,26 @@ public static class MultiAuthenticationExtensions
             manager.ApplicationParts.Add(new SingleControllerApplicationPart<PolicyAndSchemesController>());
         });
 
-        source.AddAuthentication()
+        source.AddAuthentication("ApiKey")
             .AddScheme<AuthenticationSchemeOptions, ApiKeyAuthenticationHandler>("ApiKey", _ => { })
             .AddScheme<AuthenticationSchemeOptions, BearerTokenAuthenticationHandler>("BearerToken", _ => { })
             .AddScheme<AuthenticationSchemeOptions, OrganizationIdAuthenticationHandler>("OrganizationId", _ => { });
 
         source.AddAuthorization(options =>
         {
-            var builder = new AuthorizationPolicyBuilder(
+            var backendPolicyBuilder = new AuthorizationPolicyBuilder(
                 "ApiKey",
-                "BearerToken"
+                "OrganizationId"
             ).RequireAuthenticatedUser();
 
-            options.AddPolicy("Backend", builder.Build());
+            options.AddPolicy("Backend", backendPolicyBuilder.Build());
+
+            var externalSystemPolicyBuilder = new AuthorizationPolicyBuilder(
+                "BearerToken",
+                "ApiKey"
+            ).RequireAuthenticatedUser();
+
+            options.AddPolicy("ExternalSystem", externalSystemPolicyBuilder.Build());
         });
     }
 

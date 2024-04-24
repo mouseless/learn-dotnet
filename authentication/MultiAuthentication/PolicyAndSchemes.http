@@ -1,8 +1,14 @@
 @MultiAuthentication_HostAddress = http://localhost:5115
 
+GET {{MultiAuthentication_HostAddress}}/authentication/default-scheme
+Accept: application/json,
+X-API-KEY: 11111111111111111111111111111111
+
+###
+
 GET {{MultiAuthentication_HostAddress}}/authentication/single-scheme
 Accept: application/json,
-X-ORGANIZATION-ID: "1d93f661c4b241e39f0b0e8fb177ffae"
+X-ORGANIZATION-ID: 1d93f661c4b241e39f0b0e8fb177ffae
 
 ###
 
@@ -13,7 +19,7 @@ Accept: application/json
 
 GET {{MultiAuthentication_HostAddress}}/authentication/multi-authentication-scheme
 Accept: application/json,
-X-API-KEY: "11111111111111111111111111111111"
+X-API-KEY: 11111111111111111111111111111111
 
 ###
 
@@ -24,9 +30,39 @@ Authorization: Bearer 1d93f661c4b241e39f0b0e8fb177ffae
 ###
 
 
-GET {{MultiAuthentication_HostAddress}}/authentication/policy-with-multi-scheme
+GET {{MultiAuthentication_HostAddress}}/authentication/backend-policy
 Accept: application/json,
 Authorization: Bearer 1d93f661c4b241e39f0b0e8fb177ffae
+
+###
+
+GET {{MultiAuthentication_HostAddress}}/authentication/backend-policy
+Accept: application/json,
+X-API-KEY: 11111111111111111111111111111111
+
+###
+
+GET {{MultiAuthentication_HostAddress}}/authentication/backend-policy
+Accept: application/json,
+X-ORGANIZATION-ID: 1d93f661c4b241e39f0b0e8fb177ffae
+
+###
+
+GET {{MultiAuthentication_HostAddress}}/authentication/external-system-policy
+Accept: application/json,
+Authorization: Bearer 1d93f661c4b241e39f0b0e8fb177ffae
+
+###
+
+GET {{MultiAuthentication_HostAddress}}/authentication/external-system-policy
+Accept: application/json,
+X-API-KEY: 11111111111111111111111111111111
+
+###
+
+GET {{MultiAuthentication_HostAddress}}/authentication/external-system-policy
+Accept: application/json,
+X-ORGANIZATION-ID: 1d93f661c4b241e39f0b0e8fb177ffae
 
 ###
 

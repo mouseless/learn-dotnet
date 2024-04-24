@@ -4,15 +4,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-if (args.Any(a => a.Contains("scheme-selector")))
+if (args.Any(a => a.Contains("--mode=scheme-selector")))
 {
-    Console.WriteLine("test: scheme-selector");
+    Console.WriteLine("mode: scheme-selector");
 
     builder.Services.AddAuthenticationWithSchemeSelector();
 }
 else
 {
-    Console.WriteLine("test: policy and schemes");
+    Console.WriteLine("mode: policy and schemes");
 
     builder.Services.AddAuthenticationDefinedSchemesInAttribute();
 }
