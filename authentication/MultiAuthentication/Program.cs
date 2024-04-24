@@ -1,19 +1,27 @@
-using Microsoft.AspNetCore.Authentication;
-using MultiAuthentication.Handlers;
+using MultiAuthentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+if (args.Any(a => a.Contains("scheme-selector")))
+{
+    Console.WriteLine("test: scheme-selector");
+
+    builder.Services.AddAuthenticationWithSchemeSelector();
+}
+else
+{
+    Console.WriteLine("test: policy and schemes");
+
+    builder.Services.AddAuthenticationDefinedSchemesInAttribute();
+}
+
+builder.Services.AddHttpContextAccessor();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddAuthentication()
-    .AddScheme<AuthenticationSchemeOptions, ApiKeyAuthenticationHandler>("ApiKey", _ => { })
-    .AddScheme<AuthenticationSchemeOptions, BearerTokenAuthenticationHandler>("BearerToken", _ => { });
-builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
