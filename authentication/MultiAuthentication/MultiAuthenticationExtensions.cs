@@ -29,20 +29,21 @@ public static class MultiAuthenticationExtensions
 
         });
 
-        source.Configure<AuthenticationSchemeOptions>("ApiKey", options => options.ForwardDefaultSelector = (context) =>
-        {
-            if (context.Request.Headers.ContainsKey("X-ORGANIZATION-ID"))
+        source.Configure<AuthenticationSchemeOptions>("ApiKey", options =>
+            options.ForwardDefaultSelector = context =>
             {
-                return "OrganizationId";
-            }
+                if (context.Request.Headers.ContainsKey("X-ORGANIZATION-ID"))
+                {
+                    return "OrganizationId";
+                }
 
-            if (context.Request.Headers.ContainsKey("Authorization"))
-            {
-                return "BearerToken";
-            }
+                if (context.Request.Headers.ContainsKey("Authorization"))
+                {
+                    return "BearerToken";
+                }
 
-            return "ApiKey";
-        });
+                return "ApiKey";
+            });
 
         source.AddOptions<AuthenticationSchemeOptions>();
         source.AddAuthorization();
