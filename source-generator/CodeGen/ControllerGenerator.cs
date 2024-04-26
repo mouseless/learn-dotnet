@@ -39,25 +39,33 @@ public class ControllerGenerator : IIncrementalGenerator
     }
 
     private string ControllerTemplate(ServiceModel source) =>
-$@"// Auto-generated code
+$$"""
+// Auto-generated code
 
 using Microsoft.AspNetCore.Mvc;
-using {source.Namespace};
+using {{source.Namespace}};
 
-namespace {source.TargetNamespace};
+namespace {{source.TargetNamespace}};
 
+/// <summary>
+/// Generated {{source.Name}}Controller
+/// </summary>
 [ApiController]
-[Route("""")]
-public class {source.Name}Controller : ControllerBase
-{{
-{string.Join(string.Empty, source.Operations.Select(operation =>
-$@"
-    [HttpGet(""/{source.Name}/{operation.Name}"")]
-    public {operation.Type} {operation.Name}()
-    {{
-        return new {source.Name}().{operation.Name}();
-    }}"
-)
-     )}
-}}";
+[Route("")]
+public class {{source.Name}}Controller : ControllerBase
+{
+{{string.Join(string.Empty, source.Operations.Select(operation =>
+$$"""
+    /// <summary>
+    /// Generated /{{source.Name}}/{{operation.Name}}
+    /// </summary>
+    [HttpGet("/{{source.Name}}/{{operation.Name}}")]
+    public {{operation.Type}} {{operation.Name}}()
+    {
+        return new {{source.Name}}().{{operation.Name}}();
+    }
+"""
+))}}
+}
+""";
 }

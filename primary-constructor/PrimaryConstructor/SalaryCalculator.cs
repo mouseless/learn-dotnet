@@ -11,8 +11,7 @@ public class SalaryCalculator(TimeProvider _timeProvider)
         return workedYear switch
         {
             <= 5 => 10000,
-            > 5 => 25000,
-            _ => throw new NotImplementedException(),
+            _ => 25000
         };
     }
 }
