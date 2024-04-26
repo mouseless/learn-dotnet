@@ -16,7 +16,7 @@ public partial class JsonSchemaGenerator : IIncrementalGenerator
         context.RegisterSourceOutput(combine, (context, compilation) =>
         {
             var config = compilation.Right.FirstOrDefault();
-            var analyzerConfig = config != null ? config.Deserialize<AnalyzerConfig>() : null;
+            var analyzerConfig = config?.Deserialize<AnalyzerConfig>();
 
             if (analyzerConfig?.ControllerServicesNamespace == null) return;
 

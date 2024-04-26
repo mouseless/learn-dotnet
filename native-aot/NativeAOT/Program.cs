@@ -22,6 +22,7 @@ builder.Services.AddLogging();
 
 var app = builder.Build();
 
+#pragma warning disable
 var api = app.MapGroup("/test");
 api.MapGet("/access-assembly", (MyService _myService) => _myService.MethodAccessAssembly());
 api.MapGet("/di", (MyService _myService) => _myService.MethodStringReturn());
@@ -32,6 +33,7 @@ api.MapGet("/todo", async (Database db) => await db.GetAll());
 api.MapGet("/todo/{id}", async (int id, Database db) => await db.GetById(id));
 api.MapGet("/type", (MyService _myService) => _myService.MethodType());
 api.MapPost("/todo", ([FromBody] Todo todo, Database db) => db.Insert(todo));
+#pragma warning enable
 
 app.Run();
 

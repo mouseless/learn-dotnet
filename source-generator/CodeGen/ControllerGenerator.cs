@@ -14,50 +14,58 @@ public class ControllerGenerator : IIncrementalGenerator
 
         context.RegisterSourceOutput(combine, (context, compilation) =>
             {
-            var analyzerConfigText = compilation.Right
-                .Where(additionalFile => additionalFile.Path.EndsWith("analyzer.config.json"))
-                .Select(additionalFile => additionalFile.GetText())
-                .FirstOrDefault();
+                var analyzerConfigText = compilation.Right
+                    .Where(additionalFile => additionalFile.Path.EndsWith("analyzer.config.json"))
+                    .Select(additionalFile => additionalFile.GetText())
+                    .FirstOrDefault();
 
-            if (analyzerConfigText == null) return;
+                if (analyzerConfigText == null) return;
 
-            AnalyzerConfig analyzerConfig = analyzerConfigText.Deserialize<AnalyzerConfig>();
+                AnalyzerConfig analyzerConfig = analyzerConfigText.Deserialize<AnalyzerConfig>();
 
-            if (analyzerConfig.JsonSchema == null) return;
+                if (analyzerConfig.JsonSchema == null) return;
 
-            var jsonSchemaText = compilation.Right
-                .Where(additionalFile => additionalFile.Path.EndsWith(analyzerConfig.JsonSchema))
-                .Select(additionalFile => additionalFile.GetText())
-                .FirstOrDefault();
+                var jsonSchemaText = compilation.Right
+                    .Where(additionalFile => additionalFile.Path.EndsWith(analyzerConfig.JsonSchema))
+                    .Select(additionalFile => additionalFile.GetText())
+                    .FirstOrDefault();
 
-            var serviceModels = jsonSchemaText?.Deserialize<List<ServiceModel>>() ?? throw new ArgumentNullException();
+                var serviceModels = jsonSchemaText?.Deserialize<List<ServiceModel>>() ?? throw new ArgumentNullException();
 
-            serviceModels.ForEach(serviceModel =>
-                context.AddSource($"{serviceModel.Name}Controller.generated.cs", ControllerTemplate(serviceModel))
-            );
-        });
+                serviceModels.ForEach(serviceModel =>
+                    context.AddSource($"{serviceModel.Name}Controller.generated.cs", ControllerTemplate(serviceModel))
+                );
+            });
     }
 
     private string ControllerTemplate(ServiceModel source) =>
-$@"// Auto-generated code
+$$"""
+// Auto-generated code
 
 using Microsoft.AspNetCore.Mvc;
-using {source.Namespace};
+using {{source.Namespace}};
 
-namespace {source.TargetNamespace};
+namespace {{source.TargetNamespace}};
 
+/// <summary>
+/// Generated {{source.Name}}Controller
+/// </summary>
 [ApiController]
-[Route("""")]
-public class {source.Name}Controller : ControllerBase
-{{
-{string.Join(string.Empty, source.Operations.Select(operation =>
-$@"
-    [HttpGet(""/{source.Name}/{operation.Name}"")]
-    public {operation.Type} {operation.Name}()
-    {{
-        return new {source.Name}().{operation.Name}();
-    }}"
-)
-     )}
-}}";
+[Route("")]
+public class {{source.Name}}Controller : ControllerBase
+{
+{{string.Join(string.Empty, source.Operations.Select(operation =>
+$$"""
+    /// <summary>
+    /// Generated /{{source.Name}}/{{operation.Name}}
+    /// </summary>
+    [HttpGet("/{{source.Name}}/{{operation.Name}}")]
+    public {{operation.Type}} {{operation.Name}}()
+    {
+        return new {{source.Name}}().{{operation.Name}}();
+    }
+"""
+))}}
+}
+""";
 }

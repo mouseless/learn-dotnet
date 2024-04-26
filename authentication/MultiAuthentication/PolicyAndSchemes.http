@@ -1,0 +1,46 @@
+@MultiAuthentication_HostAddress = http://localhost:5115
+
+GET {{MultiAuthentication_HostAddress}}/authentication/anonymous
+Accept: application/json
+
+###
+
+GET {{MultiAuthentication_HostAddress}}/authentication/default
+Accept: application/json
+X-Default: Default
+
+###
+
+GET {{MultiAuthentication_HostAddress}}/authentication/default/claim
+Accept: application/json
+X-Default: Default
+X-Claim: Claim
+
+###
+
+GET {{MultiAuthentication_HostAddress}}/authentication/alternative
+Accept: application/json
+X-Alternative: Alternative
+
+###
+
+GET {{MultiAuthentication_HostAddress}}/authentication/alternative/claim
+Accept: application/json
+X-Alternative: Alternative
+X-Claim: Claim
+
+###
+
+GET {{MultiAuthentication_HostAddress}}/authentication/any
+Accept: application/json
+X-Alternative: Alternative
+
+###
+
+GET {{MultiAuthentication_HostAddress}}/authentication/any/claim
+Accept: application/json
+X-Default: Default
+X-Claim: Claim
+
+###
+

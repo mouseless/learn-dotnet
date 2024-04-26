@@ -12,15 +12,13 @@ public static class AssertionExtensions
     // GiveMe
     public static List<int> Figures(this Spec.Stubber _, int min = 0, int max = 9)
     {
-        List<int> result = new();
+        List<int> result = [];
 
-        for (int figure = min; figure <= 9; figure++)
+        for (int figure = min; figure <= max; figure++)
         {
             result.Add(figure);
         }
 
         return result;
     }
-
-    // MockMe
 }

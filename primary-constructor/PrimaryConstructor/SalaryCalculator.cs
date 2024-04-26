@@ -3,7 +3,7 @@ public class SalaryCalculator(TimeProvider _timeProvider)
     public decimal Calculate(DateTime dateOfHire)
     {
         var workedYear = _timeProvider.GetUtcNow().Year - dateOfHire.Year;
-        if (workedYear < 0 || workedYear > 90)
+        if (workedYear is < 0 or > 90)
         {
             throw new OutOfWorkingYearRangeException("An impossible working time was calculated.");
         }
@@ -11,7 +11,7 @@ public class SalaryCalculator(TimeProvider _timeProvider)
         return workedYear switch
         {
             <= 5 => 10000,
-            > 5 => 25000,
+            _ => 25000
         };
     }
 }

@@ -1,12 +1,7 @@
 namespace ExceptionHandling;
 
-public class ParameterRequiredException : Exception
+public class ParameterRequiredException(string name)
+    : Exception($"{name} is required.")
 {
-    public string Name { get; }
-
-    public ParameterRequiredException(string name)
-        : base($"{name} is required.")
-    {
-        Name = name;
-    }
+    public string Name { get; } = name;
 }

@@ -30,6 +30,8 @@ You can see them in the links below.
 
 ### ASP.NET Core
 
+- **[Authentication:](/authentication/README.md)** How we setup and
+  use authentication.
 - **[Dependency Injection:](/dependency-injection/README.md)** How we setup and
   use dependency injection.
 - **[Exception Handling:](/exception-handling/README.md)** How we manage
