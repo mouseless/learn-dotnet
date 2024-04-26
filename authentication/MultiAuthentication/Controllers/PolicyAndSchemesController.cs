@@ -3,62 +3,88 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MultiAuthentication.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("authentication")]
 public class PolicyAndSchemesController(IHttpContextAccessor httpContextAccessor) : ControllerBase
 {
     [HttpGet]
-    [Authorize]
+    [AllowAnonymous]
     [Produces("application/json")]
-    [Route("default-scheme")]
-    public object DefaultScheme()
+    [Route("anonymous")]
+    public object Anonymous()
     {
         var principal = httpContextAccessor.HttpContext?.User ?? throw new();
 
-        return principal.ToDictionary();
+        return principal.ToIdentityList();
     }
 
     [HttpGet]
-    [Authorize(AuthenticationSchemes = "OrganizationId")]
     [Produces("application/json")]
-    [Route("single-scheme")]
-    public object SingleScheme()
+    [Route("default")]
+    public object Default()
     {
         var principal = httpContextAccessor.HttpContext?.User ?? throw new();
 
-        return principal.ToDictionary();
+        return principal.ToIdentityList();
     }
 
     [HttpGet]
-    [Authorize(AuthenticationSchemes = "ApiKey,BearerToken")]
+    [Authorize(Policy = "RequireClaim")]
     [Produces("application/json")]
-    [Route("multi-authentication-scheme")]
-    public object MultiAuthenticationScheme()
+    [Route("default/claim")]
+    public object DefaultWithClaim()
     {
         var principal = httpContextAccessor.HttpContext?.User ?? throw new();
 
-        return principal.ToDictionary();
+        return principal.ToIdentityList();
     }
 
     [HttpGet]
-    [Authorize(Policy = "Backend")]
+    [Authorize(AuthenticationSchemes = "Alternative")]
     [Produces("application/json")]
-    [Route("backend-policy")]
-    public object BackendPolicy()
+    [Route("alternative")]
+    public object Alternative()
     {
         var principal = httpContextAccessor.HttpContext?.User ?? throw new();
 
-        return principal.ToDictionary();
+        return principal.ToIdentityList();
     }
 
     [HttpGet]
-    [Authorize(Policy = "ExternalSystem")]
+    [Authorize(AuthenticationSchemes = "Alternative")]
+    [Authorize(Policy = "RequireClaim")]
     [Produces("application/json")]
-    [Route("external-system-policy")]
-    public object ExternalSystemPolicy()
+    [Route("alternative/claim")]
+    public object AlternativeWithClaim()
     {
         var principal = httpContextAccessor.HttpContext?.User ?? throw new();
 
-        return principal.ToDictionary();
+        return principal.ToIdentityList();
+    }
+
+    [HttpGet]
+    [Authorize(AuthenticationSchemes = "Alternative")]
+    [Authorize(AuthenticationSchemes = "Default")]
+    [Produces("application/json")]
+    [Route("any")]
+    public object Any()
+    {
+        var principal = httpContextAccessor.HttpContext?.User ?? throw new();
+
+        return principal.ToIdentityList();
+    }
+
+    [HttpGet]
+    [Authorize(AuthenticationSchemes = "Alternative")]
+    [Authorize(AuthenticationSchemes = "Default")]
+    [Authorize(Policy = "RequireClaim")]
+    [Produces("application/json")]
+    [Route("any/claim")]
+    public object AnyWithClaim()
+    {
+        var principal = httpContextAccessor.HttpContext?.User ?? throw new();
+
+        return principal.ToIdentityList();
     }
 }

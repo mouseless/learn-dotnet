@@ -3,20 +3,8 @@ using MultiAuthentication;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-if (args.Any(a => a.Contains("--mode=scheme-selector")))
-{
-    Console.WriteLine("mode: scheme-selector");
-
-    builder.Services.AddAuthenticationWithSchemeSelector();
-}
-else
-{
-    Console.WriteLine("mode: policy and schemes");
-
-    builder.Services.AddAuthenticationDefinedSchemesInAttribute();
-}
-
+builder.Services.AddControllers();
+builder.Services.AddAuthenticationWithSchemeSelector();
 builder.Services.AddHttpContextAccessor();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
