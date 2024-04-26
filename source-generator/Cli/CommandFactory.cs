@@ -4,14 +4,11 @@ public class CommandFactory(string _commandName)
 {
     public ICommand Create()
     {
-        switch (_commandName.ToLower())
+        return _commandName.ToLower() switch
         {
-            case "domain":
-                return new Domain();
-            case "webapp":
-                return new WebApp();
-            default:
-                throw new("Not match any class");
-        }
+            "domain" => new Domain(),
+            "webapp" => new WebApp(),
+            _ => throw new("Not match any class"),
+        };
     }
 }

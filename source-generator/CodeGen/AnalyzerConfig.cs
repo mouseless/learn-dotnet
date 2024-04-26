@@ -6,4 +6,3 @@ public class AnalyzerConfig
     public string? JsonSchema { get; set; }
     public string? TargetProject { get; set; }
 }
-
