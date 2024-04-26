@@ -11,7 +11,7 @@ authentication methods.
 
 The prefered method is to set `ForwardSelector` property of 
 `AuthenticationSchemeOptions`. This way configured selector will forward the
-request only to the desired handler.
+request to the desired handler.
 
 This setup requiers a default scheme and handler to be set when configuring 
 authentication, and authorization policies should not specify any 
