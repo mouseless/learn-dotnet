@@ -142,4 +142,4 @@ authenticate your api. To define security requirements;
 
 ---
 
-See [sample project](./Swashbuckle/) for working examples.
+See [sample project](./Swashbuckle/Program.cs) for working examples.
