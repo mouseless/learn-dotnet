@@ -3,7 +3,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Swashbuckle;
 
-public class AddParameterToPostOperations(ParameterLocation @in, string name)
+public class AddParameterToPostOperations(ParameterLocation _in, string _name)
   : IOperationFilter
 {
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
@@ -12,8 +12,8 @@ public class AddParameterToPostOperations(ParameterLocation @in, string name)
 
         operation.Parameters.Insert(0, new()
         {
-            In = @in,
-            Name = name,
+            In = _in,
+            Name = _name,
         });
     }
 }

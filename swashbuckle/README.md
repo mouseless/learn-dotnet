@@ -129,3 +129,17 @@ public void ApiAction() { }
 >
 > You may also use `context.DocumentName` in filters to decide if target
 > document is ok to apply the filter to.
+
+### Document Based Security
+
+Once you have different documents, you might also support different ways to
+authenticate your api. To define security requirements;
+
+- Create a document based document filter and add it to define security
+  definition per document
+- Create a document based operation filter and add security requirements based
+  on their documents
+
+---
+
+See [sample project](./Swashbuckle/) for working examples.
