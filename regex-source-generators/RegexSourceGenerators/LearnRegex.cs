@@ -11,6 +11,7 @@ public static partial class LearnRegex
     private static partial Regex RegexGetDomain();
 
     public static bool IsUrl(this string url) => RegexIsUrl.IsMatch(url);
+
     public static string GetDomain(this string url)
     {
         var match = RegexGetDomain().Match(url);
