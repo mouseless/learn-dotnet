@@ -36,22 +36,6 @@ the `OpenApiDocumentsDirectory` property in the app's project file:
 </PropertyGroup>
 ```
 
-### `ExceptionHandlerMiddleware` option to choose the status code based on the exception type
-
-A new option when configuring the `ExceptionHandlerMiddleware` enables app
-developers to choose what status code to return when an exception occurs during
-request handling. The new option changes the status code being set in the
-`ProblemDetails` response from the `ExceptionHandlerMiddleware`.
-
-```csharp
-app.UseExceptionHandler(new ExceptionHandlerOptions
-{
-    StatusCodeSelector = ex => ex is TimeoutException
-        ? StatusCodes.Status503ServiceUnavailable
-        : StatusCodes.Status500InternalServerError,
-});
-```
-
 ### `params` collections
 
 The params modifier isn't limited to array types. You can now use params with
@@ -133,41 +117,6 @@ internal class RestrictedSerializationBinder
 
         throw new InvalidOperationException($"Not allowed: '{untrustedInput.ToString()}'");
     }
-}
-```
-
-### Regular Expressions
-
-#### `[GeneratedRegex]` on properties (methodlar property'e geçecek)
-
-The following partial method will be source generated with all the code
-necessary to implement this Regex.
-
-```csharp
-[GeneratedRegex(@"\b\w{5}\b")]
-static partial Regex FiveCharWord();
-```
-
-The following partial property is the property equivalent of the previous
-example.
-
-```csharp
-[GeneratedRegex(@"\b\w{5}\b")]
-static partial Regex FiveCharWordProperty { get; }
-```
-
-#### Regex.EnumerateSplits
-
-```csharp
-foreach (string s in Regex.Split("Hello, world! How are you?", "[aeiou]"))
-{
-    Console.WriteLine($"Split: \"{s}\"");
-}
-
-ReadOnlySpan<char> input = "Hello, world! How are you?";
-foreach (Range r in Regex.EnumerateSplits(input, "[aeiou]"))
-{
-    Console.WriteLine($"Split: \"{input[r]}\"");
 }
 ```
 

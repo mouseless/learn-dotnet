@@ -12,7 +12,7 @@ public class CustomExceptionHandler : IExceptionHandler
         var problemDetails = new ProblemDetails
         {
             Type = $"{httpContext.Request.Scheme}://{httpContext.Request.Host}/errors/parameter-required",
-            Status = StatusCodes.Status500InternalServerError,
+            Status = httpContext.Response.StatusCode,
             Title = "Parameter Required",
             Detail = parameterRequiredException.Message,
             Extensions = new Dictionary<string, object?>
@@ -20,8 +20,6 @@ public class CustomExceptionHandler : IExceptionHandler
                 { "name", parameterRequiredException.Name }
             }
         };
-
-        httpContext.Response.StatusCode = problemDetails.Status.Value;
 
         await httpContext.Response
             .WriteAsJsonAsync(problemDetails, cancellationToken);
