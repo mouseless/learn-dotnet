@@ -15,8 +15,11 @@ serviceCollection.AddLogging(options =>
 
 var serviceProvider = serviceCollection.BuildServiceProvider();
 
+var @params = serviceProvider.GetRequiredService<Params>();
 var collectionExpressions = serviceProvider.GetRequiredService<CollectionExpressions>();
 var lambdaParameters = serviceProvider.GetRequiredService<LambdaParameters>();
+
+@params.Use();
 
 collectionExpressions.EmptyCollectionInitialization();
 collectionExpressions.CollectionInitialization();
