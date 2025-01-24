@@ -36,11 +36,6 @@ the `OpenApiDocumentsDirectory` property in the app's project file:
 </PropertyGroup>
 ```
 
-### `Base64Url`
-
-Base64Url has been added because there are problems with special characters
-(such as +, /) when Base64 is used for urls.
-
 ### Persisted assemblies
 
 `.NET 9` introduces the `PersistedAssemblyBuilder` class, which supports
