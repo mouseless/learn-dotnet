@@ -5,9 +5,9 @@ using Microsoft.Extensions.Logging;
 var serviceCollection = new ServiceCollection();
 
 serviceCollection.AddSingleton<CollectionExpressions>();
+serviceCollection.AddSingleton<EncodingDecoding>();
 serviceCollection.AddSingleton<LambdaParameters>();
 serviceCollection.AddSingleton<Params>();
-serviceCollection.AddSingleton<EncodingDecoding>();
 
 serviceCollection.AddLogging(options =>
 {
@@ -17,10 +17,10 @@ serviceCollection.AddLogging(options =>
 
 var serviceProvider = serviceCollection.BuildServiceProvider();
 
-var @params = serviceProvider.GetRequiredService<Params>();
 var collectionExpressions = serviceProvider.GetRequiredService<CollectionExpressions>();
-var lambdaParameters = serviceProvider.GetRequiredService<LambdaParameters>();
 var encodingDecoding = serviceProvider.GetRequiredService<EncodingDecoding>();
+var lambdaParameters = serviceProvider.GetRequiredService<LambdaParameters>();
+var @params = serviceProvider.GetRequiredService<Params>();
 
 @params.Use();
 

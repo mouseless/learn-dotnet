@@ -1,6 +1,6 @@
+using Microsoft.Extensions.Logging;
 using System.Buffers.Text;
 using System.Text;
-using Microsoft.Extensions.Logging;
 
 namespace CSharp;
 
