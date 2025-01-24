@@ -32,4 +32,4 @@ lambdaParameters.OptionalParameters();
 lambdaParameters.ParamsArrayParameters();
 lambdaParameters.NewAcceptedBehavior();
 
-encodingDecoding.Run();
+encodingDecoding.RunShowCases();

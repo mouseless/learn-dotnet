@@ -4,7 +4,7 @@ Here we list the operations performed when upgrading projects to .Net 9
 
 > :info:
 >
-> The ranking is not important for now.
+> The order is not important for now.
 
 - [ ] Upgrade `dotnet` and `language` version in `csproj` or `build.props`
 - [ ] Upgrade `dotnet` version to 9 and `checkout`, `setup-dotnet` version to
@@ -16,3 +16,5 @@ Here we list the operations performed when upgrading projects to .Net 9
   and then convert to `IEnumerable` type, use `IEnumerable` instead of `Array`.
 - [ ] (Optional) `GeneratedRegex` can work with properties. It can be switched
   for a better usage.
+- [ ] (Optional) See if `UseExceptionHandler(ExceptionHandlerOptions options)`
+  override is available. Especially for the `StatusCodeSelector` property.
