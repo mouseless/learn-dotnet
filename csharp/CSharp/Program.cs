@@ -6,6 +6,8 @@ var serviceCollection = new ServiceCollection();
 
 serviceCollection.AddSingleton<CollectionExpressions>();
 serviceCollection.AddSingleton<LambdaParameters>();
+serviceCollection.AddSingleton<Params>();
+serviceCollection.AddSingleton<EncodingDecoding>();
 
 serviceCollection.AddLogging(options =>
 {
@@ -18,6 +20,7 @@ var serviceProvider = serviceCollection.BuildServiceProvider();
 var @params = serviceProvider.GetRequiredService<Params>();
 var collectionExpressions = serviceProvider.GetRequiredService<CollectionExpressions>();
 var lambdaParameters = serviceProvider.GetRequiredService<LambdaParameters>();
+var encodingDecoding = serviceProvider.GetRequiredService<EncodingDecoding>();
 
 @params.Use();
 
@@ -28,3 +31,5 @@ collectionExpressions.CallMethods();
 lambdaParameters.OptionalParameters();
 lambdaParameters.ParamsArrayParameters();
 lambdaParameters.NewAcceptedBehavior();
+
+encodingDecoding.Run();

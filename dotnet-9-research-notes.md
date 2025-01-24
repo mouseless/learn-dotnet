@@ -36,32 +36,6 @@ the `OpenApiDocumentsDirectory` property in the app's project file:
 </PropertyGroup>
 ```
 
-### `params` collections
-
-The params modifier isn't limited to array types. You can now use params with
-any recognized collection type, including `System.Span<T>`,
-`System.ReadOnlySpan<T>`, and types that implement
-`System.Collections.Generic.IEnumerable<T>` and have an Add method. In addition
-to concrete types, the interfaces `System.Collections.Generic.IEnumerable<T>`,
-`System.Collections.Generic.IReadOnlyCollection<T>`,
-`System.Collections.Generic.IReadOnlyList<T>`,
-`System.Collections.Generic.ICollection<T>`, and
-`System.Collections.Generic.IList<T>` can also be used.
-
-For example, method declarations can declare spans as params parameters:
-
-```csharp
-public void Concat<T>(params ReadOnlySpan<T> items)
-{
-    for (int i = 0; i < items.Length; i++)
-    {
-        Console.Write(items[i]);
-        Console.Write(" ");
-    }
-    Console.WriteLine();
-}
-```
-
 ### `Base64Url`
 
 Base64Url has been added because there are problems with special characters
