@@ -4,8 +4,11 @@ Console.WriteLine("Give me an url: ");
 
 string giveMeUrl = Console.ReadLine() ?? string.Empty;
 
-Console.WriteLine(
-    giveMeUrl.IsUrl()
-    ? "You entered a correct URL"
-    : "This is not a url"
-);
+if (giveMeUrl.IsUrl())
+{
+    Console.WriteLine("Your url domain is: " + giveMeUrl.GetDomain());
+}
+else
+{
+    Console.WriteLine("This is not a url");
+}

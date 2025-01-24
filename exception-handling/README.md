@@ -33,6 +33,12 @@ to the request pipeline
 app.UseExceptionHandler();
 ```
 
+Also `UseExceptionHandler()` has a `UseExceptionHandler(ExceptionHandlerOptions
+options)` override. Using this we can configure some options before middlewares
+when an exception is throws. If you can look at the
+[`program.cs`](./ExceptionHandling/Program.cs) file, you can see an example
+usage.
+
 We also use `UseExceptionHandler` in development mode because we expect a json
 object as a response because we use Postman.
 

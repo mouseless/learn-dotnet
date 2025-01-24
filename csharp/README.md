@@ -6,4 +6,6 @@ projects.
 What we have learned and implemented so far are the following.
 
 - Collection expressions
+- Different Params type usage
+- Encoding Decoding
 - Lambda Parameters
