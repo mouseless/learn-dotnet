@@ -52,6 +52,8 @@ You can see them in the links below.
 - **[Publish Over Dockerfile:](/publish-over-dockerfile/README.md)** We've
   considered using `dotnet publish` over `Dockerfile`. For now we've decided to
   keep using `Dockerfile`.
+- **[Reflection:](/reflection/README.md)** Researching and learning what `.Net`
+  offers under reflection.
 
 ### ASP.NET Core
 
