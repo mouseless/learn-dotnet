@@ -36,6 +36,7 @@ You can see them in the links below.
   use dependency injection.
 - **[Exception Handling:](/exception-handling/README.md)** How we manage
   exceptions.
+- **[OpenAPI:](/openapi/README.md)** How to create endpoint schema with openapi.
 - **[Swashbuckle:](/swashbuckle/README.md)** How to generate a swagger document
   using existing controllers.
 
