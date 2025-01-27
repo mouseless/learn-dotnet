@@ -1,10 +1,7 @@
 # Reflections
 
-This project was created to deepen our understanding of reflection and learn how
-to use it more effectively. Our goal is to explore the principles of how
-reflection works, delve into advanced topics like dynamic type inspection,
-method invocation, and runtime metadata manipulation, and experiment with newly
-introduced features in practice.
+This section focuses on exploring and learning the capabilities offered by the
+`Reflection` library.
 
 ## PersistedAssemblies
 
