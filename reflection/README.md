@@ -16,21 +16,31 @@ overhead, making the process much simpler and more efficient.
 
 ## `TypeName`
 
-`TypeName` is used to parse and analyze type names in `.NET`. It operates at
-build time. It takes `ReadOnlySpan<char>` and parses into `Type` using `Parse`
-or `TryParse` as shown below:
+TypeName returns a `TypeName` object that matches the name in the
+`ReadOnlySpan<char>` parameter given by the `Parse` and `TryParse` methods.
+This object is similar to `Type` and has many similar values like `Name`,
+`FullName`, `AssemblyQualifiedName` etc.
 
 ```csharp
-ReadOnlySpan<char> name = "ECMA-335 type name here...";
+ReadOnlySpan<char> name = “ECMA-335 type name here...”;
 if (TypeName.TryParse(name, out TypeName? parsed))
 {
     ...
 }
 ```
 
-> :information:
->
-> Recommended use cases are in areas like NativeAOT and SourceGenerator.
+There is also an overload method where `Parse` and `TryParse` get an option.
+This option is as follows.
 
-For usage examples, please refer to the
+```csharp
+class TypeNameParseOptions
+{
+    public TypeNameParseOptions() { }
+    public bool AllowFullyQualifiedName { get; set; } = true;
+    public int MaxTotalComplexity { get; set; } = 10;
+    public bool StrictValidation { get; set; } = false;
+}
+```
+
+For examples of use, please
 [`TypeNameParsing`](./Reflection/TypeNameParsing.cs) file.

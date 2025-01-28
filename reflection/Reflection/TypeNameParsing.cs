@@ -1,36 +1,39 @@
-using Microsoft.Extensions.Logging;
 using System.Reflection.Metadata;
 
 namespace LearnReflection;
 
-public class TypeNameParsing(ILogger<TypeNameParsing> _logger)
+public class TypeNameParsing()
 {
-    Dictionary<string, Type> _allowList =
-        new(){
-            {typeof(string).Name, typeof(string)},
-            {typeof(int).Name, typeof(int)},
-            {typeof(double).Name, typeof(double)}
-        };
-
-    public bool IsThisTypeOk(Type type)
+    Dictionary<string, (string question, Type answer)> _types = new()
     {
-        if (!TypeName.TryParse(type.FullName, out TypeName? parsed))
+        {typeof(string).FullName!, ("I am the text itself.", typeof(string))},
+        {typeof(int).FullName!, ("You want to count? You need me.", typeof(int))},
+        {typeof(double).FullName!, ("I have numbers. I have comma.", typeof(double))},
+    };
+
+    public void Guess()
+    {
+        Console.WriteLine("*** Guessing the type ***");
+        Random random = new();
+        int index = random.Next(0, _types.Count);
+        KeyValuePair<string, (string question, Type answer)> type = _types.ElementAt(index);
+        Console.WriteLine($"{type.Value.question} What type am I?");
+        var answer = Console.ReadLine();
+
+        if (!TypeName.TryParse(answer.AsSpan(), out TypeName? parsed))
         {
-            throw new ArgumentException("Type name parsing failed");
+            throw new ArgumentException("Invalid type name");
         }
 
-        if (!_allowList.ContainsKey(parsed.Name))
+        if (!_types.TryGetValue(parsed.FullName, out var value))
         {
-            _logger.LogInformation($"Type {parsed.Name} is not allowed");
-
-            return false;
+            Console.WriteLine("Nope, try again.");
+            return;
         }
 
-        _logger.LogInformation(@$"Type {parsed.Name} is allowed. Type details:
-        - Name: {parsed.Name}
-        - FullName: {parsed.FullName}
-        - Is Generic: {parsed.IsConstructedGenericType}");
-
-        return true;
+        Console.WriteLine(@$"You find!:
+        Name: {value.answer.Name},
+        FullName: {value.answer.FullName},
+        AssemblyQualifiedName: {value.answer.AssemblyQualifiedName}");
     }
 }
