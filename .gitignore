@@ -23,6 +23,7 @@ global.json
 # generated file
 **/Generated/**/*.cs
 **/.benchmark/**
+**/**/*.dll
 
 # generated schemas
 **/*.schema.json

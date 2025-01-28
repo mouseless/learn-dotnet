@@ -1,4 +1,5 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -123,6 +124,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "swashbuckle", "swashbuckle"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swashbuckle", "swashbuckle\Swashbuckle\Swashbuckle.csproj", "{C4535DDC-D848-4238-B99D-ED0C9767D64C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "openapi", "openapi", "{5EFD2336-9236-4C29-9CFD-077E702D6ACD}"
+	ProjectSection(SolutionItems) = preProject
+		openapi\README.md = openapi\README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAPI", "openapi\OpenAPI\OpenAPI.csproj", "{AD45E9C7-D739-4513-8F01-3A6826E0F4FA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "reflection", "reflection", "{5771998F-DD44-4CEA-8B37-C2E90E5014AC}"
+	ProjectSection(SolutionItems) = preProject
+		reflection\README.md = reflection\README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reflection", "reflection\Reflection\Reflection.csproj", "{E0B6EFF9-41D8-4EDF-8303-5977D6637FF6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -209,6 +224,14 @@ Global
 		{C4535DDC-D848-4238-B99D-ED0C9767D64C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4535DDC-D848-4238-B99D-ED0C9767D64C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4535DDC-D848-4238-B99D-ED0C9767D64C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD45E9C7-D739-4513-8F01-3A6826E0F4FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD45E9C7-D739-4513-8F01-3A6826E0F4FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD45E9C7-D739-4513-8F01-3A6826E0F4FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD45E9C7-D739-4513-8F01-3A6826E0F4FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0B6EFF9-41D8-4EDF-8303-5977D6637FF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0B6EFF9-41D8-4EDF-8303-5977D6637FF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0B6EFF9-41D8-4EDF-8303-5977D6637FF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0B6EFF9-41D8-4EDF-8303-5977D6637FF6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -252,7 +275,12 @@ Global
 		{F7185339-B401-483F-8FB5-FBC9A1D4DBFC} = {AF835CF7-F63E-4667-A84D-298D4FF2E095}
 		{8E574EE1-3694-4905-B0FA-BEE599B5C0F9} = {E148C898-1BFD-4F28-8940-583CC50F90DB}
 		{4719C295-752C-4464-8A7D-151A1B8A37DD} = {8E574EE1-3694-4905-B0FA-BEE599B5C0F9}
+		{CC39E923-166C-43EB-BD80-6B89122CF7A5} = {E148C898-1BFD-4F28-8940-583CC50F90DB}
 		{C4535DDC-D848-4238-B99D-ED0C9767D64C} = {CC39E923-166C-43EB-BD80-6B89122CF7A5}
+		{5EFD2336-9236-4C29-9CFD-077E702D6ACD} = {E148C898-1BFD-4F28-8940-583CC50F90DB}
+		{AD45E9C7-D739-4513-8F01-3A6826E0F4FA} = {5EFD2336-9236-4C29-9CFD-077E702D6ACD}
+		{5771998F-DD44-4CEA-8B37-C2E90E5014AC} = {E148C898-1BFD-4F28-8940-583CC50F90DB}
+		{E0B6EFF9-41D8-4EDF-8303-5977D6637FF6} = {5771998F-DD44-4CEA-8B37-C2E90E5014AC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ECEAECE7-49E5-4CBC-B84D-5FF82F2399FC}
