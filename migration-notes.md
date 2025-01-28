@@ -18,7 +18,3 @@ Here we list the operations performed when upgrading projects to .Net 9
   for a better usage.
 - [ ] (Optional) See if `UseExceptionHandler(ExceptionHandlerOptions options)`
   override is available. Especially for the `StatusCodeSelector` property.
-- [ ] `.Net 9` now offers `OpenAPI` with itself. This brings us to this:
-  - [ ] Just use `OpenAPI` and stick with json
-  - [ ] Use `OpenAPI` but present with `SwaggerUI`
-  - [ ] Keep using the complete `SwashBuckle`

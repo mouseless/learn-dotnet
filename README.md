@@ -36,7 +36,6 @@ You can see them in the links below.
   use dependency injection.
 - **[Exception Handling:](/exception-handling/README.md)** How we manage
   exceptions.
-- **[OpenAPI:](/openapi/README.md)** How to create endpoint schema with openapi.
 - **[Swashbuckle:](/swashbuckle/README.md)** How to generate a swagger document
   using existing controllers.
 
@@ -59,6 +58,7 @@ You can see them in the links below.
 
 - **[Model Binders:](./model-binders/README.md)** How to map custom types to
   action parameters to allow entities directly from action parameters
+- **[OpenAPI:](/openapi/README.md)** How to create endpoint schema with openapi.
 - **[Native AOT:](./native-aot/README.md)** We are considering using
   `Native AOT` for our small and minimal API and CLI applications. For now, we
   are not using Native AOT because it is new and does not satisfy many of our
