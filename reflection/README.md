@@ -1,4 +1,4 @@
-# Reflections
+# Reflection
 
 This section focuses on exploring and learning the capabilities offered by the
 `Reflection` library.
