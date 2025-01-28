@@ -6,13 +6,26 @@ This section focuses on exploring and learning the capabilities offered by the
 ## PersistedAssemblies
 
 A persisted assembly allows a dynamically created assembly at runtime to be
-saved to disk, making it permanent. This feature enables the generated code or
-types, which were previously only temporary and stored in memory, to be saved as
-a file for future use. For an example usage, see
-[`PersistedAssemblies`](./Reflection/PersistedAssemblies.cs). Before this feature
-was introduced with `.NET 9`, assemblies were only kept in memory, and writing
-them to disk required additional effort. Persisted Assembly eliminates this
-overhead, making the process much simpler and more efficient.
+saved to disk, making it permanent.
+
+```csharp
+PersistedAssemblyBuilder assemblyBuilder = new PersistedAssemblyBuilder(
+    new AssemblyName("AssemblyName"),
+    typeof(object).Assembly
+);
+```
+
+The difference from the code generated using `CSharpCompilation` (as we use) is
+that it generates `IL` code directly without the need to be analyzed and
+compiled into `IL` code. In this way, only Assembly conversion is required for
+the generated code to work.
+For an example usage, see
+[`PersistedAssemblies`](./Reflection/PersistedAssemblies.cs).
+
+Although `AssemblyBuilder` is more performant than `CSharpCompilation`, it is
+more complex than `CSharpCompilation` in terms of typing. Therefore, we prefer
+`CSharpCompilation` since the code generation operations we perform are in the
+build phase.
 
 ## `TypeName`
 
