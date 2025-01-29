@@ -18,3 +18,13 @@ Here we list the operations performed when upgrading projects to .Net 9
   for a better usage.
 - [ ] (Optional) See if `UseExceptionHandler(ExceptionHandlerOptions options)`
   override is available. Especially for the `StatusCodeSelector` property.
+- [ ] (Optional) Use the new linQ extensions(`CountBy`, `AggregateBy`,
+  `Index<TSource>(IEnumerable<TSource>)`).
+- [ ] (Optional) Use new  `TimeSpan.From*` overloads
+  - `FromDays`
+  - `FromHours`
+  - `FromMinutes`
+  - `FromSeconds`
+  - `FromMilliseconds`
+  - `FromMicroseconds`
+- [ ] (Optional) Use Keyed Services in Middlewares.
