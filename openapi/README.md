@@ -38,7 +38,7 @@ expose the schema, we need to map the endpoints as shown below:
 app.MapOpenApi();
 ```
 
-> :warning:
+> [!WARNING]
 >
 > It’s a good practice to do this only in developer mode. If you don’t want to
 > expose the entire schema to everyone, make sure to restrict access in
@@ -120,7 +120,7 @@ app.UseSwaggerUI(options =>
 });
 ```
 
-> :warning:
+> [!WARNING]
 > One important thing to note here is that `UseSwaggerUI` must be called after
 > `MapOpenApi`. Otherwise, Swagger UI will not work correctly.
 

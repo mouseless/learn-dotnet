@@ -13,6 +13,7 @@ bld/
 
 # vs
 **/.vs/**/*
+**/**/*.csproj.user
 
 # visual studio code
 .vscode/

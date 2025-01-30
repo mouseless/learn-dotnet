@@ -53,6 +53,7 @@ You can see them in the links below.
   keep using `Dockerfile`.
 - **[Reflection:](/reflection/README.md)** Researching and learning what `.Net`
   offers under reflection.
+- **[Aspire:](/aspire/README.md)** Research and learn `.NET Aspire`
 
 ### ASP.NET Core
 

@@ -1,6 +1,6 @@
 # Publish Over Dockerfile
 
-> :warning:
+> [!WARNING]
 >
 > Until there is a support for credentials in remote image repositories we will
 > continue to use `Dockerfile`.
@@ -14,11 +14,11 @@ For example
 dotnet publish --os linux --arch x64 /t:PublishContainer -c Release
 ```
 
-> :warning:
+> [!WARNING]
 >
 > Before you run docker compose, you need to publish image file with publish.
 
-> :information_source:
+> [!NOTE]
 >
 > `Microsoft.NET.Build.Containers` package is needed for containerize.
 

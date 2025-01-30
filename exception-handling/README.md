@@ -21,7 +21,7 @@ To use it, we register it with `AddExceptionHandler`
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 ```
 
-> :warning:
+> [!WARNING]
 >
 > When registering multiple exception handlers you should pay attention to the
 > order. It works according to the order of insertion.
