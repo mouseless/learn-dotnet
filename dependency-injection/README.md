@@ -44,7 +44,7 @@ public class ServiceA(Func<ServiceB> _newServiceB)
 In this example, `ServiceA` depends on `ServiceB` explicitly, thus having a
 better readability.
 
-> :warning:
+> [!WARNING]
 >
 > When registering a generic factory function, make sure you use
 > `HttpContext.RequestServices` instead of root service provider. Otherwise
@@ -108,7 +108,7 @@ public void Action([FromKeyedServices("key")] ServiceType service) { }
 public void Action([FromServices] ServiceType service) { }
 ```
 
-> :information_source:
+> [!NOTE]
 >
 > If you intentionally register more than one service with the same key, you can
 > call them all using `IEnumerable` when calling the service, otherwise the last

@@ -1,6 +1,6 @@
 # Benchmarking in DotNet
 
-This is a simple project to demonstrate how we run benchmarking dotnet using 
+This is a simple project to demonstrate how we run benchmarking dotnet using
 [BenchmarkDotNet][] library.
 
 ## BenchmarkDotNet
@@ -12,7 +12,7 @@ This is a simple project to demonstrate how we run benchmarking dotnet using
 - Add `[SimplJob]` attribute to the class
 - Add `[Benchmark]` attribute to methods
 
-> :warning:
+> [!WARNING]
 >
 >`BenchmarkDotNet` library only works with console applications
 
@@ -28,14 +28,14 @@ See [How To Run][] for more details.
 
 ### Config
 
-Configs provide setup for building a benchmark by setting up various 
+Configs provide setup for building a benchmark by setting up various
 configuration. See [Config][] for more details.
 
 ### Jobs
 
 Jobs define how a run is performed based. Parameters for a benchmark run
-such as _RunStrategy_,_RuntimeMoniker_,_LaunchCount_,_IterationCount_. See 
-[Jobs][] for more details. 
+such as _RunStrategy_,_RuntimeMoniker_,_LaunchCount_,_IterationCount_. See
+[Jobs][] for more details.
 
 ### Setup and Cleanup
 
@@ -44,20 +44,22 @@ invocation. See [Setup and Cleanup][] for more details
 
 ### Important Notes
 
-- Run benchmark tests in `RELEASE` configuration, `DEBUG` mode is not 
+- Run benchmark tests in `RELEASE` configuration, `DEBUG` mode is not
   recommended.
-> :bulb:
+
+> [!TIP]
 >
 > Enable optimize in your _.csproj_ file to run benchmarks in `DEBUG`
 > configuration
 > ```xml
 >    <Optimize>true</Optimize>
 > ```
+
 - Static methods are not supported, instance methods can be tested
 - Benchmarked classes should have `public`
 - Benchmarked methods should be `public`
 - Setup and Cleanup methods does not support `Task` return type
-- We use `./.benchmark/` path for output results, add this directory to 
+- We use `./.benchmark/` path for output results, add this directory to
   `.gitignore` file
 
 [BenchmarkDotNet]: https://benchmarkdotnet.org/

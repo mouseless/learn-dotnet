@@ -30,3 +30,5 @@ global.json
 
 # sqlite db files
 **/*.sqlite
+
+**/**/*.csproj.user

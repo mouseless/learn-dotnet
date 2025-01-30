@@ -4,9 +4,14 @@
 project dependencies. It also provides a dashboard for monitoring. Aspire
 consists of two main components: `AppHost` and `ServiceDefaults`.
 
-> :warning:
+> [!WARNING]
 >
 > Only Azure supports using Aspire in cloud.
+
+> [!NOTE]
+>
+> We looked into it and found it more suitable for local testing than `docker
+> compose`, but not for production.
 
 ## AppHost
 

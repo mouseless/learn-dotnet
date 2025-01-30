@@ -2,7 +2,7 @@
 
 Here we list the operations performed when upgrading projects to .Net 9
 
-> :info:
+> [!NOTE]
 >
 > The order is not important for now.
 

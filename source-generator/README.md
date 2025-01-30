@@ -8,7 +8,7 @@ We make the code to be generated either with the service model (schema
 json) presented to us or by looking under certain namespaces according to the
 content of the classes there.
 
-> :information_source:
+> [!NOTE]
 >
 > The purpose of this source generator learning is to automatically create
 > controllers by inspecting the classes within the target namespace in the
@@ -32,7 +32,7 @@ content of the classes there.
 >   WebApp Pre Build->>+WebApp Build: Go Next Stage
 > ```
 
-> :information_source:
+> [!NOTE]
 >
 > It's work with target framework `netstandard2.0` and
 > `Microsoft.CodeAnalysis.CSharp 4.x` library.
@@ -69,7 +69,7 @@ schema accordingly.
 We use the `Newtonsoft.Json` library to serialize and deserialize the
 service model schema json provided to us.
 
-> :information_source:
+> [!NOTE]
 >
 > In order for the `Newtonsoft.Json` library to work during analyze, it must be
 > added as `GeneratePathProperty="true" PrivateAssets="all"/>` and dll path
