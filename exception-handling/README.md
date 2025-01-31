@@ -21,7 +21,7 @@ To use it, we register it with `AddExceptionHandler`
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 ```
 
-> :warning:
+> [!WARNING]
 >
 > When registering multiple exception handlers you should pay attention to the
 > order. It works according to the order of insertion.
@@ -32,6 +32,12 @@ to the request pipeline
 ```csharp
 app.UseExceptionHandler();
 ```
+
+Also `UseExceptionHandler()` has a `UseExceptionHandler(ExceptionHandlerOptions
+options)` override. Using this we can configure some options before middlewares
+when an exception is throws. If you can look at the
+[`program.cs`](./ExceptionHandling/Program.cs) file, you can see an example
+usage.
 
 We also use `UseExceptionHandler` in development mode because we expect a json
 object as a response because we use Postman.

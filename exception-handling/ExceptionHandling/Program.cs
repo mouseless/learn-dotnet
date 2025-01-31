@@ -8,7 +8,12 @@ builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 var app = builder.Build();
 
-app.UseExceptionHandler();
+app.UseExceptionHandler(new ExceptionHandlerOptions
+{
+    StatusCodeSelector = ex => ex is ParameterRequiredException
+        ? StatusCodes.Status400BadRequest
+        : StatusCodes.Status500InternalServerError,
+});
 app.UseStatusCodePages();
 
 app.MapGet("/", () => "go to /summing?param1={0}&param2={1} route for summing");

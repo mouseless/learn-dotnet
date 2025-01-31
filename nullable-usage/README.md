@@ -28,7 +28,7 @@ public class PersonService(IQueryContext<Person>? queryContext)
 }
 ```
 
-> :information_source:
+> [!NOTE]
 >
 > The DI container will resolve every dependency before initializing the object
 > and an exception will be thrown for a if a component is not registered.
@@ -54,7 +54,7 @@ public class Person(IEntityContext<Person> _context)
 }
 ```
 
-> :information_source:
+> [!NOTE]
 >
 > Because of NHibernate, entities need a _protected_ parameterless constructor
 > and compiler will highlight an error stating that the value of __context_ is

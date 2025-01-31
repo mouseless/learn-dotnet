@@ -51,11 +51,15 @@ You can see them in the links below.
 - **[Publish Over Dockerfile:](/publish-over-dockerfile/README.md)** We've
   considered using `dotnet publish` over `Dockerfile`. For now we've decided to
   keep using `Dockerfile`.
+- **[Reflection:](/reflection/README.md)** Researching and learning what `.Net`
+  offers under reflection.
+- **[Aspire:](/aspire/README.md)** Research and learn `.NET Aspire`
 
 ### ASP.NET Core
 
 - **[Model Binders:](./model-binders/README.md)** How to map custom types to
   action parameters to allow entities directly from action parameters
+- **[OpenAPI:](/openapi/README.md)** How to create endpoint schema with openapi.
 - **[Native AOT:](./native-aot/README.md)** We are considering using
   `Native AOT` for our small and minimal API and CLI applications. For now, we
   are not using Native AOT because it is new and does not satisfy many of our
