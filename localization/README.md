@@ -42,7 +42,23 @@ builder.Services.Configure<RequestLocalizationOptions>(
 ## kullanımlar
 
 classlarda servisi almak için IStringLocalizer implament ediyoruz.
+burada önemli olan IStringLocalizer e type verdiğimizde eğer configurasyon yapmassak type ile aynı isimde dosya arayacaktır.
 
+public class ArticleManager(IStringLocalizer<ArticleManager> _localizer)
+{
+    public string GetArticleName() => _localizer["articleName"]; // loking for ArticleManager.*.resx
+}
+
+farklı yapılandırmalar için aşağıdaki yapılandırma gereklidir
+
+public class ArticleManager(IStringLocalizerFactory factory _factory)
+{
+    private readonly IStringLocalizer _localizer = factory.Create("ArticleManager", Assembly.GetExecutingAssembly().GetName().Name);
+
+    public string GetArticleName() => _localizer["articleName"]; // loking for ArticleManager.*.resx
+}
+
+isteklerin header'dan Accept-Language bölümünü değiştirerek farklı bölgeler için test edilebilir.
 
 ## resousece lar
 

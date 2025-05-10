@@ -16,6 +16,7 @@ builder.Services.Configure<RequestLocalizationOptions>(
 
         options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
         options.SupportedCultures = supportedCultures;
+        options.SupportedUICultures = supportedCultures;
     });
 
 builder.Services.AddSingleton<ArticleManager>();
