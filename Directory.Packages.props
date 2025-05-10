@@ -1,11 +1,10 @@
 <Project>
-
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Localization" Version="2.3.0" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="9.1.0" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="9.0.0" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.11.1" />
@@ -35,5 +34,4 @@
     <PackageVersion Include="StyleCop.Analyzers.Unstable" Version="1.2.0.556" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="7.2.0" />
   </ItemGroup>
-
 </Project>
