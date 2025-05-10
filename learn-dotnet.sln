@@ -151,6 +151,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectA", "aspire\ProjectA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectB", "aspire\ProjectB\ProjectB.csproj", "{0DCC0BF3-FDFF-4AF7-A080-6A5D9213386F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "localization", "localization\localization.csproj", "{2D24685C-470C-41D4-94E2-9AEF9C186DE3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -261,6 +263,10 @@ Global
 		{0DCC0BF3-FDFF-4AF7-A080-6A5D9213386F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DCC0BF3-FDFF-4AF7-A080-6A5D9213386F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DCC0BF3-FDFF-4AF7-A080-6A5D9213386F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D24685C-470C-41D4-94E2-9AEF9C186DE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D24685C-470C-41D4-94E2-9AEF9C186DE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D24685C-470C-41D4-94E2-9AEF9C186DE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D24685C-470C-41D4-94E2-9AEF9C186DE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
