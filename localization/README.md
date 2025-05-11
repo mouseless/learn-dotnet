@@ -1,83 +1,139 @@
 # Localization
 
-nedir bu ....
+Localization enables your application to serve content tailored to different
+cultures.
 
-## kurulum
+## Setup
 
-Services.AddLocalization(); ile ekleniyor
+First, you need to add the localization service to your service collection:
 
-daha sonra tabi
+```csharp
+Services.AddLocalization();
+```
 
+Then, include the localization middleware in the application pipeline:
+
+```csharp
 app.UseRequestLocalization();
+```
 
-çalırarak middleware'i kullanmamız gerekiyor.
+This allows `IStringLocalizer` and `IStringLocalizerFactory` services to be
+added to DI. After that, these services can be used as needed.
 
-## configure
+## Configure
 
-builder.Services.Configure<RequestLocalizationOptions> ile configure edebiliyoruz.
+You can configure culture settings using `RequestLocalizationOptions`:
 
-verilen option ile default olarak geçerli olacak culture u belirleyebiliriz
-options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
+```csharp
+builder.Services.Configure<RequestLocalizationOptions>(...)
+```
 
-hangi bölgelerde hangi kultureleri kullanacağını options.SupportedCultures ve options.SupportedUICultures = supportedCultures; ile ayarlıyoruz
+### RequestLocalizationOptions
+
+This options class allows you to change the following configurations:
+
+**options.DefaultRequestCulture**: This setting determines which culture the
+application should use when no culture info is found in the request (e.g., no
+`Accept-Language` header, no culture query string, no culture cookie).
+
+```csharp
+options.DefaultRequestCulture = new RequestCulture("en-US", "en-US");
+```
+
+**options.SupportedCultures**: This list specifies the cultures that the
+application supports for date/number formatting and similar operations.
+
+```csharp
+var supportedCultures = new List<CultureInfo>
+{
+    new CultureInfo("en-US"),
+    new CultureInfo("tr-TR")
+};
 
 options.SupportedCultures = supportedCultures;
+```
+
+This setting ensures that the app only works with the specified cultures. If a
+culture like `en-US` is requested but not supported, the `DefaultRequestCulture`
+will be used as a fallback.
+
+**options.SupportedUICultures**: This list defines which cultures the
+application supports for UI string translations. It is usually the same as
+`SupportedCultures`, but it can differ. For instance, some cultures may support
+only text translations but not date/number formatting.
+
+```csharp
 options.SupportedUICultures = supportedCultures;
+```
 
-aşağıda tam bir örnek görülmekte
-builder.Services.Configure<RequestLocalizationOptions>(
-    options =>
-    {
-        var supportedCultures = new List<CultureInfo>
-        {
-            new CultureInfo("en-US"),
-            new CultureInfo("tr-TR")
-        };
+**options.RequestCultureProviders**: These are mechanisms that determine which
+culture to use for incoming requests.
 
-        options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
-        options.SupportedCultures = supportedCultures;
-        options.SupportedUICultures = supportedCultures;
-    });
+```csharp
+options.RequestCultureProviders = [
+    new MyCustomCultureProvider(),
+    new CookieRequestCultureProvider(),
+    new AcceptLanguageHeaderRequestCultureProvider()
+];
+```
 
-## kullanımlar
+You can examine them in more detail under [Culture Providers](#culture-providers).
 
-classlarda servisi almak için IStringLocalizer implament ediyoruz.
-burada önemli olan IStringLocalizer e type verdiğimizde eğer configurasyon yapmassak type ile aynı isimde dosya arayacaktır.
+## Usage
 
+### IStringLocalizer
+
+To use localized strings within classes, use `IStringLocalizer<T>`. This will
+look for `.resx` files that match the type `T`:
+
+```csharp
 public class ArticleManager(IStringLocalizer<ArticleManager> _localizer)
 {
-    public string GetArticleName() => _localizer["articleName"]; // loking for ArticleManager.*.resx
+    public string GetArticleName() => _localizer["articleName"];
 }
+```
 
-farklı yapılandırmalar için aşağıdaki yapılandırma gereklidir
+### IStringLocalizerFactory
 
-public class ArticleManager(IStringLocalizerFactory factory _factory)
+If you want to read `.resx` files from a different folder, use
+`IStringLocalizerFactory`:
+
+```csharp
+public class ArticleManager(IStringLocalizerFactory factory)
 {
-    private readonly IStringLocalizer _localizer = factory.Create("ArticleManager", Assembly.GetExecutingAssembly().GetName().Name);
-
-    public string GetArticleName() => _localizer["articleName"]; // loking for ArticleManager.*.resx
+    private readonly IStringLocalizer _localizer = factory.Create(
+        "ArticleManager",
+        Assembly.GetExecutingAssembly().GetName().Name
+    );
 }
-
-isteklerin header'dan Accept-Language bölümünü değiştirerek farklı bölgeler için test edilebilir.
-
-string localizer de parametrede verilebiliyor. örneğin
-
-public string GetArticleName(string id) => _localizer["articleName", id];
-
-bu parametrelerin karşılık bulması için resx teki dosyanında ona göre düzenlenmesi gerekir. #şurayabakın
+```
 
 ## Culture Providers
 
-bunlar atılan istekte hangi culture kullanacağını belirletilen özelliklerdir.
+Culture providers are mechanisms that determine which culture will be used for
+each request. `ASP.NET Core` uses the following three providers by default in
+order:
 
-QueryStringRequestCultureProvider => ?culture=tr-TR gibi bir sorgu parametresinden kültür belirler
-CookieRequestCultureProvider => Kullanıcının tarayıcısına ayarlanan kültürü saklar
-AcceptLanguageHeaderRequestCultureProvider => Accept-Language başlığından kültür çeker
+1. **QueryStringRequestCultureProvider** → Culture is determined via query
+   strings like `?culture=tr-TR`
+1. **CookieRequestCultureProvider** → Remembers the user's culture using browser
+   cookies
+1. **AcceptLanguageHeaderRequestCultureProvider** → Looks at the
+   `Accept-Language` header in `HTTP` requests
 
-bu 3 provider sırası ile default olarak eklidir ve istekte sırayla bakılır ve ilk hangisi ile eşleşiyorsa onu kullanır.
+You can change this order or add a custom provider:
 
-custom provider ile kendi belirleyicini yaratabilirsin. bunun için RequestCultureProvider kullanmalısın
+```csharp
+options.RequestCultureProviders = [
+    new CookieRequestCultureProvider(),
+    new QueryStringRequestCultureProvider(),
+    new AcceptLanguageHeaderRequestCultureProvider()
+];
+```
 
+To write a custom provider, extend the `RequestCultureProvider` class:
+
+```csharp
 public class MyCustomCultureProvider : RequestCultureProvider
 {
     public override Task<ProviderCultureResult?> DetermineProviderCultureResult(HttpContext httpContext)
@@ -85,37 +141,43 @@ public class MyCustomCultureProvider : RequestCultureProvider
         var language = httpContext.Request.Headers["X-Language"].FirstOrDefault();
         if (!string.IsNullOrEmpty(language))
         {
-            return Task.FromResult<ProviderCultureResult?>(
-                new ProviderCultureResult(language, language));
+            return Task.FromResult<ProviderCultureResult?>(new ProviderCultureResult(language, language));
         }
 
         return Task.FromResult<ProviderCultureResult?>(null);
     }
 }
+```
 
-options.RequestCultureProviders = new List<IRequestCultureProvider>
-{
+Then include it in the list:
+
+```csharp
+options.RequestCultureProviders = [
     new MyCustomCultureProvider(),
     new CookieRequestCultureProvider(),
     new AcceptLanguageHeaderRequestCultureProvider()
-};
+];
+```
 
-## resousece lar
+## Resource Files
 
-.resx formatı ile verilebilir,
+Text translations are provided via `.resx` files. The file naming convention is:
 
-<FullTypeName><.Locale>.resx
+```txt
+<FullTypeName>.resx         → Default language
+<FullTypeName>.<Culture>.resx → Specific cultures
+```
 
-### şurası
+> [!NOTE]
+>
+> Instead of `.resx`, a database can also be used as a source.
 
-resx dosyalarında parametre kullanmak için aşağıdaki örnekte olduğu gibi '{}' içinde parametre istenmelidir.
+### Parameterized Usage
+
+You can use placeholders like `{0}`, `{1}` in `.resx` files:
 
 ```xml
 <data name="platformName" xml:space="preserve">
-  <value>Yayın Aracı {0:P}</value>
+  <value>Streaming Platform {0:P}</value>
 </data>
 ```
-
-uyarı! bu resx dosyaları embedded resource olmalı.
-
-isteğe bağlı db de kullanılabiliyormuş...
