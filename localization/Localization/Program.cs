@@ -1,10 +1,12 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
 builder.Services.Configure<RequestLocalizationOptions>(
     options =>
     {
@@ -17,9 +19,14 @@ builder.Services.Configure<RequestLocalizationOptions>(
         options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
         options.SupportedCultures = supportedCultures;
         options.SupportedUICultures = supportedCultures;
+        options.RequestCultureProviders = [
+            new CustomCultureProvider(),
+            new AcceptLanguageHeaderRequestCultureProvider()
+        ];
     });
 
 builder.Services.AddSingleton<ArticleManager>();
+builder.Services.AddSingleton<PlatformManager>();
 
 var app = builder.Build();
 
@@ -33,6 +40,10 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 var articleManager = app.Services.GetService<ArticleManager>()!;
-app.MapGet("/", () => articleManager.GetArticleName());
+var platformManager = app.Services.GetService<PlatformManager>()!;
+
+app.MapGet("/", () => "Use '/article' or '/platform' for test");
+app.MapGet("/article", () => articleManager.GetArticleName());
+app.MapGet("/platform", ([FromQuery] string name) => platformManager.GetPlatform(name));
 
 app.Run();

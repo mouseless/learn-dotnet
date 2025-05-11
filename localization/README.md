@@ -60,6 +60,62 @@ public class ArticleManager(IStringLocalizerFactory factory _factory)
 
 isteklerin header'dan Accept-Language bölümünü değiştirerek farklı bölgeler için test edilebilir.
 
+string localizer de parametrede verilebiliyor. örneğin
+
+public string GetArticleName(string id) => _localizer["articleName", id];
+
+bu parametrelerin karşılık bulması için resx teki dosyanında ona göre düzenlenmesi gerekir. #şurayabakın
+
+## Culture Providers
+
+bunlar atılan istekte hangi culture kullanacağını belirletilen özelliklerdir.
+
+QueryStringRequestCultureProvider => ?culture=tr-TR gibi bir sorgu parametresinden kültür belirler
+CookieRequestCultureProvider => Kullanıcının tarayıcısına ayarlanan kültürü saklar
+AcceptLanguageHeaderRequestCultureProvider => Accept-Language başlığından kültür çeker
+
+bu 3 provider sırası ile default olarak eklidir ve istekte sırayla bakılır ve ilk hangisi ile eşleşiyorsa onu kullanır.
+
+custom provider ile kendi belirleyicini yaratabilirsin. bunun için RequestCultureProvider kullanmalısın
+
+public class MyCustomCultureProvider : RequestCultureProvider
+{
+    public override Task<ProviderCultureResult?> DetermineProviderCultureResult(HttpContext httpContext)
+    {
+        var language = httpContext.Request.Headers["X-Language"].FirstOrDefault();
+        if (!string.IsNullOrEmpty(language))
+        {
+            return Task.FromResult<ProviderCultureResult?>(
+                new ProviderCultureResult(language, language));
+        }
+
+        return Task.FromResult<ProviderCultureResult?>(null);
+    }
+}
+
+options.RequestCultureProviders = new List<IRequestCultureProvider>
+{
+    new MyCustomCultureProvider(),
+    new CookieRequestCultureProvider(),
+    new AcceptLanguageHeaderRequestCultureProvider()
+};
+
 ## resousece lar
 
-.resx formatı ile verilebilir, isteğe bağlı db de kullanılabiliyormuş...
+.resx formatı ile verilebilir,
+
+<FullTypeName><.Locale>.resx
+
+### şurası
+
+resx dosyalarında parametre kullanmak için aşağıdaki örnekte olduğu gibi '{}' içinde parametre istenmelidir.
+
+```xml
+<data name="platformName" xml:space="preserve">
+  <value>Yayın Aracı {0:P}</value>
+</data>
+```
+
+uyarı! bu resx dosyaları embedded resource olmalı.
+
+isteğe bağlı db de kullanılabiliyormuş...
