@@ -1,6 +1,6 @@
-using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,24 +26,16 @@ builder.Services.Configure<RequestLocalizationOptions>(
     });
 
 builder.Services.AddSingleton<ArticleManager>();
-builder.Services.AddSingleton<PlatformManager>();
 
 var app = builder.Build();
 
 app.UseRequestLocalization();
 
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
-
 app.UseHttpsRedirection();
 
 var articleManager = app.Services.GetService<ArticleManager>()!;
-var platformManager = app.Services.GetService<PlatformManager>()!;
 
-app.MapGet("/", () => "Use '/article' or '/platform' for test");
-app.MapGet("/article", () => articleManager.GetArticleName());
-app.MapGet("/platform", ([FromQuery] string name) => platformManager.GetPlatform(name));
+app.MapGet("/", () => "go to /article path by giving value to author in query");
+app.MapGet("/article", ([FromQuery] string author) => articleManager.GetArticleName(author));
 
 app.Run();

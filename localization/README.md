@@ -1,24 +1,12 @@
 # Localization
 
-Localization enables your application to serve content tailored to different
-cultures.
+We use Localization to return the equivalents of string values, for example
+exception messages, in the region and language of the user's choice.
 
 ## Setup
 
-First, you need to add the localization service to your service collection:
-
-```csharp
-Services.AddLocalization();
-```
-
-Then, include the localization middleware in the application pipeline:
-
-```csharp
-app.UseRequestLocalization();
-```
-
-This allows `IStringLocalizer` and `IStringLocalizerFactory` services to be
-added to DI. After that, these services can be used as needed.
+We register the localization with `.AddLocalization` and use it with
+`.UseRequestLocalization`.
 
 ## Configure
 
