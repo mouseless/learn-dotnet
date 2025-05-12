@@ -41,23 +41,9 @@ a sample custom provider.
 
 ## Resource Files
 
-Text translations are provided via `.resx` files. The file naming convention is:
+We use `.restext` files as resource files for ease of writing and updating.
 
-```txt
-<FullTypeName>.resx         → Default language
-<FullTypeName>.<Culture>.resx → Specific cultures
-```
-
-> [!NOTE]
->
-> Instead of `.resx`, a database can also be used as a source.
-
-### Parameterized Usage
-
-You can use placeholders like `{0}`, `{1}` in `.resx` files:
-
-```xml
-<data name="platformName" xml:space="preserve">
-  <value>Streaming Platform {0:P}</value>
-</data>
-```
+Such files need to be recognized by the system in order to be used, so they
+should be added as `EmbeddedResource` from `.csproj`. See
+[Localization.csproj](/localization/Localization/Localization.csproj) here for
+an example.
