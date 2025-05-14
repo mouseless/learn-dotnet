@@ -11,6 +11,7 @@ public class CustomCultureProvider : RequestCultureProvider
         }
 
         return Task.FromResult<ProviderCultureResult?>(
-            new ProviderCultureResult(language, language));
+            new ProviderCultureResult(language, language)
+        );
     }
 }

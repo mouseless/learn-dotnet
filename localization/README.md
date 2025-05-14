@@ -10,7 +10,7 @@ We register the localization with `.AddLocalization` and use it with
 
 ## Configure
 
-We provide support for cultures like `en-US`, `en-TR` which we often use in
+We provide support for cultures like `en-US`, `tr-TR` which we often use in
 configurations and we use culture providers by default.
 
 > [!WARNING]
@@ -18,7 +18,7 @@ configurations and we use culture providers by default.
 > For localization to work correctly in api requests, `SupportedUICultures` must
 > be given next to `SupportedCultures`.
 
-See [program.cs](/localization/Localization/Program.cs) to see sample
+See [Program.cs](/localization/Localization/Program.cs) to see sample
 configurations and how to add a custom provider.
 
 ## Usage
