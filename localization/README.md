@@ -23,9 +23,9 @@ configurations and how to add a custom provider.
 
 ## Usage
 
-We can use `IStringLocalizer` or `IStringLocalizerFactory` to inject
-localization with 2 different methods. Since we use similar resource files with
-the project name, we need to use `IStringLocalizerFactory.Create()`.
+We use `IStringLocalizerFactory` to inject localization with 2 different
+methods. Since we use similar resource files with the project name, we need to
+use `IStringLocalizerFactory.Create()`.
 
 See [Using Localization Factory](/localization/Localization/ArticleManager.cs)
 for example usage.
