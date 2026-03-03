@@ -162,3 +162,100 @@ yönlendirme yerine doğrudan 401 ve 403 döndürüyor.
 
 `RedirectHttpResult.IsLocalUrl` diye bir helper gelmiş. url veriyorsun oradaki
 redirecturl locale e mi gidecek diye bakıyor. locale se true dönüyor.
+
+## C# 14
+
+### Extension members
+
+yeni extension yazma yöntemleri geldi
+
+```csharp
+public static class Enumerable
+{
+    // Extension block
+    extension<TSource>(IEnumerable<TSource> source) // extension members for IEnumerable<TSource>
+    {
+        // Extension property:
+        public bool IsEmpty => !source.Any();
+
+        // Extension method:
+        public IEnumerable<TSource> Where(Func<TSource, bool> predicate) { ... }
+    }
+
+    // extension block, with a receiver type only
+    extension<TSource>(IEnumerable<TSource>) // static extension members for IEnumerable<Source>
+    {
+        // static extension method:
+        public static IEnumerable<TSource> Combine(IEnumerable<TSource> first, IEnumerable<TSource> second) { ... }
+
+        // static extension property:
+        public static IEnumerable<TSource> Identity => Enumerable.Empty<TSource>();
+
+        // static user defined operator:
+        public static IEnumerable<TSource> operator + (IEnumerable<TSource> left, IEnumerable<TSource> right) => left.Concat(right);
+    }
+}
+```
+
+### `field`
+
+artık field tanımlamaya gerek yok
+
+```csharp
+public string Name
+{
+    get;
+    set => field = value ?? throw new ArgumentNullException(nameof(value));
+}
+```
+
+### Implicit Span Conversions
+
+Span<T> ve ReadOnlySpan<T> için, ReadOnlySpan<T>, Span<T> ve T[] türlerine
+implicit cast gelmiş
+
+```csharp
+int[] array = new[] { 1, 2, 3 };
+ReadOnlySpan<int> ros = array;
+
+void Process(ReadOnlySpan<int> data) { }
+Process(array);
+```
+
+### `nameof` Unbound Generic Types
+
+aşağıdaki işlemlere izin veriliyormuş
+
+```csharp
+nameof(List<>)
+nameof(Dictionary<,>)
+```
+
+### Simple lambda parameters with modifiers
+
+scoped, ref, in, out, or ref readonly gibi lambda expression parametrelerinde
+type belirtme biraz daha hafiflemiş. bunlarda analyzerlar önerileri veriyor zaten
+
+```csharp
+TryParse<int> parse2 = (string text, out int result) => Int32.TryParse(text, out result);
+```
+
+### partial members
+
+artık instance constructors ve events partial olabiliyormuş
+
+### User-Defined Compound Assignment
+
+sanırım eskiden +=, -=, *= gibi operatorleri kendin yazamıyordun. artık
+yazılabiliyor gibi
+
+tam olarak hangilerine izin var tam anlamadım https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-14.0/user-defined-compound-assignment
+### Null-Conditional Assignment
+
+atamalarda if ile not null kontrolüne gerek kalmamış
+
+```csharp
+customer?.Order = GetCurrentOrder();
+```
+
+ama +=, -= falan desteklemiyor
