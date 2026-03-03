@@ -1,10 +1,5 @@
 # .NET 10 Research Notes
 
-## Runtime
-
-[Runtime'daki değişiklikler](https://learn.microsoft.com/tr-tr/dotnet/core/whats-new/dotnet-10/runtime)
-doğrudan uygulanıyor.
-
 ## Libraries
 
 ### Numeric ordering for string comparison
@@ -12,6 +7,8 @@ doğrudan uygulanıyor.
 stringlerin sonuna göre sıralama yapıyor.
 
 ```csharp
+StringComparer numericStringComparer = StringComparer.Create(CultureInfo.CurrentCulture, CompareOptions.NumericOrdering);
+
 foreach (string os in new[] { "Windows 11", "Windows 10", "Windows 8" }.Order(numericStringComparer))
 {
     Console.WriteLine(os);
@@ -23,14 +20,14 @@ foreach (string os in new[] { "Windows 11", "Windows 10", "Windows 8" }.Order(nu
 // Windows 11
 ```
 
-### Serialization
-
-Bir kaç işimize yarayabilecek serileştirme güncellemesi var ama biz Newtonsoft
-kullanıyoruz.
-
-https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-10/libraries#serialization
+This option isn't valid for the following index-based string operations:
+IndexOf, LastIndexOf, StartsWith, EndsWith, IsPrefix, and IsSuffix.
 
 ## SDK
+
+### SLNX file format
+
+sln dosyaları slnx olacak
 
 ### Support for Microsoft Testing Platform in dotnet test
 
@@ -79,7 +76,7 @@ public record Product(
 ```
 
 ### `IProblemDetailsService`
-
+bir örnek yap
 Defines a type that provide functionality to create a ProblemDetails response.
 
 Bu 7'den sonra da varmış. Kullanmamışız. Ben yinede ekliyim belki şimdi bazı şeyleri kolaylayabilir.
@@ -129,7 +126,7 @@ OpenApiOperation operation = new OpenApiOperation
 
 [daha fazla 2.0 değişikliği için](https://github.com/microsoft/OpenAPI.NET/blob/main/docs/upgrade-guide-2.md)
 
-### Authenticatio and authorization
+### Authentication and authorization
 
 #### Avoid cookie login redirects for known API endpoints
 
@@ -168,7 +165,7 @@ redirecturl locale e mi gidecek diye bakıyor. locale se true dönüyor.
 ### Extension members
 
 yeni extension yazma yöntemleri geldi
-
+bu syntax a geçilecek
 ```csharp
 public static class Enumerable
 {
@@ -250,6 +247,7 @@ sanırım eskiden +=, -=, *= gibi operatorleri kendin yazamıyordun. artık
 yazılabiliyor gibi
 
 tam olarak hangilerine izin var tam anlamadım https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-14.0/user-defined-compound-assignment
+
 ### Null-Conditional Assignment
 
 atamalarda if ile not null kontrolüne gerek kalmamış
