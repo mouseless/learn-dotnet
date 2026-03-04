@@ -1,3 +1,4 @@
+<!-- TODO - Bu Dosya epic in son işiyle birlikte sininlemelidir. Sadece research notelarını barınmak için vardır -->
 # .NET 10 Research Notes
 
 ## Migration Tasks
