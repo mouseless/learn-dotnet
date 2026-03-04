@@ -23,6 +23,21 @@ foreach (string os in new[] { "Windows 11", "Windows 10", "Windows 8" }.Order(nu
 This option isn't valid for the following index-based string operations:
 IndexOf, LastIndexOf, StartsWith, EndsWith, IsPrefix, and IsSuffix.
 
+#### AsyncEnumerable
+
+The [AsyncEnumerable](https://learn.microsoft.com/en-us/dotnet/api/system.linq.asyncenumerable) class in .NET 10, and in the [`System.Linq.AsyncEnumerable` NuGet package](https://www.nuget.org/packages/System.Linq.AsyncEnumerable/), provides LINQ support for [IAsyncEnumerable&lt;T&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.iasyncenumerable-1).
+
+## Networking
+
+### Streaming HTTP responses enabled by default in browser HTTP clients
+
+The [HttpContent](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent) no longer contains a [MemoryStream](https://learn.microsoft.com/en-us/dotnet/api/system.io.memorystream). Instead, [HttpContent.ReadAsStreamAsync](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent.readasstreamasync) returns a `BrowserHttpReadStream`, which does not support synchronous operations.
+
+```csharp
+var response = await httpClient.GetAsync("https://example.com");
+var contentStream = await response.Content.ReadAsStreamAsync(); // Returns BrowserHttpReadStream instead of MemoryStream
+```
+
 ## SDK
 
 ### SLNX file format
@@ -44,11 +59,44 @@ feature, add the following configuration to your global.json file:
 
 [MTP](https://learn.microsoft.com/en-us/dotnet/core/testing/microsoft-testing-platform-intro)
 
+### .NET CLI `--interactive` defaults to `true` in user scenarios
+
+bu interactive default olarak true yapılmış. `dotnet restore` tarafında bir sorun çıkarsa
+bundan kaynaklı olabilir. `--interactive false` şeklinde verilerek tekrar kapatılabilir
+
+### Code coverage EnableDynamicNativeInstrumentation defaults to false
+
+büyük ihtimalle bizi etkilemeyecek ama depend edilen kütüphanelerle ilgili problem olursa diye
+not olarak ekliyorum.
+
+coverage collect te EnableDynamicNativeInstrumentation false yapılmış. native araçlardan
+coverage almada sorun çıkarıyor bu flag
+
+### dotnet restore audits transitive packages
+
+audit warningleri default olarak seviye atlatılmış. bizde warningler error olarak gösterildiğinden
+restorelarda sorun yaratabilir.
+
+```xml
+<ItemGroup>
+    <NuGetAuditSuppress Include="url" />
+</ItemGroup>
+
+yada
+
+<TreatWarningsAsErrors>
+  <WarningsNotAsErrors>NU1901;NU1902;NU1903;NU1904;$(WarningsNotAsErrors)</WarningsNotAsErrors>
+</TreatWarningsAsErrors>
+```
+
+
+
 ## ASP.NET
 
 ### Treating empty string in form post as null for nullable value types
 
 When using the [FromForm] attribute
+
 ```csharp
 app.MapPost("/todo", ([FromForm] Todo todo) => TypedResults.Ok(todo));
 
@@ -76,6 +124,7 @@ public record Product(
 ```
 
 ### `IProblemDetailsService`
+
 bir örnek yap
 Defines a type that provide functionality to create a ProblemDetails response.
 
@@ -160,12 +209,18 @@ yönlendirme yerine doğrudan 401 ve 403 döndürüyor.
 `RedirectHttpResult.IsLocalUrl` diye bir helper gelmiş. url veriyorsun oradaki
 redirecturl locale e mi gidecek diye bakıyor. locale se true dönüyor.
 
+#### Exception diagnostics are suppressed when IExceptionHandler.TryHandleAsync returns true
+
+`IExceptionHandler` ile exception'ları handle ettiğinde(true döndüğünde) artık o exception
+için otomatik olarak log ve telemetry yazılmıyor
+
 ## C# 14
 
 ### Extension members
 
 yeni extension yazma yöntemleri geldi
 bu syntax a geçilecek
+
 ```csharp
 public static class Enumerable
 {
@@ -208,7 +263,7 @@ public string Name
 
 ### Implicit Span Conversions
 
-Span<T> ve ReadOnlySpan<T> için, ReadOnlySpan<T>, Span<T> ve T[] türlerine
+Span `<T>` ve ReadOnlySpan `<T>` için, ReadOnlySpan `<T>`, Span `<T>` ve T[] türlerine
 implicit cast gelmiş
 
 ```csharp
