@@ -1,5 +1,64 @@
 # .NET 10 Research Notes
 
+## Learn Tasks
+
+- [ ] install dotnet 10
+- [ ] upgrade dotnet version to `10`
+- [ ] upgrade c# version to `14`
+- [ ] make sure packages fine with dotnet 10
+- [ ]
+
+## Migration Tasks
+
+> [!INFO] This task are temp
+
+- [ ] install dotnet 10
+- [ ] upgrade dotnet version to `10`
+- [ ] upgrade c# version to `14`
+- [ ] make sure packages fine with dotnet 10
+- Opportunistic Improvements
+  - [ ] Use `CompareOptions.NumericOrdering` property of the `StringComparer`
+  object if it will make things easier
+  - [ ] At first glance, it didn't seem necessary, but if needed, it looks like
+  description support has been added to `ProducesAttribute`,
+  `ProducesResponseTypeAttribute`, and `ProducesDefaultResponseTypeAttribute`
+  - [ ] Use `RedirectHttpResult.IsLocalUrl` in places that check whether the URL
+  redirects to the locale or externally
+  - [ ] Use if necessary, the `field` keyword in properties
+  - [ ] Now allows `nameof` for unbound generics. If there were different
+  approaches previously because it wasn't allowed, these can be simplified
+  - [ ] The partial constructor feature now supported. Use it if we need to
+  - probably, the analyzer will already warn you, but just in case;
+    - [ ] use implicit `Span` conversions to array
+    - [ ] use simple lambda parameters with modifiers
+    - [ ] use Null-Conditional assignment
+  - do if okay after learn
+    - [ ] if it is really necessary, use the validation attributes in response
+    records
+    - [ ] if necessary, edit the response of unhandled errors with
+    `IProblemDetailsService`
+- Required Migrations
+  - [ ] use `.slnx` instead of `.sln`
+  - [ ] use extension members
+    - Property extensions will be used for those that do not take parameters and
+    for specifying layer builders. exp: `configure.Ui.ComponentPresets(...)`
+  - if okay after learn
+    - [ ] use `Microsoft Testing Platform` for testing
+- Troubleshooting & Pitfalls(You should also test the tasks that can be checked
+  to be sure)
+  - `HttpContent` now returns `BrowserHttpReadStream` instead of `MemoryStream`
+  - The warning level for audits has been raised in `dotnet restore`. If the
+  error encountered cannot be resolved, the warning level can be lowered in
+  `Directory.Build.props` or the relevant warning can be ignored
+  - Validation APIs moved to `Microsoft.Extensions.Validation`
+  - If you encounter any issues with OpenAPI, check [here](https://github.com/microsoft/OpenAPI.NET/blob/main/docs/upgrade-guide-2.md)
+  - [ ] If `dotnet restore` is waiting for user input, it should be set to
+  `--interactive false`
+  - [ ] If you encounter an error or receive incorrect results when obtaining
+  coverage, you may need to set `EnableDynamicNativeInstrumentation` to `true`
+  - [ ] Now, in form post actions, `nullable` fields are automatically set to
+  null when they receive an empty string
+
 ## Libraries
 
 ### Numeric ordering for string comparison
@@ -22,10 +81,6 @@ foreach (string os in new[] { "Windows 11", "Windows 10", "Windows 8" }.Order(nu
 
 This option isn't valid for the following index-based string operations:
 IndexOf, LastIndexOf, StartsWith, EndsWith, IsPrefix, and IsSuffix.
-
-#### AsyncEnumerable
-
-The [AsyncEnumerable](https://learn.microsoft.com/en-us/dotnet/api/system.linq.asyncenumerable) class in .NET 10, and in the [`System.Linq.AsyncEnumerable` NuGet package](https://www.nuget.org/packages/System.Linq.AsyncEnumerable/), provides LINQ support for [IAsyncEnumerable&lt;T&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.iasyncenumerable-1).
 
 ## Networking
 
@@ -88,8 +143,6 @@ yada
   <WarningsNotAsErrors>NU1901;NU1902;NU1903;NU1904;$(WarningsNotAsErrors)</WarningsNotAsErrors>
 </TreatWarningsAsErrors>
 ```
-
-
 
 ## ASP.NET
 
