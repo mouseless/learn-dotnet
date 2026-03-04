@@ -1,13 +1,5 @@
 # .NET 10 Research Notes
 
-## Learn Tasks
-
-- [ ] install dotnet 10
-- [ ] upgrade dotnet version to `10`
-- [ ] upgrade c# version to `14`
-- [ ] make sure packages fine with dotnet 10
-- [ ]
-
 ## Migration Tasks
 
 > [!INFO] This task are temp
