@@ -1,4 +1,4 @@
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Swashbuckle;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -22,11 +22,8 @@ builder.Services.ConfigureSwaggerGen(swaggerGenOptions =>
 
     // custom metadata
     swaggerGenOptions.DocInclusionPredicate((document, api) =>
-        // doc exclusion
-        !api.CustomAttributes().OfType<InternalAttribute>().Any() &&
-
-        // multi doc
-        api.CustomAttributes().OfType<DocumentAttribute>().SingleOrDefault()?.Name == document
+        !api.CustomAttributes().OfType<InternalAttribute>().Any() && // doc exclusion
+        api.CustomAttributes().OfType<DocumentAttribute>().SingleOrDefault()?.Name == document // multi doc
       );
 
     // security config

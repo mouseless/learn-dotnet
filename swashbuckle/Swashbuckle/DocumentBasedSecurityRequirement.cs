@@ -1,4 +1,4 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Swashbuckle;
@@ -10,12 +10,13 @@ public class DocumentBasedSecurityRequirement(string _document, string _schemeId
     {
         if (context.DocumentName != _document) { return; }
 
-        operation.Security.Add(new()
+        operation.Security ??= [];
+
+        var requirement = new OpenApiSecurityRequirement
         {
-            {
-                new() { Reference = new() { Type = ReferenceType.SecurityScheme, Id = _schemeId } },
-                Array.Empty<string>()
-            }
-        });
+            { new OpenApiSecuritySchemeReference(_schemeId), [] },
+        };
+
+        operation.Security.Add(requirement);
     }
 }
