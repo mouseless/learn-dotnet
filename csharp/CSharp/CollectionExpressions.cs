@@ -50,4 +50,20 @@ public class CollectionExpressions(ILogger<CollectionExpressions> _logger)
     {
         _logger.LogInformation($"SomeOtherMethod is called with args: {string.Join(',', args)}");
     }
+
+    public void ExtensionMembers()
+    {
+        IEnumerable<int> empty = [];
+        IEnumerable<int> numbers = [1, 2, 3];
+
+        _logger.LogInformation($"empty.IsEmpty: {empty.IsEmpty}");
+        _logger.LogInformation($"numbers.IsEmpty: {numbers.IsEmpty}");
+
+        // "type" extension members (static-like on the extended type):
+        var combined = IEnumerable<int>.Combine(numbers, [4, 5]);
+        _logger.LogInformation($"Combined: {string.Join(',', combined)}");
+
+        var identity = IEnumerable<int>.Identity;
+        _logger.LogInformation($"Identity count: {identity.Count()}");
+    }
 }
