@@ -56,14 +56,13 @@ public class CollectionExpressions(ILogger<CollectionExpressions> _logger)
         IEnumerable<int> empty = [];
         IEnumerable<int> numbers = [1, 2, 3];
 
-        _logger.LogInformation($"empty.IsEmpty: {empty.IsEmpty}");
-        _logger.LogInformation($"numbers.IsEmpty: {numbers.IsEmpty}");
+        _logger.LogInformation($"Extension property (instance-like): empty.IsEmpty on [] => {empty.IsEmpty}");
+        _logger.LogInformation($"Extension property (instance-like): numbers.IsEmpty on [1,2,3] => {numbers.IsEmpty}");
 
-        // "type" extension members (static-like on the extended type):
         var combined = IEnumerable<int>.Combine(numbers, [4, 5]);
-        _logger.LogInformation($"Combined: {string.Join(',', combined)}");
+        _logger.LogInformation($"Type extension method (static-like): IEnumerable<int>.Combine() => {string.Join(',', combined)}");
 
-        var identity = IEnumerable<int>.Identity;
-        _logger.LogInformation($"Identity count: {identity.Count()}");
+        var initialized = IEnumerable<int>.Initialized;
+        _logger.LogInformation($"Type extension property (static-like): IEnumerable<int>.Initialized count => {initialized.Count()}");
     }
 }

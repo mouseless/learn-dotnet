@@ -10,6 +10,6 @@ public static class ExtensionMembers
     extension<T>(IEnumerable<T>)
     {
         public static IEnumerable<T> Combine(IEnumerable<T> first, IEnumerable<T> second) => first.Concat(second);
-        public static IEnumerable<T> Identity => [];
+        public static IEnumerable<T> Initialized => [];
     }
 }
