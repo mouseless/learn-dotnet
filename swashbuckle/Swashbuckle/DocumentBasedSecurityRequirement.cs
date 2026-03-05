@@ -11,12 +11,10 @@ public class DocumentBasedSecurityRequirement(string _document, string _schemeId
         if (context.DocumentName != _document) { return; }
 
         operation.Security ??= [];
-
-        var requirement = new OpenApiSecurityRequirement
-        {
-            { new OpenApiSecuritySchemeReference(_schemeId), [] },
-        };
-
-        operation.Security.Add(requirement);
+        operation.Security.Add(new()
+            {
+                { new OpenApiSecuritySchemeReference(_schemeId), [] },
+            }
+        );
     }
 }
