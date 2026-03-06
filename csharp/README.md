@@ -9,3 +9,4 @@ What we have learned and implemented so far are the following.
 - Different Params type usage
 - Encoding Decoding
 - Lambda Parameters
+- PropertiesAndFields
