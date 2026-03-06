@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 
 var serviceCollection = new ServiceCollection();
 
+serviceCollection.AddSingleton<Assignments>();
 serviceCollection.AddSingleton<CollectionExpressions>();
 serviceCollection.AddSingleton<EncodingDecoding>();
 serviceCollection.AddSingleton<LambdaParameters>();
@@ -18,6 +19,7 @@ serviceCollection.AddLogging(options =>
 
 var serviceProvider = serviceCollection.BuildServiceProvider();
 
+var assignments = serviceProvider.GetRequiredService<Assignments>();
 var collectionExpressions = serviceProvider.GetRequiredService<CollectionExpressions>();
 var encodingDecoding = serviceProvider.GetRequiredService<EncodingDecoding>();
 var lambdaParameters = serviceProvider.GetRequiredService<LambdaParameters>();
@@ -25,6 +27,8 @@ var @params = serviceProvider.GetRequiredService<Params>();
 var propertiesAndFields = serviceProvider.GetRequiredService<PropertiesAndFields>();
 
 @params.Use();
+
+assignments.NullableAssignment();
 
 collectionExpressions.EmptyCollectionInitialization();
 collectionExpressions.CollectionInitialization();
