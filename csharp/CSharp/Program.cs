@@ -34,6 +34,7 @@ collectionExpressions.CallMethods();
 lambdaParameters.OptionalParameters();
 lambdaParameters.ParamsArrayParameters();
 lambdaParameters.NewAcceptedBehavior();
+lambdaParameters.ParameterModifiersWithoutTypes();
 
 encodingDecoding.RunShowCases();
 

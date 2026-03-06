@@ -2,7 +2,7 @@
 
 namespace CSharp;
 
-public class LambdaParameters(ILogger<CollectionExpressions> _logger)
+public class LambdaParameters(ILogger<LambdaParameters> _logger)
 {
     public void OptionalParameters()
     {
@@ -31,5 +31,15 @@ public class LambdaParameters(ILogger<CollectionExpressions> _logger)
 
         optional();
         @params();
+    }
+
+    private delegate bool TryParse<T>(string text, out T result);
+
+    public void ParameterModifiersWithoutTypes()
+    {
+        // Lambdas support modifiers (ref/in/out/scoped/ref readonly) without explicit parameter types when the target delegate type is known
+        TryParse<int> parse = (text, out result) => int.TryParse(text, out result);
+
+        _logger.LogInformation($"(text, out result) => int.TryParse: ok={parse("42", out int value)}, result={value}");
     }
 }

@@ -1,97 +1,6 @@
 <!-- TODO - Bu Dosya epic in son işiyle birlikte sininlemelidir. Sadece research notelarını barınmak için vardır -->
 # .NET 10 Research Notes
 
-## Migration Tasks
-
-> [!INFO] This task are temp
-
-- [ ] install dotnet 10
-- [ ] upgrade dotnet version to `10`
-- [ ] upgrade c# version to `14`
-- [ ] make sure packages fine with dotnet 10
-- Opportunistic Improvements
-  - [ ] Use `CompareOptions.NumericOrdering` property of the `StringComparer`
-  object if it will make things easier
-  - [ ] At first glance, it didn't seem necessary, but if needed, it looks like
-  description support has been added to `ProducesAttribute`,
-  `ProducesResponseTypeAttribute`, and `ProducesDefaultResponseTypeAttribute`
-  - [ ] Use `RedirectHttpResult.IsLocalUrl` in places that check whether the URL
-  redirects to the locale or externally
-  - [ ] Use if necessary, the `field` keyword in properties
-  - [ ] Now allows `nameof` for unbound generics. If there were different
-  approaches previously because it wasn't allowed, these can be simplified
-  - [ ] The partial constructor feature now supported. Use it if we need to
-  - probably, the analyzer will already warn you, but just in case;
-    - [ ] use implicit `Span` conversions to array
-    - [ ] use simple lambda parameters with modifiers
-    - [ ] use Null-Conditional assignment
-  - do if okay after learn
-    - [ ] if it is really necessary, use the validation attributes in response
-    records
-    - [ ] if necessary, edit the response of unhandled errors with
-    `IProblemDetailsService`
-- Required Migrations
-  - [ ] use `.slnx` instead of `.sln`
-  - [ ] use extension members
-    - Property extensions will be used for those that do not take parameters and
-    for specifying layer builders. exp: `configure.Ui.ComponentPresets(...)`
-  - if okay after learn
-    - [ ] use `Microsoft Testing Platform` for testing
-- Troubleshooting & Pitfalls(You should also test the tasks that can be checked
-  to be sure)
-  - `HttpContent` now returns `BrowserHttpReadStream` instead of `MemoryStream`
-  - The warning level for audits has been raised in `dotnet restore`. If the
-  error encountered cannot be resolved, the warning level can be lowered in
-  `Directory.Build.props` or the relevant warning can be ignored
-  - Validation APIs moved to `Microsoft.Extensions.Validation`
-  - If you encounter any issues with OpenAPI, check [here](https://github.com/microsoft/OpenAPI.NET/blob/main/docs/upgrade-guide-2.md)
-  - [ ] If `dotnet restore` is waiting for user input, it should be set to
-  `--interactive false`
-  - [ ] If you encounter an error or receive incorrect results when obtaining
-  coverage, you may need to set `EnableDynamicNativeInstrumentation` to `true`
-  - [ ] Now, in form post actions, `nullable` fields are automatically set to
-  null when they receive an empty string
-
-## Libraries
-
-### Numeric ordering for string comparison
-
-stringlerin sonuna göre sıralama yapıyor.
-
-```csharp
-StringComparer numericStringComparer = StringComparer.Create(CultureInfo.CurrentCulture, CompareOptions.NumericOrdering);
-
-foreach (string os in new[] { "Windows 11", "Windows 10", "Windows 8" }.Order(numericStringComparer))
-{
-    Console.WriteLine(os);
-}
-
-// Output:
-// Windows 8
-// Windows 10
-// Windows 11
-```
-
-This option isn't valid for the following index-based string operations:
-IndexOf, LastIndexOf, StartsWith, EndsWith, IsPrefix, and IsSuffix.
-
-## Networking
-
-### Streaming HTTP responses enabled by default in browser HTTP clients
-
-The [HttpContent](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent) no longer contains a [MemoryStream](https://learn.microsoft.com/en-us/dotnet/api/system.io.memorystream). Instead, [HttpContent.ReadAsStreamAsync](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent.readasstreamasync) returns a `BrowserHttpReadStream`, which does not support synchronous operations.
-
-```csharp
-var response = await httpClient.GetAsync("https://example.com");
-var contentStream = await response.Content.ReadAsStreamAsync(); // Returns BrowserHttpReadStream instead of MemoryStream
-```
-
-## SDK
-
-### SLNX file format
-
-sln dosyaları slnx olacak
-
 ### Support for Microsoft Testing Platform in dotnet test
 
 dotnet test natively supports Microsoft.Testing.Platform. To enable this
@@ -106,11 +15,6 @@ feature, add the following configuration to your global.json file:
 ```
 
 [MTP](https://learn.microsoft.com/en-us/dotnet/core/testing/microsoft-testing-platform-intro)
-
-### .NET CLI `--interactive` defaults to `true` in user scenarios
-
-bu interactive default olarak true yapılmış. `dotnet restore` tarafında bir sorun çıkarsa
-bundan kaynaklı olabilir. `--interactive false` şeklinde verilerek tekrar kapatılabilir
 
 ### Code coverage EnableDynamicNativeInstrumentation defaults to false
 
@@ -262,64 +166,6 @@ için otomatik olarak log ve telemetry yazılmıyor
 
 ## C# 14
 
-### Extension members
-
-yeni extension yazma yöntemleri geldi
-bu syntax a geçilecek
-
-```csharp
-public static class Enumerable
-{
-    // Extension block
-    extension<TSource>(IEnumerable<TSource> source) // extension members for IEnumerable<TSource>
-    {
-        // Extension property:
-        public bool IsEmpty => !source.Any();
-
-        // Extension method:
-        public IEnumerable<TSource> Where(Func<TSource, bool> predicate) { ... }
-    }
-
-    // extension block, with a receiver type only
-    extension<TSource>(IEnumerable<TSource>) // static extension members for IEnumerable<Source>
-    {
-        // static extension method:
-        public static IEnumerable<TSource> Combine(IEnumerable<TSource> first, IEnumerable<TSource> second) { ... }
-
-        // static extension property:
-        public static IEnumerable<TSource> Identity => Enumerable.Empty<TSource>();
-
-        // static user defined operator:
-        public static IEnumerable<TSource> operator + (IEnumerable<TSource> left, IEnumerable<TSource> right) => left.Concat(right);
-    }
-}
-```
-
-### `field`
-
-artık field tanımlamaya gerek yok
-
-```csharp
-public string Name
-{
-    get;
-    set => field = value ?? throw new ArgumentNullException(nameof(value));
-}
-```
-
-### Implicit Span Conversions
-
-Span `<T>` ve ReadOnlySpan `<T>` için, ReadOnlySpan `<T>`, Span `<T>` ve T[] türlerine
-implicit cast gelmiş
-
-```csharp
-int[] array = new[] { 1, 2, 3 };
-ReadOnlySpan<int> ros = array;
-
-void Process(ReadOnlySpan<int> data) { }
-Process(array);
-```
-
 ### `nameof` Unbound Generic Types
 
 aşağıdaki işlemlere izin veriliyormuş
@@ -327,15 +173,6 @@ aşağıdaki işlemlere izin veriliyormuş
 ```csharp
 nameof(List<>)
 nameof(Dictionary<,>)
-```
-
-### Simple lambda parameters with modifiers
-
-scoped, ref, in, out, or ref readonly gibi lambda expression parametrelerinde
-type belirtme biraz daha hafiflemiş. bunlarda analyzerlar önerileri veriyor zaten
-
-```csharp
-TryParse<int> parse2 = (string text, out int result) => Int32.TryParse(text, out result);
 ```
 
 ### partial members
