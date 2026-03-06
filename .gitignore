@@ -22,6 +22,7 @@ bld/
 **/Generated/**/*.cs
 **/.benchmark/**
 **/**/*.dll
+.coverage/
 
 # generated schemas
 **/*.schema.json

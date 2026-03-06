@@ -23,4 +23,10 @@ jobs:
       - name: Build Solution
         run: dotnet build --no-restore -c Release
       - name: Run Tests
-        run: dotnet test
+        run: |
+          dotnet test \
+            --coverage \
+            --coverage-output-format cobertura \
+            --coverage-output .coverage/coverage.cobertura.xml \
+            --report-trx \
+            --results-directory .coverage
