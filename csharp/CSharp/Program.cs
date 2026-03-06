@@ -8,6 +8,7 @@ serviceCollection.AddSingleton<CollectionExpressions>();
 serviceCollection.AddSingleton<EncodingDecoding>();
 serviceCollection.AddSingleton<LambdaParameters>();
 serviceCollection.AddSingleton<Params>();
+serviceCollection.AddSingleton<PropertiesAndFields>();
 
 serviceCollection.AddLogging(options =>
 {
@@ -21,6 +22,7 @@ var collectionExpressions = serviceProvider.GetRequiredService<CollectionExpress
 var encodingDecoding = serviceProvider.GetRequiredService<EncodingDecoding>();
 var lambdaParameters = serviceProvider.GetRequiredService<LambdaParameters>();
 var @params = serviceProvider.GetRequiredService<Params>();
+var propertiesAndFields = serviceProvider.GetRequiredService<PropertiesAndFields>();
 
 @params.Use();
 
@@ -33,3 +35,5 @@ lambdaParameters.ParamsArrayParameters();
 lambdaParameters.NewAcceptedBehavior();
 
 encodingDecoding.RunShowCases();
+
+propertiesAndFields.FieldKeyword();
