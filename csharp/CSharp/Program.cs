@@ -28,6 +28,7 @@ var propertiesAndFields = serviceProvider.GetRequiredService<PropertiesAndFields
 
 collectionExpressions.EmptyCollectionInitialization();
 collectionExpressions.CollectionInitialization();
+collectionExpressions.Conversions();
 collectionExpressions.CallMethods();
 
 lambdaParameters.OptionalParameters();
