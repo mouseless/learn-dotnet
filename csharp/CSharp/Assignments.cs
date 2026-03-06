@@ -6,7 +6,7 @@ public class Assignments(ILogger<Assignments> _logger)
 {
     public Data? NullableData { get; set; } = default;
 
-    public void NullableAssignment()
+    public void NullConditional()
     {
         NullableData?.Value = "test";
 

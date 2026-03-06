@@ -28,7 +28,7 @@ var propertiesAndFields = serviceProvider.GetRequiredService<PropertiesAndFields
 
 @params.Use();
 
-assignments.NullableAssignment();
+assignments.NullConditional();
 
 collectionExpressions.EmptyCollectionInitialization();
 collectionExpressions.CollectionInitialization();
