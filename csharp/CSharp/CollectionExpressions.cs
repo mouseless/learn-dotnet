@@ -50,4 +50,19 @@ public class CollectionExpressions(ILogger<CollectionExpressions> _logger)
     {
         _logger.LogInformation($"SomeOtherMethod is called with args: {string.Join(',', args)}");
     }
+
+    public void ExtensionMembers()
+    {
+        IEnumerable<int> empty = [];
+        IEnumerable<int> numbers = [1, 2, 3];
+
+        _logger.LogInformation($"Extension property (instance-like): empty.IsEmpty => {empty.IsEmpty}");
+        _logger.LogInformation($"Extension property (instance-like): numbers.IsEmpty => {numbers.IsEmpty}");
+
+        var combined = IEnumerable<int>.Combine(numbers, [4, 5]);
+        _logger.LogInformation($"Type extension method (static-like): IEnumerable<int>.Combine() => {string.Join(',', combined)}");
+
+        var initialized = IEnumerable<int>.Initialized;
+        _logger.LogInformation($"Type extension property (static-like): IEnumerable<int>.Initialized count => {initialized.Count()}");
+    }
 }
