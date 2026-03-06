@@ -34,6 +34,19 @@ public class CollectionExpressions(ILogger<CollectionExpressions> _logger)
         _logger.LogInformation($"Array initialization with spread element and members: {string.Join(',', anotherIntCollection)}");
     }
 
+    public void Conversions()
+    {
+        int[] numbers = [1, 2, 3];
+
+        // T[] -> Span<T>
+        Span<int> spanNumbers = numbers;
+        _logger.LogInformation($"Implicit Conversion int[] -> span<int>: {string.Join(',', spanNumbers.ToArray())}");
+
+        // T[] -> ReadOnlySpan<T>
+        ReadOnlySpan<int> readOnlyNumbers = numbers;
+        _logger.LogInformation($"Implicit Conversion int[] -> ReadOnlySpan<int>: {string.Join(',', readOnlyNumbers.ToArray())}");
+    }
+
     public void CallMethods()
     {
         SomeMethod("arg1", "arg2", "arg3");
