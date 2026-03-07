@@ -6,6 +6,4 @@ public class ModelOne(Guid _id, string _name)
     public string Name => _name;
 }
 
-public class ModelOnes : Dictionary<Guid, ModelOne>, IQuery<ModelOne>
-{
-}
+public class ModelOnes : Dictionary<Guid, ModelOne>, IQuery<ModelOne>;

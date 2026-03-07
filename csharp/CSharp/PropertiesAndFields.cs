@@ -4,14 +4,14 @@ namespace CSharp;
 
 public class PropertiesAndFields(ILogger<PropertiesAndFields> _logger)
 {
-    string _filed = "field";
+    string _field = "field";
 
-    public string WithOutFieldKeyword { get => _filed; set => _filed = value; }
+    public string WithOutFieldKeyword { get => _field; set => _field = value; }
     public string WithFieldKeyword { get; set => field = value.Trim(); } = "WithField";
 
     public void FieldKeyword()
     {
-        _logger.LogInformation($"_field => '{_filed}'");
+        _logger.LogInformation($"_field => '{_field}'");
         _logger.LogInformation($"WithOutFieldKeyword => '{WithOutFieldKeyword}'");
         _logger.LogInformation($"WithFieldKeyword => '{WithFieldKeyword}'");
     }
