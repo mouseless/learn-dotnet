@@ -1,5 +1,3 @@
 namespace ModelBinders;
 
-public interface IQuery<TModel> : IDictionary<Guid, TModel>
-{
-}
+public interface IQuery<TModel> : IDictionary<Guid, TModel>;
