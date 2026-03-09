@@ -18,13 +18,11 @@ bld/
 # visual studio code
 .vscode/
 
-# dotnet sdk
-global.json
-
 # generated file
 **/Generated/**/*.cs
 **/.benchmark/**
 **/**/*.dll
+.coverage/
 
 # generated schemas
 **/*.schema.json

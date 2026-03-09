@@ -34,6 +34,19 @@ public class CollectionExpressions(ILogger<CollectionExpressions> _logger)
         _logger.LogInformation($"Array initialization with spread element and members: {string.Join(',', anotherIntCollection)}");
     }
 
+    public void Conversions()
+    {
+        int[] numbers = [1, 2, 3];
+
+        // T[] -> Span<T>
+        Span<int> spanNumbers = numbers;
+        _logger.LogInformation($"Implicit Conversion int[] -> span<int>: {string.Join(',', spanNumbers.ToArray())}");
+
+        // T[] -> ReadOnlySpan<T>
+        ReadOnlySpan<int> readOnlyNumbers = numbers;
+        _logger.LogInformation($"Implicit Conversion int[] -> ReadOnlySpan<int>: {string.Join(',', readOnlyNumbers.ToArray())}");
+    }
+
     public void CallMethods()
     {
         SomeMethod("arg1", "arg2", "arg3");
@@ -49,5 +62,20 @@ public class CollectionExpressions(ILogger<CollectionExpressions> _logger)
     public void SomeOtherMethod(string[] args)
     {
         _logger.LogInformation($"SomeOtherMethod is called with args: {string.Join(',', args)}");
+    }
+
+    public void ExtensionMembers()
+    {
+        IEnumerable<int> empty = [];
+        IEnumerable<int> numbers = [1, 2, 3];
+
+        _logger.LogInformation($"Extension property (instance-like): empty.IsEmpty => {empty.IsEmpty}");
+        _logger.LogInformation($"Extension property (instance-like): numbers.IsEmpty => {numbers.IsEmpty}");
+
+        var combined = IEnumerable<int>.Combine(numbers, [4, 5]);
+        _logger.LogInformation($"Type extension method (static-like): IEnumerable<int>.Combine() => {string.Join(',', combined)}");
+
+        var initialized = IEnumerable<int>.Initialized;
+        _logger.LogInformation($"Type extension property (static-like): IEnumerable<int>.Initialized count => {initialized.Count()}");
     }
 }

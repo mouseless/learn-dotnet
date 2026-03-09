@@ -4,10 +4,12 @@ using Microsoft.Extensions.Logging;
 
 var serviceCollection = new ServiceCollection();
 
+serviceCollection.AddSingleton<Assignments>();
 serviceCollection.AddSingleton<CollectionExpressions>();
 serviceCollection.AddSingleton<EncodingDecoding>();
 serviceCollection.AddSingleton<LambdaParameters>();
 serviceCollection.AddSingleton<Params>();
+serviceCollection.AddSingleton<PropertiesAndFields>();
 
 serviceCollection.AddLogging(options =>
 {
@@ -17,19 +19,27 @@ serviceCollection.AddLogging(options =>
 
 var serviceProvider = serviceCollection.BuildServiceProvider();
 
+var assignments = serviceProvider.GetRequiredService<Assignments>();
 var collectionExpressions = serviceProvider.GetRequiredService<CollectionExpressions>();
 var encodingDecoding = serviceProvider.GetRequiredService<EncodingDecoding>();
 var lambdaParameters = serviceProvider.GetRequiredService<LambdaParameters>();
 var @params = serviceProvider.GetRequiredService<Params>();
+var propertiesAndFields = serviceProvider.GetRequiredService<PropertiesAndFields>();
 
 @params.Use();
 
+assignments.NullConditional();
+
 collectionExpressions.EmptyCollectionInitialization();
 collectionExpressions.CollectionInitialization();
+collectionExpressions.Conversions();
 collectionExpressions.CallMethods();
 
 lambdaParameters.OptionalParameters();
 lambdaParameters.ParamsArrayParameters();
 lambdaParameters.NewAcceptedBehavior();
+lambdaParameters.ParameterModifiersWithoutTypes();
 
 encodingDecoding.RunShowCases();
+
+propertiesAndFields.FieldKeyword();

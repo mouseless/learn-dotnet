@@ -1,0 +1,97 @@
+<Solution>
+  <Folder Name="/Projects/" />
+  <Folder Name="/Projects/analyzers/">
+    <File Path="analyzers/README.md" />
+    <Project Path="analyzers/AnalyzersSample/AnalyzersSample.csproj" />
+  </Folder>
+  <Folder Name="/Projects/aspire/">
+    <File Path="aspire/README.md" />
+    <Project Path="aspire/Aspire.AppHost/Aspire.AppHost.csproj" />
+    <Project Path="aspire/Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
+    <Project Path="aspire/ProjectA/ProjectA.csproj" />
+    <Project Path="aspire/ProjectB/ProjectB.csproj" />
+  </Folder>
+  <Folder Name="/Projects/authentication/">
+    <Project Path="authentication/MultiAuthentication/MultiAuthentication.csproj" />
+  </Folder>
+  <Folder Name="/Projects/benchmarking-in-dotnet/">
+    <Project Path="benchmarking-in-dotnet/BenchmarkingInDotNet/BenchmarkingInDotNet.csproj" />
+  </Folder>
+  <Folder Name="/Projects/central-package-management/">
+    <File Path="central-package-management/README.md" />
+    <Project Path="central-package-management/ProjectA/ProjectA.csproj" />
+    <Project Path="central-package-management/ProjectB/ProjectB.csproj" />
+  </Folder>
+  <Folder Name="/Projects/csharp/">
+    <Project Path="csharp/CSharp/CSharp.csproj" />
+  </Folder>
+  <Folder Name="/Projects/dependency-injection/">
+    <File Path="dependency-injection/README.md" />
+    <Project Path="dependency-injection/DependencyInjection/DependencyInjection.csproj" />
+  </Folder>
+  <Folder Name="/Projects/exception-handling/">
+    <File Path="exception-handling/README.md" />
+    <Project Path="exception-handling/ExceptionHandling/ExceptionHandling.csproj" />
+  </Folder>
+  <Folder Name="/Projects/localization/">
+    <File Path="localization/README.md" />
+    <Project Path="localization/Localization/Localization.csproj" />
+  </Folder>
+  <Folder Name="/Projects/model-binders/">
+    <Project Path="model-binders/ModelBinders/ModelBinders.csproj" />
+  </Folder>
+  <Folder Name="/Projects/native-aot/">
+    <File Path="native-aot/README.md" />
+    <Project Path="native-aot/NativeAOT/NativeAOT.csproj" />
+  </Folder>
+  <Folder Name="/Projects/nullable-usage/">
+    <File Path="nullable-usage/README.md" />
+    <Project Path="nullable-usage/NullableUsage/NullableUsage.csproj" />
+  </Folder>
+  <Folder Name="/Projects/openapi/">
+    <File Path="openapi/README.md" />
+    <Project Path="openapi/OpenAPI/OpenAPI.csproj" />
+  </Folder>
+  <Folder Name="/Projects/primary-constructor/">
+    <File Path="primary-constructor/README.md" />
+    <Project Path="primary-constructor/PrimaryConstructor/PrimaryConstructor.csproj" />
+  </Folder>
+  <Folder Name="/Projects/publish-over-dockerfile/">
+    <File Path="publish-over-dockerfile/README.md" />
+    <Project Path="publish-over-dockerfile/PublishOverDockerfile/PublishOverDockerfile.csproj" />
+  </Folder>
+  <Folder Name="/Projects/reflection/">
+    <File Path="reflection/README.md" />
+    <Project Path="reflection/Reflection/Reflection.csproj" />
+  </Folder>
+  <Folder Name="/Projects/regex-source-generators/">
+    <File Path="regex-source-generators/README.md" />
+    <Project Path="regex-source-generators/RegexSourceGenerators/RegexSourceGenerators.csproj" />
+  </Folder>
+  <Folder Name="/Projects/source-generator/">
+    <File Path="source-generator/README.md" />
+  </Folder>
+  <Folder Name="/Projects/source-generator/Cli/">
+    <Project Path="source-generator/Cli/Cli.csproj" />
+  </Folder>
+  <Folder Name="/Projects/source-generator/CodeGen/">
+    <Project Path="source-generator/CodeGen/CodeGen.csproj" />
+  </Folder>
+  <Folder Name="/Projects/source-generator/Domain/">
+    <Project Path="source-generator/Domain/Domain.csproj" />
+  </Folder>
+  <Folder Name="/Projects/source-generator/WebApp/">
+    <Project Path="source-generator/WebApp/WebApp.csproj" />
+  </Folder>
+  <Folder Name="/Projects/swashbuckle/">
+    <Project Path="swashbuckle/Swashbuckle/Swashbuckle.csproj" />
+  </Folder>
+  <Folder Name="/Projects/unit-testing/">
+    <File Path="unit-testing/README.md" />
+    <Project Path="unit-testing/UnitTesting/UnitTesting.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="README.md" />
+  </Folder>
+</Solution>
