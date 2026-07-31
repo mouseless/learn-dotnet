@@ -3,6 +3,8 @@
   <PropertyGroup>
     <InvariantGlobalization>true</InvariantGlobalization>
     <PublishAot>true</PublishAot>
+    <!-- error NU1903: Warning As Error: Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.11 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q -->
+    <WarningsNotAsErrors>NU1903</WarningsNotAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
