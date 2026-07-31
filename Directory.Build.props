@@ -3,6 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <LangVersion>14.0</LangVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <!-- NU190X: Package '*' v* has a known * severity vulnerability, https://github.com/advisories/* -->
+    <WarningsNotAsErrors>NU1902;NU1903</WarningsNotAsErrors>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AnalysisModeStyle>All</AnalysisModeStyle>
